@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Admin Dashboard </title>
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('assets/images/favicon.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ URL::to('assets/images/logo.png') }}">
     <link rel="stylesheet" href="{{ URL::to('assets/vendor/jqvmap/css/jqvmap.min.css') }}">
 	<link rel="stylesheet" href="{{ URL::to('assets/vendor/chartist/css/chartist.min.css') }}">
 	<!-- Summernote -->
@@ -187,7 +187,7 @@
 	<!-- Svganimation scripts -->
     <script src="{{ URL::to('assets/vendor/svganimation/vivus.min.js') }}"></script>
     <script src="{{ URL::to('assets/vendor/svganimation/svg.animation.js') }}"></script>
-    <script src="{{ URL::to('assets/js/styleSwitcher.js') }}"></script>
+    {{-- <script src="{{ URL::to('assets/js/styleSwitcher.js') }}"></script> --}}
 
 </body>
 </html>

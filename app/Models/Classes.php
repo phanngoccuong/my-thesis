@@ -16,4 +16,8 @@ class Classes extends Model
     {
         return  $this->hasOne(Teacher::class, 'id', 'formteacher_id');
     }
+    public function classLessons()
+    {
+        return $this->hasMany(Lesson::class, 'class_id', 'id');
+    }
 }

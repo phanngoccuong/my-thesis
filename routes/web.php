@@ -36,21 +36,10 @@ Route::get('/', function () {
 Auth::routes();
 
 
-
-// ----------------------------- dashboard all ------------------------------//
-Route::get('student_dashboard', [App\Http\Controllers\Dashboard\MainDashboardController::class, 'student'])->name('student_dashboard');
-Route::get('teacher_dashboard', [App\Http\Controllers\Dashboard\MainDashboardController::class, 'teacher'])->name('teacher_dashboard');
-Route::get('parent_dashboard', [App\Http\Controllers\Dashboard\MainDashboardController::class, 'parent'])->name('parent_dashboard');
-
-
 // -----------------------------login----------------------------------------//
 Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'authenticate']);
 Route::get('/logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
-// ----------------------------- lock screen --------------------------------//
-Route::get('lock_screen', [App\Http\Controllers\LockScreen::class, 'lockScreen'])->middleware('auth')->name('lock_screen');
-Route::post('unlock', [App\Http\Controllers\LockScreen::class, 'unlock'])->name('unlock');
 
 // ------------------------------ register ---------------------------------//
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register'])->name('register');
@@ -103,6 +92,7 @@ Route::group(
         Route::get('classes/edit/{id}', [App\Http\Controllers\ClassesController::class, 'edit'])->name('classes/edit');
         Route::post('classes/update', [App\Http\Controllers\ClassesController::class, 'update'])->name('classes/update');
         Route::get('classes/delete/{id}', [App\Http\Controllers\ClassesController::class, 'delete'])->name('classes/delete');
+        Route::get('classes/timetable/{id}', [App\Http\Controllers\ClassesController::class, 'showTimetable'])->name('classes/timetable');
 
         //----------Classroom--------------//
         Route::get('classroom/list', [App\Http\Controllers\ClassroomController::class, 'index'])->name('classroom/list');
@@ -156,7 +146,7 @@ Route::group(
         Route::get('teacher/list', [App\Http\Controllers\TeacherController::class, 'index'])->name('teacher/list');
         Route::get('teacher/add', [App\Http\Controllers\TeacherController::class, 'create'])->name('teacher/add');
         Route::post('teacher/save', [App\Http\Controllers\TeacherController::class, 'store'])->name('teacher/save');
-        Route::get('teacher/show', [App\Http\Controllers\TeacherController::class, 'show'])->name('teacher/show');
+        // Route::get('teacher/show', [App\Http\Controllers\TeacherController::class, 'show'])->name('teacher/show');
         Route::get('teacher/edit/{id}', [App\Http\Controllers\TeacherController::class, 'edit'])->name('teacher/edit');
         Route::post('teacher/update', [App\Http\Controllers\TeacherController::class, 'update'])->name('teacher/update');
         Route::get('teacher/delete/{id}', [App\Http\Controllers\TeacherController::class, 'delete'])->name('teacher/delete');
@@ -176,8 +166,21 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('/home', [App\Http\Controllers\StudentRole\StudentController::class, 'index'])->name('homeStudent');
     Route::get('/profile', [App\Http\Controllers\StudentRole\StudentController::class, 'showProfile'])->name('studentProfile');
     Route::get('/profile/classInfo', [App\Http\Controllers\StudentRole\StudentController::class, 'showClassInfo'])->name('studentClassInfo');
+    Route::get('timetable', [App\Http\Controllers\StudentRole\StudentController::class, 'showTimetable'])->name('studentTimetable');
+    Route::get('timetable/details', [App\Http\Controllers\StudentRole\StudentController::class, 'timetableDetails'])->name('timetableDetails');
 });
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::get('/home', [App\Http\Controllers\TeacherRole\TeacherController::class, 'index'])->name('homeTeacher');
+    Route::get('/timetable', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showTimetable'])->name('teacherTimetable');
+    Route::get('/list', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showClassForm'])->name('classShow');
+    Route::get('/all-class', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showAll'])->name('classAll');
+    Route::get('/all-class/about/{id}', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showClassDetail'])->name('classDetail');
+    #Student Mark
+    Route::prefix('mark')->group(function () {
+        Route::get('search/list', [App\Http\Controllers\TeacherRole\MarkController::class, 'search'])->name('mark.search.list');
+        Route::get('getclass', [App\Http\Controllers\TeacherRole\MarkController::class, 'getClass'])->name('mark.get.class');
+        Route::get('getcourse', [App\Http\Controllers\TeacherRole\MarkController::class, 'getCourse'])->name('mark.get.course');
+        Route::get('/add', [App\Http\Controllers\TeacherRole\MarkController::class, 'create'])->name('mark.add');
+    });
 });

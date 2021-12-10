@@ -17,4 +17,13 @@ class Lesson extends Model
         'time_id',
         'semester_id'
     ];
+    public function classes()
+    {
+        return $this->belongsTo(Classes::class, 'class_id');
+    }
+
+    public function teachers()
+    {
+        return $this->belongsTo(Teacher::class, 'teacher_id');
+    }
 }

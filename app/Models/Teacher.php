@@ -18,4 +18,8 @@ class Teacher extends Model
         'address',
         'upload',
     ];
+    public function teacherLessons()
+    {
+        return $this->hasMany(Lesson::class, 'teacher_id', 'id');
+    }
 }

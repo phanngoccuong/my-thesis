@@ -24,16 +24,14 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="nav nav-pills mb-3">
-                        <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li>
-                        <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Grid View</a></li>
+                        <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">Danh sách</a></li>
+                        {{-- <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Grid View</a></li> --}}
                     </ul>
                 </div>
                 <div class="col-lg-12">
                     <div class="row tab-content">
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
-
-                            {{--  --}}
-                             <div class="row">
+                            <div class="row">
                                 @foreach ($classShow as $class )
                                 <div class="col-lg-3 col-md-6 col-sm-6 col-12">
                                     <div class="card card-profile">
@@ -45,9 +43,15 @@
                                                 <div class="dropdown-menu dropdown-menu-right border py-0">
                                                     <div class="py-2">
                                                         <a class="dropdown-item"
-                                                            href="{{ url('admin/classes/edit/'.$class->id) }}">Edit</a>
+                                                            href="{{ url('admin/classes/timetable/'.$class->id) }}">
+                                                            Thời khóa biểu</a>
+                                                        <a class="dropdown-item"
+                                                            href="{{ url('admin/classes/edit/'.$class->id) }}">
+                                                            Sửa</a>
                                                         <a class="dropdown-item text-danger"
-                                                            href="{{ url('admin/classes/delete/'.$class->id) }}">Delete</a>
+                                                            href="{{ url('admin/classes/delete/'.$class->id) }}"
+                                                            onclick="return confirm('Are you sure to want to delete it?')"
+                                                            >Xóa</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -68,7 +72,14 @@
                                                             </strong></li>
                                                 </ul>
                                                 <a class="btn btn-outline-primary btn-rounded px-4"
-                                                href="{{ url('admin/classes/show/'.$class->id) }}">Read More</a>
+                                                href="{{ url('admin/classes/show/'.$class->id) }}">Xem thêm</a>
+                                                {{-- <div class="row">
+                                                   <div class="col-6">
+                                                        <a href="javascript:void()" class="btn btn-primary">Danh sách lớp</a>
+                                                    </div>
+                                                    <div class="col-6">
+                                                    <a href="javascript:void()" class="btn btn-dark">Thời khóa biểu</a></div>
+                                                </div> --}}
                                             </div>
                                         </div>
                                     </div>
@@ -77,7 +88,7 @@
                             </div>
                         </div>
 
-                         <div id="grid-view" class="tab-pane fade col-lg-12">
+                        {{-- <div id="grid-view" class="tab-pane fade col-lg-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">All Classes List  </h4>
@@ -114,7 +125,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
+
                     </div>
                 </div>
             </div>

@@ -37,8 +37,8 @@
                                             <select class="form-control @error('role_name') is-invalid @enderror" name="role_name" id="role_name">
                                                 <option selected disabled>Select Role Name</option>
                                                 <option value="Admin">Admin</option>
-                                                <option value="Student">Student</option>
-                                                <option value="Teacher">Teacher</option>
+                                                <option value="Student">Học sinh</option>
+                                                <option value="Teacher">Giáo viên</option>
                                             </select>
                                         @error('role_name')
                                             <span class="invalid-feedback" role="alert">
@@ -64,7 +64,7 @@
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Already have an account? <a class="text-primary" href="page-login.html">Sign in</a></p>
+                                        <p>Already have an account? <a class="text-primary" href="{{ route('login') }}">Sign in</a></p>
                                     </div>
                                 </div>
                             </div>

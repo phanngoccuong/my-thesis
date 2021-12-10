@@ -70,7 +70,7 @@ class LoginController extends Controller
         if (auth()->attempt(['email' => $email, 'password' => $password], $remember_me)) {
             $user = auth()->user();
         } else {
-            Toastr::error('fail, WRONG USERNAME OR PASSWORD:)', 'Error');
+            Toastr::error('fail, WRONG USERNAME OR PASSWORD!!', 'Error');
             return back();
         }
 
@@ -112,7 +112,7 @@ class LoginController extends Controller
             }
             // return redirect()->intended('home');
         } else {
-            Toastr::error('fail, WRONG USERNAME OR PASSWORD :)', 'Error');
+            Toastr::error('fail, WRONG USERNAME OR PASSWORD!!', 'Error');
             return redirect('login');
         }
     }

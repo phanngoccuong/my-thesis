@@ -42,7 +42,6 @@ class TimeController extends Controller
     public function edit($id)
     {
         $times = DB::table('times')->where('id', $id)->get();
-        // $courseStatus = DB::table('course_types')->get();
         return view('time.time_edit', compact('times'), [
             'title' => 'Time Edit'
         ]);

@@ -20,8 +20,9 @@ class StudentController extends Controller
             ->select('classes.class_name', 'students.*')
             ->join('classes', 'classes.id', '=', 'students.class_id')
             ->get();
-        return view('student.student_all', compact('studentShow'), [
-            'title' => 'Student Dashboard'
+        return view('student.student_all', [
+            'title' => 'Student Dashboard',
+            'studentShow' => $studentShow
         ]);
     }
 

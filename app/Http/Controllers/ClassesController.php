@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classes;
+use App\Models\Day;
+use App\Models\Lesson;
 use App\Models\Student;
 use App\Models\Teacher;
+use App\Models\Time;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
@@ -100,6 +103,51 @@ class ClassesController extends Controller
             'totalStudent' => $totalStudent,
             'maleTotal' => $maleTotal,
             'femaleTotal' => $femaleTotal
+        ]);
+    }
+
+    public function showTimetable($id)
+    {
+        $days = Day::all();
+        $shift1s = DB::table('classes')
+            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
+            ->join('courses', 'courses.id', '=', 'lessons.course_id')
+            ->join('times', 'times.id', '=', 'lessons.time_id')
+            ->where('classes.id', '=', $id)
+            ->where('times.time', '=', '7h20-8h05')
+            ->select('courses.course_name')
+            ->get();
+        $shift2s = DB::table('classes')
+            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
+            ->join('courses', 'courses.id', '=', 'lessons.course_id')
+            ->join('times', 'times.id', '=', 'lessons.time_id')
+            ->where('classes.id', '=', $id)
+            ->where('times.time', '=', '8h15-9h00')
+            ->select('courses.course_name')
+            ->get();
+        $shift3s = DB::table('classes')
+            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
+            ->join('courses', 'courses.id', '=', 'lessons.course_id')
+            ->join('times', 'times.id', '=', 'lessons.time_id')
+            ->where('classes.id', '=', $id)
+            ->where('times.time', '=', '9h20-10h05')
+            ->select('courses.course_name')
+            ->get();
+        $shift4s = DB::table('classes')
+            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
+            ->join('courses', 'courses.id', '=', 'lessons.course_id')
+            ->join('times', 'times.id', '=', 'lessons.time_id')
+            ->where('classes.id', '=', $id)
+            ->where('times.time', '=', '10h15-11h00')
+            ->select('courses.course_name')
+            ->get();
+        return view('classes.classes_timetable', [
+            'title' => 'Class Timetable',
+            'days' => $days,
+            'shift1s' => $shift1s,
+            'shift2s' => $shift2s,
+            'shift3s' => $shift3s,
+            'shift4s' => $shift4s,
         ]);
     }
 }

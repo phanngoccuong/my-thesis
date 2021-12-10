@@ -3,7 +3,6 @@
 <div class="dlabnav">
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
-            <li class="nav-label first">Main Menu</li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-user-plus"></i>
                     <span class="nav-text">Management</span>
@@ -20,7 +19,7 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('teacher/list') }}">All Teachers</a></li>
                     <li><a href="{{ route('teacher/add') }}">Add Teacher</a></li>
-                    <li><a href="{{ route('teacher/show') }}">Teachers Profile</a></li>
+                    {{-- <li><a href="{{ route('teacher/show') }}">Teachers Profile</a></li> --}}
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -109,11 +108,12 @@
     </div>
 </div>
 @endif
+
+{{-- Student Role --}}
 @if (Auth::user()->role_name == 'Student')
 <div class="dlabnav">
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
-            <li class="nav-label first">Main Menu</li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-users"></i>
                     <span class="nav-text">Quản lý hồ sơ học sinh</span>
@@ -128,8 +128,8 @@
                     <span class="nav-text">Kế hoạch học tập</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('classes/list') }}">Thời khóa biểu</a></li>
-                    <li><a href="{{ route('classes/add') }}">Các môn đang học</a></li>
+                    <li><a href="{{ route('studentTimetable') }}">Thời khóa biểu</a></li>
+                    <li><a href="{{ route('timetableDetails') }}">Các môn đang học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -148,6 +148,39 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('course/list') }}">Thông tin công nợ học phí</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+@endif
+{{-- Teacher Role --}}
+@if (Auth::user()->role_name == 'Teacher')
+<div class="dlabnav">
+    <div class="dlabnav-scroll">
+        <ul class="metismenu" id="menu">
+            <li><a class="has-arrow" href="{{ route('teacherTimetable') }}" aria-expanded="false">
+                    <i class="la la-calendar-o"></i>
+                    <span class="nav-text">Thời khóa biểu</span>
+                </a>
+            </li>
+
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="la la-users"></i>
+                    <span class="nav-text">Quản lý lớp</span>
+                </a>
+                <ul aria-expanded="false">
+                    {{-- <li><a href="{{ route('classShow') }}">Lớp chủ nhiệm</a></li> --}}
+                    <li><a href="{{ route('classAll') }}">Thông tin lớp quản lý</a></li>
+                </ul>
+            </li>
+
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="la la-certificate"></i>
+                    <span class="nav-text">Quản lý điểm</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('mark.add') }}">Nhập điểm học sinh</a></li>
                 </ul>
             </li>
         </ul>

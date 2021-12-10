@@ -1,7 +1,4 @@
 @extends('layouts.st_master')
-{{-- @section('menu')
-@extends('sidebar.dashboard')
-@endsection --}}
 @section('content')
    @include('sidebar.sidebar')
 
@@ -39,7 +36,6 @@
                                             <th>Full Name</th>
                                             <th>Profile</th>
                                             <th>Email Address</th>
-                                            <th>Phone Number</th>
                                             <th>Status</th>
                                             <th>Role Name</th>
                                             <th class="text-center">Modify</th>
@@ -52,11 +48,12 @@
                                                 <td class="name">{{ $item->name }}</td>
                                                 <td class="name">
                                                     <div class="avatar avatar-xl">
-                                                        <img class="rounded-circle" width="35" src="{{ URL::to('/assets/images/'. $item->avatar) }}" alt="{{ $item->avatar }}">
+                                                        <img class="rounded-circle" width="35"
+                                                        src="{{ URL::to('/assets/images/'. $item->avatar) }}"
+                                                        alt="{{ $item->avatar }}">
                                                     </div>
                                                 </td>
                                                 <td class="email">{{ $item->email }}</td>
-                                                <td class="phone_number">{{ $item->phone_number }}</td>
                                                 @if($item->status =='Active')
                                                 <td class="status"><span class="badge bg-success">{{ $item->status }}</span></td>
                                                 @endif

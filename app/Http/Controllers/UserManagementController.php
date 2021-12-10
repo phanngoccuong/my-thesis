@@ -102,7 +102,7 @@ class UserManagementController extends Controller
 
         $user->save();
 
-        Toastr::success('Create new account successfully :)', 'Success');
+        Toastr::success('Create new account successfully!!', 'Success');
         return redirect()->route('userManagement');
     }
 
