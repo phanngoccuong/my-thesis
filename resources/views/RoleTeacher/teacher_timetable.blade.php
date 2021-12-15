@@ -5,20 +5,33 @@
 <div class="content-body">
     <div class="container-fluid">
         <div class="row page-titles mx-0">
-            <div class="col-sm-6 p-md-0">
-                <div class="welcome-text">
-                    <h4>Timetable</h4>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="form-label">Kì học</label>
+                        <select class="form-control @error('semester_id') is-invalid @enderror"
+                            name="semester_id" id="semester_id">
+                            <option selected disabled>Chọn kì</option>
+                            @foreach ($semesters as $semester)
+                                <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
+                            @endforeach
+
+                        </select>
+                        @error('semester_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+
+                <div class="col-lg" style="padding-top: 30px;">
+                    <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a>
                 </div>
             </div>
-            <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                    <li class="breadcrumb-item active"><a href="javascript:void(0);">Timetable</a></li>
-                </ol>
-            </div>
-        </div>
 
-        <div class="row">
+
+        <div class="row d-none" id="search-result">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -33,22 +46,8 @@
                                         <th scope="col">Giờ</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    @foreach ($datas as $data)
-                                    <tr>
-                                        <td>{{ $data->course_name }}</td>
-                                        <td>
-                                            {{ $data->classroom_name }}
-                                        </td>
-                                        <td>{{ $data->class_name }}</td>
-                                        <td>
-                                            {{ $data->day_name }}
-                                        </td>
-                                        <td>
-                                            {{ $data->time }}
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                <tbody id="search-tr">
+
                                 </tbody>
                             </table>
                         </div>
@@ -58,4 +57,33 @@
         </div>
     </div>
 </div>
+
+
+  {{-- AJAX --}}
+<script type="text/javascript">
+    $(document).on('click','#search',function(){
+        var semester_id = $('#semester_id').val();
+        $.ajax({
+            url:"{{ route('teacher.timetable.show') }}",
+            type: "GET",
+            data:{'semester_id':semester_id},
+            success: function(data){
+                $('#search-result').removeClass('d-none');
+                var html = '';
+                $.each(data,function(key,v){
+                    html+=
+                    '<tr>'+
+                    '<td> '+v.course_name+'</td>'+
+                    '<td> '+v.classroom_name+'</td>'+
+                    '<td>'+v.class_name+'</td>'+
+                    '<td>'+v.day_name+'</td>'+
+                    '<td>'+v.time+'</td>'+
+                    '</tr>';
+                });
+                html = $('#search-tr').html(html);
+            }
+        });
+    });
+</script>
+
 @endsection

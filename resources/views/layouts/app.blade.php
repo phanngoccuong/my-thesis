@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Login | Admin Dashboard </title>
+    <title>Login</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{URL::to('assets/images/logo.png')}}">
     <link href="{{URL::to('assets/css/style.css')}}" rel="stylesheet">

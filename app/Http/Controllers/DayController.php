@@ -13,8 +13,9 @@ class DayController extends Controller
     public function index()
     {
         $days = DB::table('days')->get();
-        return view('day.day_all', compact('days'), [
-            'title' => 'Day Dashboard'
+        return view('day.day_all', [
+            'title' => 'Day Dashboard',
+            'days' => $days
         ]);
     }
 
@@ -41,8 +42,9 @@ class DayController extends Controller
     {
         $days = DB::table('days')->where('id', $id)->get();
         // $courseStatus = DB::table('course_types')->get();
-        return view('day.day_edit', compact('days'), [
-            'title' => 'Day Edit'
+        return view('day.day_edit',  [
+            'title' => 'Day Edit',
+            'days' => $days
         ]);
     }
 

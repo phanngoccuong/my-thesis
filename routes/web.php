@@ -168,12 +168,15 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('/profile/classInfo', [App\Http\Controllers\StudentRole\StudentController::class, 'showClassInfo'])->name('studentClassInfo');
     Route::get('timetable', [App\Http\Controllers\StudentRole\StudentController::class, 'showTimetable'])->name('studentTimetable');
     Route::get('timetable/details', [App\Http\Controllers\StudentRole\StudentController::class, 'timetableDetails'])->name('timetableDetails');
+    Route::get('mark/view', [App\Http\Controllers\StudentRole\StudentController::class, 'show'])->name('student.mark.view');
+    Route::get('mark/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getMark'])->name('student.mark.get');
 });
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::get('/home', [App\Http\Controllers\TeacherRole\TeacherController::class, 'index'])->name('homeTeacher');
-    Route::get('/timetable', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showTimetable'])->name('teacherTimetable');
-    Route::get('/list', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showClassForm'])->name('classShow');
+    Route::get('/timetable', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showTimetable'])->name('teacher.timetable.show');
+    Route::get('/timetable/search', [App\Http\Controllers\TeacherRole\TeacherController::class, 'timetableSearch'])->name('teacher.timetable.search');
+    Route::get('/class/list', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showClass'])->name('teacher.class.list');
     Route::get('/all-class', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showAll'])->name('classAll');
     Route::get('/all-class/about/{id}', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showClassDetail'])->name('classDetail');
     #Student Mark
@@ -182,5 +185,9 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
         Route::get('getclass', [App\Http\Controllers\TeacherRole\MarkController::class, 'getClass'])->name('mark.get.class');
         Route::get('getcourse', [App\Http\Controllers\TeacherRole\MarkController::class, 'getCourse'])->name('mark.get.course');
         Route::get('/add', [App\Http\Controllers\TeacherRole\MarkController::class, 'create'])->name('mark.add');
+        Route::post('/save', [App\Http\Controllers\TeacherRole\MarkController::class, 'store'])->name('mark.save');
+        Route::get('/edit', [App\Http\Controllers\TeacherRole\MarkController::class, 'edit'])->name('mark.edit');
+        Route::get('/edit/list', [App\Http\Controllers\TeacherRole\MarkController::class, 'getEditList'])->name('mark.edit.list');
+        Route::post('/update', [App\Http\Controllers\TeacherRole\MarkController::class, 'update'])->name('mark.update');
     });
 });

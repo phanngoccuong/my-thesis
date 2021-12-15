@@ -137,8 +137,8 @@
                     <span class="nav-text">Kết quả học tập</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('classroom/list') }}">Bảng điểm cá nhân</a></li>
-                    <li><a href="{{ route('classroom/add') }}">Học lực</a></li>
+                    <li><a href="{{ route('student.mark.view') }}">Bảng điểm cá nhân</a></li>
+                    {{-- <li><a href="{{ route('classroom/add') }}">Học lực</a></li> --}}
                 </ul>
             </li>
 
@@ -159,7 +159,7 @@
 <div class="dlabnav">
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
-            <li><a class="has-arrow" href="{{ route('teacherTimetable') }}" aria-expanded="false">
+            <li><a class="has-arrow" href="{{ route('teacher.timetable.search') }}" aria-expanded="false">
                     <i class="la la-calendar-o"></i>
                     <span class="nav-text">Thời khóa biểu</span>
                 </a>
@@ -171,7 +171,7 @@
                 </a>
                 <ul aria-expanded="false">
                     {{-- <li><a href="{{ route('classShow') }}">Lớp chủ nhiệm</a></li> --}}
-                    <li><a href="{{ route('classAll') }}">Thông tin lớp quản lý</a></li>
+                    <li><a href="{{ route('teacher.class.list') }}">Thông tin lớp quản lý</a></li>
                 </ul>
             </li>
 
@@ -180,7 +180,8 @@
                     <span class="nav-text">Quản lý điểm</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('mark.add') }}">Nhập điểm học sinh</a></li>
+                    <li><a href="{{ route('mark.add') }}">Nhập điểm</a></li>
+                    <li><a href="{{ route('mark.edit') }}">Xem điểm</a></li>
                 </ul>
             </li>
         </ul>

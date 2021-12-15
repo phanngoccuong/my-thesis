@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Day;
+use App\Models\StudentMarks;
 
 class StudentController extends Controller
 {
@@ -125,5 +126,65 @@ class StudentController extends Controller
             'title' => 'Timetable Details',
             'datas' => $datas
         ]);
+    }
+
+    // public function getCourse(Request $request)
+    // {
+    //     $currentUserEmail = Auth::user()->email;
+    //     $studentInfo = Student::where('email', '=', $currentUserEmail)
+    //         ->get();
+    //     $class_id = $studentInfo[0]->class_id;
+    //     $semester_id = $request->semester_id;
+    //     $datas = DB::table('lessons')
+    //         ->join('classes', 'classes.id', '=', 'lessons.class_id')
+    //         ->where('classes.id', '=', $class_id)
+    //         ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+    //         ->where('semesters.id', '=', $semester_id)
+    //         ->join('courses', 'courses.id', '=', 'lessons.course_id')
+    //         ->select(
+    //             'courses.*',
+    //         )
+    //         ->distinct()
+    //         ->orderBy('course_name', 'asc')
+    //         ->get();
+    //     return response()->json($datas);
+    // }
+
+    public function show()
+    {
+        $currentUserEmail = Auth::user()->email;
+        $studentInfo = Student::where('email', '=', $currentUserEmail)
+            ->get();
+        $class_id = $studentInfo[0]->class_id;
+
+        $semesters = DB::table('lessons')
+            ->join('classes', 'classes.id', '=', 'lessons.class_id')
+            ->where('classes.id', '=', $class_id)
+            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+            ->select('semesters.*')
+            ->distinct()
+            ->get();
+
+        return view('RoleStudent.student_mark_view', [
+            'title' => 'Điểm học sinh',
+            'semesters' => $semesters,
+        ]);
+    }
+
+    public function getMark(Request $request)
+    {
+        $currentUserEmail = Auth::user()->email;
+        $studentInfo = Student::where('email', '=', $currentUserEmail)
+            ->get();
+        $studentID = $studentInfo[0]->id;
+        $semesterRequest = $request->semester_id;
+
+        $data = StudentMarks::with('course')
+            ->where('student_id', '=', $studentID)
+            ->where('semester_id', '=', $semesterRequest)
+            ->get();
+
+        // dd($data);
+        return response()->json($data);
     }
 }

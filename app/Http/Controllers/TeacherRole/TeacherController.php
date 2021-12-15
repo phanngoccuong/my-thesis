@@ -7,6 +7,7 @@ use App\Models\Classes;
 use App\Models\Lesson;
 use App\Models\Student;
 use App\Models\Teacher;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,31 +20,56 @@ class TeacherController extends Controller
         ]);
     }
 
-    public function showClassForm()
+    public function showClass()
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
             ->get();
         $teacher_id = $info[0]->id;
-        $className = Classes::join('teachers', 'teachers.id', '=', 'classes.formteacher_id')
+
+        $semesters = DB::table('lessons')
+            ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
             ->where('teachers.id', '=', $teacher_id)
-            ->select('classes.*')
+            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+            ->select('semesters.*')
+            ->distinct()
             ->get();
-        $id = $className[0]->id;
-        $studentList = Student::where('class_id', '=', $id)->get();
-        return view('RoleTeacher.class_list', [
-            'title' => 'Class List',
-            'className' => $className,
-            'studentList' => $studentList
+
+        return view('RoleTeacher.teacher_timetable', [
+            'title' => 'Danh Sách Quản lý',
+            'semesters' => $semesters,
         ]);
     }
 
-    public function showTimetable()
+    public function timetableSearch()
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
             ->get();
         $teacher_id = $info[0]->id;
+
+        $semesters = DB::table('lessons')
+            ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
+            ->where('teachers.id', '=', $teacher_id)
+            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+            ->select('semesters.*')
+            ->distinct()
+            ->get();
+
+        return view('RoleTeacher.teacher_timetable', [
+            'title' => 'Thời khóa biểu',
+            'semesters' => $semesters,
+        ]);
+    }
+
+    public function showTimetable(Request $request)
+    {
+        $currentUserEmail = Auth::user()->email;
+        $info = Teacher::where('email', '=', $currentUserEmail)
+            ->get();
+        $teacher_id = $info[0]->id;
+
+        $semesterRequest = $request->semester_id;
 
         $datas = DB::table('lessons')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
@@ -53,6 +79,8 @@ class TeacherController extends Controller
             ->join('days', 'days.id', '=', 'lessons.day_id')
             ->join('classes', 'classes.id', '=', 'lessons.class_id')
             ->join('classrooms', 'classrooms.id', '=', 'lessons.classroom_id')
+            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+            ->where('semesters.id', '=', $semesterRequest)
             ->select(
                 'courses.course_name',
                 'classes.class_name',
@@ -63,11 +91,10 @@ class TeacherController extends Controller
             )
             ->orderBy('day_name', 'asc')
             ->get();
-        return view('RoleTeacher.teacher_timetable', [
-            'title' => 'Teacher Timetable',
-            'datas' => $datas
-        ]);
+        return response()->json($datas);
     }
+
+
 
     public function showAll()
     {
