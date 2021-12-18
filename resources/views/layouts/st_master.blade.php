@@ -14,7 +14,6 @@
     <link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
 	<link rel="stylesheet" href="{{ URL::to('assets/css/skin.css') }}">
     <!-- Pick date -->
-
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
     {{-- message toastr --}}
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
@@ -165,13 +164,7 @@
         @yield('content')
         <!-- Content body end -->
 
-        <!-- Footer start -->
-        {{-- <div class="footer">
-            <div class="copyright">
-                <p>Copyright © Designed &amp; Developed by <a href="https://www.soengsouy.com/" target="_blank">SoengSouy</a> 2021</p>
-            </div>
-        </div> --}}
-        <!-- Footer end -->
+
     </div>
 
     <!-- Required vendors -->
@@ -204,6 +197,6 @@
             });
         });
     </script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
 </body>
 </html>

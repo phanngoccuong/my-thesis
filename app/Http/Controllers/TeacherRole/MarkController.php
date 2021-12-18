@@ -147,9 +147,10 @@ class MarkController extends Controller
     {
         $class_id = $request->class_id;
         $course_id = $request->course_id;
-
+        $semester_id = $request->semester_id;
         $data = StudentMarks::with('student')
             ->where('class_id', '=', $class_id)
+            ->where('semester_id', '=', $semester_id)
             ->where('course_id', '=', $course_id)
             ->get();
         return response()->json($data);

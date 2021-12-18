@@ -10,7 +10,7 @@ use App\Http\Controllers\StudentController;
 use App\Http\Controllers\UserManagementController;
 use App\Http\Controllers\LockScreen;
 use Illuminate\Support\Facades\Auth;
-
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 /*
 |--------------------------------------------------------------------------
@@ -189,5 +189,12 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
         Route::get('/edit', [App\Http\Controllers\TeacherRole\MarkController::class, 'edit'])->name('mark.edit');
         Route::get('/edit/list', [App\Http\Controllers\TeacherRole\MarkController::class, 'getEditList'])->name('mark.edit.list');
         Route::post('/update', [App\Http\Controllers\TeacherRole\MarkController::class, 'update'])->name('mark.update');
+    });
+    Route::prefix('attendance')->group(function () {
+        Route::get('/add', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'create'])->name('attendance.add');
+        Route::post('/save', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'store'])->name('attendance.store');
+        Route::get('/details', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'show'])->name('attendance.details');
+        Route::get('/get/date', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getDate'])->name('date.get');
+        Route::get('/show', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getAtten'])->name('attendance.get');
     });
 });

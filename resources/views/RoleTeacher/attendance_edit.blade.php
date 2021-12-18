@@ -4,7 +4,7 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
-            <form action="{{ route('mark.update') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('attendance.get') }}" method="GET" enctype="multipart/form-data">
                 @csrf
                 <div class="row page-titles mx-0">
                     <div class="col-lg-2">
@@ -56,64 +56,28 @@
                             @enderror
                         </div>
                     </div>
-{{--
+
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <label class="form-label">Điểm</label>
-                            <select class="form-control @error('type_id') is-invalid @enderror"
-                                name="type_id" id="type_id">
-                                <option>Chọn loại điểm</option>
-                                <option value="1">Giữa kỳ</option>
-                                <option value="2">Cuối kỳ</option>
+                            <label class="form-label">Ngày</label>
+                            <select class="form-control @error('date') is-invalid @enderror"
+                                name="date" id="date">
+                                <option>Chọn ngày</option>
                             </select>
-                            @error('type_id')
+                            @error('date')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
-                    </div> --}}
-
-
-                    <div class="col-lg" style="padding-top: 30px;">
-                        <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a>
                     </div>
-                </div>
 
-                <div class="row d-none" id="search-mark-result">
-                    <div class="col-lg-12">
-                        <div class="row tab-content">
-                            <div id="list-view" class="tab-pane fade active show col-lg-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Danh sách học sinh </h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-responsive-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Họ và tên</th>
-                                                        <th>Ngày sinh</th>
-                                                        <th>Email</th>
-                                                        <th>Địa chỉ</th>
-                                                        <th>Điểm giữa kì</th>
-                                                        <th>Điểm cuối kì</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="search-tr">
 
-                                                </tbody>
-                                            </table>
-                                            <div class="col-lg-7">
-                                                <button type="submit" class="btn btn-primary">Sửa</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    {{-- <div class="col-lg" style="padding-top: 30px;">
+                        <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a>
+                    </div> --}}
+                    <div class="col-lg" style="padding-top: 30px;">
+                       <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                     </div>
                 </div>
             </div>
@@ -121,17 +85,17 @@
     </div>
 
     {{-- AJAX --}}
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).on('click','#search',function(){
         var class_id = $('#class_id').val();
         var course_id = $('#course_id').val();
         var semester_id = $('#semester_id').val();
         $.ajax({
-            url:"{{ route('mark.edit.list') }}",
+            url:"{{ route('attendance.edit.list') }}",
             type: "GET",
-            data:{'class_id':class_id,'course_id':course_id,'semester_id':semester_id},
+            data:{'class_id':class_id,'course_id':course_id},
             success: function(data){
-                $('#search-mark-result').removeClass('d-none');
+                $('#search-result').removeClass('d-none');
                 var html = '';
                 $.each(data,function(key,v){
                     html+=
@@ -141,15 +105,14 @@
                     '<td>'+v.student.dateOfBirth+'</td>'+
                     '<td>'+v.student.email+'</td>'+
                     '<td>'+v.student.address+'</td>'+
-                    '<td><input type="text" class="form-control" name="half_mark[]"  value="'+v.half_mark+'"></td>'+
-                    '<td><input type="text" class="form-control" name="final_mark[]"  value="'+v.final_mark+'"></td>'+
+
                     '</tr>';
                 });
                 html = $('#search-tr').html(html);
             }
         });
     });
-</script>
+</script> --}}
 
 <script type="text/javascript">
      $(function(){
@@ -190,4 +153,28 @@
         });
     });
 </script>
+
+<script type="text/javascript">
+     $(function(){
+        $(document).on('change','#course_id',function(){
+            var course_id = $('#course_id').val();
+            var class_id = $('#class_id').val();
+            var semester_id = $('#semester_id').val();
+            $.ajax({
+                url:"{{ route('date.get') }}",
+                type:"GET",
+                data:{'course_id':course_id,'class_id':class_id,'semester_id':semester_id},
+                success: function(data){
+                    var html = '<option value="">Chọn ngày</option>';
+                    $.each(data,function(key,v){
+                        html += '<option value="'+v.date+'">'+v.date+'</option>';
+                    });
+                    $('#date').html(html);
+                }
+            });
+        });
+    });
+</script>
+
+
 @endsection

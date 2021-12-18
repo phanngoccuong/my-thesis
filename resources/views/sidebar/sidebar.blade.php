@@ -171,7 +171,8 @@
                 </a>
                 <ul aria-expanded="false">
                     {{-- <li><a href="{{ route('classShow') }}">Lớp chủ nhiệm</a></li> --}}
-                    <li><a href="{{ route('teacher.class.list') }}">Thông tin lớp quản lý</a></li>
+                    <li><a href="{{ route('attendance.add') }}">Điểm danh</a></li>
+                    <li><a href="{{ route('attendance.details') }}">Thông tin điểm danh</a></li>
                 </ul>
             </li>
 
