@@ -16,10 +16,8 @@ class StudentController extends Controller
     // view list all students
     public function index()
     {
-        $studentShow = DB::table('students')
-            ->select('classes.class_name', 'students.*')
-            ->join('classes', 'classes.id', '=', 'students.class_id')
-            ->get();
+        $studentShow = Student::with('classes')->paginate(10);
+
         return view('student.student_all', [
             'title' => 'Student Dashboard',
             'studentShow' => $studentShow

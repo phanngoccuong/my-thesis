@@ -138,7 +138,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('student.mark.view') }}">Bảng điểm cá nhân</a></li>
-                    {{-- <li><a href="{{ route('classroom/add') }}">Học lực</a></li> --}}
+                     <li><a href="{{ route('student.attendance.show') }}">Thông tin điểm danh</a></li>
                 </ul>
             </li>
 

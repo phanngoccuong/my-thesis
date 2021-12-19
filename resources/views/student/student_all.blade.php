@@ -1,7 +1,4 @@
 @extends('layouts.st_master')
-{{-- @section('menu')
-@extends('sidebar.dashboard')
-@endsection --}}
 @section('content')
   @include('sidebar.sidebar')
 
@@ -36,7 +33,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example3" class="display" style="min-width: 845px">
+                                        <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -57,7 +54,7 @@
                                                         src="{{ URL::to('/images/'. $student->upload) }}" alt="{{ $student->upload }}">
                                                     </td>
                                                     <td>{{ $student->name }}</td>
-                                                    <td>{{ $student->class_name }}</td>
+                                                    <td>{{ $student->classes->class_name }}</td>
                                                     <td>{{ $student->address }}</td>
                                                     <td>{{ $student->dateOfBirth }}</td>
                                                     <td>
@@ -71,6 +68,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="float-right pt-2">
+                                            {{ $studentShow->links('pagination::bootstrap-4') }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

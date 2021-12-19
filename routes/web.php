@@ -170,6 +170,9 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('timetable/details', [App\Http\Controllers\StudentRole\StudentController::class, 'timetableDetails'])->name('timetableDetails');
     Route::get('mark/view', [App\Http\Controllers\StudentRole\StudentController::class, 'show'])->name('student.mark.view');
     Route::get('mark/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getMark'])->name('student.mark.get');
+    Route::get('attendance/show', [App\Http\Controllers\StudentRole\StudentController::class, 'showAttendance'])->name('student.attendance.show');
+    Route::get('attendance/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getAttendance'])->name('student.attendance.get');
+    Route::get('attendance/course/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getCourse'])->name('student.attendance.course.get');
 });
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
