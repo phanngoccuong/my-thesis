@@ -39,7 +39,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example3" class="display" style="min-width: 845px">
+                                        <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -68,6 +68,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="float-right">
+                                            {{ $datas->links('pagination::bootstrap-4') }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

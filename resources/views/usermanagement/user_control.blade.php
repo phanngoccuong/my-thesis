@@ -8,14 +8,13 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>All Users</h4>
+                        <h4>Quản lý người dùng</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="userManagement">User Management</a></li>
-                        <li class="breadcrumb-item active"><a href="{{route('userManagement')}}">Users</a></li>
+                        <li class="breadcrumb-item active"><a href="userManagement">Quản lý người dùng</a></li>
                     </ol>
                 </div>
             </div>
@@ -24,21 +23,18 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Users List</h4>
-                        </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="example" class="display" style="min-width: 845px">
+                                <table id="example2" class="display" style="min-width: 845px">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Full Name</th>
-                                            <th>Profile</th>
-                                            <th>Email Address</th>
-                                            <th>Status</th>
-                                            <th>Role Name</th>
-                                            <th class="text-center">Modify</th>
+                                            <th>Họ và tên</th>
+                                            <th>Ảnh</th>
+                                            <th>Email</th>
+                                            <th>Trạng thái</th>
+                                            <th>Vai trò</th>
+                                            <th class="text-center">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -87,6 +83,9 @@
                                         @endforeach
                                     </tbody>
                                 </table>
+                                <div class="float-right pt-2">
+                                    {{ $data->links('pagination::bootstrap-4') }}
+                                </div>
                             </div>
                         </div>
                     </div>

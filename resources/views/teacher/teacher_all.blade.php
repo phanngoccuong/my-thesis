@@ -13,14 +13,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>All Teacher</h4>
+                        <h4>Danh sách giáo viên</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Teachers</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">All Teachers</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý giáo viên</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Danh sách giáo viên</a></li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="nav nav-pills mb-3">
-                        <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li>
+                        {{-- <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li> --}}
                         <div class="dropdown">
                             <button class="btn btn-danger dropdown-toggle" type="button" style="height: 38.4px"
                             id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -45,22 +45,22 @@
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">All Teachers List  </h4>
-                                    <a href="{{ route('teacher/add') }}" class="btn btn-primary">+ Add new</a>
+                                    <h4 class="card-title">Danh sách giáo viên</h4>
+                                    <a href="{{ route('teacher/add') }}" class="btn btn-primary">+ Thêm mới</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example3" class="display" style="min-width: 845px">
+                                        <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Image</th>
-                                                    <th>Name</th>
-                                                    <th>Gender</th>
+                                                    <th>Ảnh</th>
+                                                    <th>Họ và tên</th>
+                                                    <th>Giới tính</th>
                                                     <th>Email</th>
-                                                    <th>Phone Number</th>
-                                                    <th>Date Of Birth</th>
-                                                    <th>Special</th>
+                                                    <th>Số điện thoại</th>
+                                                    <th>Ngày sinh</th>
+                                                    <th>Chuyên môn</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -73,9 +73,15 @@
                                                         alt="{{ $teacher->upload }}">
                                                     </td>
                                                     <td>{{ $teacher->teacher_name }}</td>
-                                                    <td>{{ $teacher->gender }}</td>
+                                                    <td>
+                                                        @if ($teacher->gender == 1)
+                                                        Nam
+                                                            @elseif($teacher->gender == 2)
+                                                        Nữ
+                                                        @endif
+                                                    </td>
                                                     <td>{{ $teacher->email }}</td>
-                                                    <td><a href="javascript:void(0);"><strong>{{ $teacher->mobileNumber }}</strong></a></td>
+                                                    <td><strong>{{ $teacher->mobileNumber }}</strong></td>
                                                     <td>{{ $teacher->dateOfBirth }}</td>
                                                     <td>{{ $teacher->special }}</td>
                                                     <td>
@@ -89,6 +95,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="float-right">
+                                            {{ $teachers->links('pagination::bootstrap-4') }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

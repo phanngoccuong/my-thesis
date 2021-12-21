@@ -13,17 +13,17 @@ class TimeController extends Controller
     {
         $times = DB::table('times')
             ->orderBy('id', 'asc')
-            ->get();
-
-        return view('time.time_all', compact('times'), [
-            'title' => 'Time Dashboard'
+            ->paginate(10);
+        return view('time.time_all', [
+            'title' => 'Danh sách giờ học',
+            'times' => $times
         ]);
     }
 
     public function create()
     {
         return view('time.time_add', [
-            'title' => 'Time Add'
+            'title' => 'Thêm giờ học'
         ]);
     }
     public function store(Request $request)
@@ -35,15 +35,16 @@ class TimeController extends Controller
         $times->time = $request->time;
         $times->save();
 
-        Toastr::success('Time add successfully!!', 'Success');
+        Toastr::success('Thêm giờ học thành công!!', 'Success');
         return redirect()->route('time/list');
     }
 
     public function edit($id)
     {
         $times = DB::table('times')->where('id', $id)->get();
-        return view('time.time_edit', compact('times'), [
-            'title' => 'Time Edit'
+        return view('time.time_edit',  [
+            'title' => 'Chỉnh sửa giờ học',
+            'times' => $times
         ]);
     }
 
@@ -57,7 +58,7 @@ class TimeController extends Controller
             'time' => $time,
         ];
         Time::where('id', $request->id)->update($update);
-        Toastr::success('Time updated successfully!!', 'Success');
+        Toastr::success('Cập nhật giờ học thành công!!', 'Success');
         return redirect()->route('time/list');
     }
 
@@ -65,7 +66,7 @@ class TimeController extends Controller
     {
         $delete = Time::find($id);
         $delete->delete();
-        Toastr::success('Time deleted successfully!!', 'Success');
+        Toastr::success('Xóa giờ học thành công!!', 'Success');
         return redirect()->route('time/list');
     }
 }

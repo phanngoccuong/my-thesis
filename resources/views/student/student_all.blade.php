@@ -10,14 +10,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>All Student</h4>
+                        <h4>Danh sách học sinh</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Students</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">All Student</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý học sinh</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Danh sách học sinh</a></li>
                     </ol>
                 </div>
             </div>
@@ -28,8 +28,8 @@
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">All Students List  </h4>
-                                    <a href="{{ route('student/add') }}" class="btn btn-primary">+ Add new</a>
+                                    <h4 class="card-title">Danh sách học sinh</h4>
+                                    <a href="{{ route('student/add') }}" class="btn btn-primary">+ Thêm mới</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -37,11 +37,11 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Image</th>
-                                                    <th>Name</th>
-                                                    <th>Class</th>
-                                                    <th>Address</th>
-                                                    <th>Date Of Birth</th>
+                                                    <th>Ảnh</th>
+                                                    <th>Họ và tên</th>
+                                                    <th>Lớp</th>
+                                                    <th>Địa chỉ</th>
+                                                    <th>Ngày sinh</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>

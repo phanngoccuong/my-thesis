@@ -12,9 +12,11 @@ class DayController extends Controller
 {
     public function index()
     {
-        $days = DB::table('days')->get();
+        $days = DB::table('days')
+            ->orderBy('day_name', 'asc')
+            ->paginate(10);
         return view('day.day_all', [
-            'title' => 'Day Dashboard',
+            'title' => 'Quản lý ngày học',
             'days' => $days
         ]);
     }
@@ -22,7 +24,7 @@ class DayController extends Controller
     public function create()
     {
         return view('day.day_add', [
-            'title' => 'Day Add'
+            'title' => 'Thêm ngày học'
         ]);
     }
     public function store(Request $request)
@@ -34,7 +36,7 @@ class DayController extends Controller
         $days->day_name = $request->day_name;
         $days->save();
 
-        Toastr::success('Day add successfully!!', 'Success');
+        Toastr::success('Thêm ngày học thành công!!', 'Success');
         return redirect()->route('day/list');
     }
 
@@ -43,7 +45,7 @@ class DayController extends Controller
         $days = DB::table('days')->where('id', $id)->get();
         // $courseStatus = DB::table('course_types')->get();
         return view('day.day_edit',  [
-            'title' => 'Day Edit',
+            'title' => 'Chỉnh sửa ngày học',
             'days' => $days
         ]);
     }
@@ -58,7 +60,7 @@ class DayController extends Controller
             'day_name' => $day_name,
         ];
         Day::where('id', $request->id)->update($update);
-        Toastr::success('Day updated successfully!!', 'Success');
+        Toastr::success('Cập nhật ngày học thành công!!', 'Success');
         return redirect()->route('day/list');
     }
 
@@ -66,7 +68,7 @@ class DayController extends Controller
     {
         $delete = Day::find($id);
         $delete->delete();
-        Toastr::success('Day deleted successfully!!', 'Success');
+        Toastr::success('Xóa ngày học thành công!!', 'Success');
         return redirect()->route('day/list');
     }
 }

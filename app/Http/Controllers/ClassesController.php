@@ -16,9 +16,11 @@ class ClassesController extends Controller
 {
     public function index()
     {
-        $classShow = Classes::with('formTeacher')->get();
+        $classShow = Classes::with('formTeacher')
+            ->orderBy('class_name', 'asc')
+            ->paginate(10);
         return view('classes.classes_all', [
-            'title' => 'Class Dashboard',
+            'title' => 'Quản lý lớp',
             'classShow' => $classShow
         ]);
     }
@@ -28,7 +30,7 @@ class ClassesController extends Controller
     {
         $teachers = Teacher::all();
         return view('classes.classes_add', [
-            'title' => 'Class Add',
+            'title' => 'Thêm lớp',
             'teachers' => $teachers
         ]);
     }
@@ -42,7 +44,7 @@ class ClassesController extends Controller
         $classes->formteacher_id = $request->formteacher_id;
         $classes->save();
 
-        Toastr::success('Class add successfully!!', 'Success');
+        Toastr::success('Thêm lớp thành công!!', 'Success');
         return redirect()->route('classes/list');
     }
 
@@ -51,7 +53,7 @@ class ClassesController extends Controller
         $teachers = Teacher::all();
         $classes = DB::table('classes')->where('id', $id)->get();
         return view('classes.classes_edit', [
-            'title' => 'Class Edit',
+            'title' => 'Chỉnh sửa lớp',
             'classes' => $classes,
             'teachers' => $teachers
         ]);
@@ -67,7 +69,7 @@ class ClassesController extends Controller
             'class_name' => $class_name
         ];
         Classes::where('id', $request->id)->update($update);
-        Toastr::success('Class updated successfully', 'Success');
+        Toastr::success('Cập nhật lớp thành công!!', 'Success');
         return redirect()->route('classes/list');
     }
 
@@ -75,7 +77,7 @@ class ClassesController extends Controller
     {
         $delete = Classes::find($id);
         $delete->delete();
-        Toastr::success('Class deleted successfully!!', 'Success');
+        Toastr::success('Xóa lớp thành công!!', 'Success');
         return redirect()->route('classes/list');
     }
 
@@ -84,7 +86,9 @@ class ClassesController extends Controller
         $classStudents = DB::table('classes')
             ->join('students', 'students.class_id', '=', 'classes.id')
             ->where('classes.id', '=', $id)
-            ->select('students.*', 'classes.class_name')->get();
+            ->select('students.*', 'classes.class_name')
+            ->orderBy('name', 'asc')
+            ->paginate(10);
         $classes = Classes::with('formTeacher')
             ->find($id);
         $totalStudent = Student::where('class_id', '=', $id)->count();
@@ -97,7 +101,7 @@ class ClassesController extends Controller
             ->where('gender', '=', 2)
             ->count();
         return view('classes.classes_about', [
-            'title' => 'Class Info',
+            'title' => 'Thông tin lớp',
             'classStudents' => $classStudents,
             'classes' => $classes,
             'totalStudent' => $totalStudent,
@@ -142,7 +146,7 @@ class ClassesController extends Controller
             ->select('courses.course_name')
             ->get();
         return view('classes.classes_timetable', [
-            'title' => 'Class Timetable',
+            'title' => 'Thời khóa biểu lớp',
             'days' => $days,
             'shift1s' => $shift1s,
             'shift2s' => $shift2s,

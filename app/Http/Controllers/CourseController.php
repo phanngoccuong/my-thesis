@@ -11,16 +11,19 @@ class CourseController extends Controller
 {
     public function index()
     {
-        $courses = DB::table('courses')->get();
-        return view('course.course_all', compact('courses'), [
-            'title' => 'Course Dashboard'
+        $courses = DB::table('courses')
+            ->orderBy('course_name', 'asc')
+            ->paginate(10);
+        return view('course.course_all', [
+            'title' => 'Quản lý môn học',
+            'courses' => $courses
         ]);
     }
 
     public function create()
     {
         return view('course.course_add', [
-            'title' => 'Course Add'
+            'title' => 'Thêm môn học'
         ]);
     }
     public function store(Request $request)
@@ -30,19 +33,19 @@ class CourseController extends Controller
         ]);
         $courses = new Course;
         $courses->course_name = $request->course_name;
-        $courses->status = $request->status;
         $courses->save();
 
-        Toastr::success('Course add successfully!!', 'Success');
+        Toastr::success('Thêm môn học thành công!!', 'Success');
         return redirect()->route('course/list');
     }
 
     public function edit($id)
     {
         $courses = DB::table('courses')->where('id', $id)->get();
-        // $courseStatus = DB::table('course_types')->get();
-        return view('course.course_edit', compact('courses'), [
-            'title' => 'Course Edit'
+
+        return view('course.course_edit',  [
+            'title' => 'Chỉnh sửa môn học',
+            'courses' => $courses
         ]);
     }
 
@@ -50,15 +53,15 @@ class CourseController extends Controller
     {
         $id = $request->id;
         $course_name = $request->course_name;
-        $status = $request->status;
+
 
         $update = [
             'id' => $id,
             'course_name' => $course_name,
-            'status'  => $status,
+
         ];
         Course::where('id', $request->id)->update($update);
-        Toastr::success('Course updated successfully!!', 'Success');
+        Toastr::success('Cập nhật môn học thành công!!', 'Success');
         return redirect()->route('course/list');
     }
 
@@ -66,7 +69,7 @@ class CourseController extends Controller
     {
         $delete = Course::find($id);
         $delete->delete();
-        Toastr::success('Course deleted successfully!!', 'Success');
+        Toastr::success('Xóa môn học thành công!!', 'Success');
         return redirect()->route('course/list');
     }
 }

@@ -36,14 +36,14 @@ class LessonController extends Controller
                 'lessons.*',
                 'teachers.teacher_name'
             )
-            ->get();
-        // dd($lessons);
+            ->orderBy('class_name', 'asc')
+            ->paginate(10);
 
         return view(
             'lesson.lesson_all',
-            compact('lessons'),
             [
-                'title' => 'Lesson Dashboard'
+                'title' => 'Quản lý tiết học',
+                'lessons' => $lessons
             ]
         );
     }
@@ -62,7 +62,7 @@ class LessonController extends Controller
             'lesson.lesson_add',
             compact('courses', 'classes', 'teachers', 'classrooms', 'days', 'times', 'semesters'),
             [
-                'title' => 'Lesson Add'
+                'title' => 'Thêm tiết học'
             ]
         );
     }
@@ -88,7 +88,7 @@ class LessonController extends Controller
         $lessons->semester_id = $request->semester_id;
         $lessons->save();
 
-        Toastr::success('Lesson add successfully!!', 'Success');
+        Toastr::success('Thêm tiết học thành công!!', 'Success');
         return redirect()->route('lesson/list');
     }
 
@@ -109,7 +109,7 @@ class LessonController extends Controller
             'lesson.lesson_edit',
             compact('courses', 'classes', 'teachers', 'classrooms', 'days', 'times', 'semesters', 'lesson'),
             [
-                'title' => 'Lesson Edit'
+                'title' => 'Sửa thông tin tiết học'
             ]
         );
     }
@@ -137,7 +137,7 @@ class LessonController extends Controller
         ];
 
         Lesson::where('id', $request->id)->update($update);
-        Toastr::success('Lesson updated successfully!!', 'Success');
+        Toastr::success('Cập nhật tiết học thành công!!', 'Success');
         return redirect()->route('lesson/list');
     }
 
@@ -145,7 +145,7 @@ class LessonController extends Controller
     {
         $delete = Lesson::find($id);
         $delete->delete();
-        Toastr::success('Lesson deleted successfully!!', 'Success');
+        Toastr::success('Xóa tiết học thành công!!', 'Success');
         return redirect()->route('lesson/list');
     }
 }

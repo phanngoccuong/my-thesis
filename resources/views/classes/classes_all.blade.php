@@ -9,14 +9,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>All Classes</h4>
+                        <h4>Danh sách lớp</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Classes</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">All Classes</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý lớp</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Danh sách lớp</a></li>
                     </ol>
                 </div>
             </div>
@@ -87,46 +87,6 @@
                                 @endforeach
                             </div>
                         </div>
-
-                        {{-- <div id="grid-view" class="tab-pane fade col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">All Classes List  </h4>
-                                    <a href="{{ route('classes/add') }}" class="btn btn-primary">+ Add new</a>
-                                </div>
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="example3" class="display" style="min-width: 845px">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Name</th>
-                                                    <th>Action</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($classShow as $key => $class )
-                                                <tr>
-                                                    <td><strong>{{ ++$key }}</strong></td>
-                                                    <td>{{ $class->class_name }}</td>
-                                                    <td>
-                                                        <a href="{{ url('admin/classes/show/'.$class->id) }}"
-                                                            class="btn btn-sm btn-success"><i class="la la-play"></i></a>
-                                                        <a href="{{ url('admin/classes/edit/'.$class->id) }}"
-                                                            class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
-                                                        <a href="{{ url('admin/classes/delete/'.$class->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')">
-                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div> --}}
-
                     </div>
                 </div>
             </div>

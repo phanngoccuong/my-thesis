@@ -9,41 +9,34 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>All Courses</h4>
+                        <h4>Danh sách môn học</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Courses</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">All Courses</a></li>
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý môn học</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Danh sách môn học</a></li>
                     </ol>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-lg-12">
-                    <ul class="nav nav-pills mb-3">
-                        <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li>
-                        <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Grid View</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-12">
                     <div class="row tab-content">
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">All Courses List  </h4>
-                                    <a href="{{ route('course/add') }}" class="btn btn-primary">+ Add new</a>
+                                    <h4 class="card-title">Danh sách môn học</h4>
+                                    <a href="{{ route('course/add') }}" class="btn btn-primary">+ Thêm mới</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example3" class="display" style="min-width: 845px">
+                                        <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Course</th>
-                                                    <th>Status</th>
+                                                    <th>Môn học</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -52,15 +45,6 @@
                                                 <tr>
                                                     <td><strong>{{ ++$key }}</strong></td>
                                                     <td>{{ $course->course_name }}</td>
-                                                    @if($course->status =='Active')
-                                                    <td class="status"><span class="badge bg-success">{{ $course->status }}</span></td>
-                                                    @endif
-                                                    @if($course->status =='Disable')
-                                                    <td class="status"><span class="badge bg-danger">{{ $course->status }}</span></td>
-                                                    @endif
-                                                    @if($course->status ==null)
-                                                    <td class="status"><span class="badge bg-danger">{{ $course->status }}</span></td>
-                                                    @endif
                                                     <td>
                                                         <a href="{{ url('admin/course/edit/'.$course->id) }}"
                                                              class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
@@ -72,6 +56,9 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+                                        <div class="float-right">
+                                            {{ $courses->links('pagination::bootstrap-4') }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>

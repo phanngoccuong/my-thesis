@@ -11,16 +11,17 @@ class ClassroomController extends Controller
 {
     public function index()
     {
-        $classroomShow = DB::table('classrooms')->get();
-        return view('classroom.classroom_all', compact('classroomShow'), [
-            'title' => 'Classroom Dashboard'
+        $classroomShow = DB::table('classrooms')->orderBy('classroom_name', 'asc')->paginate(10);
+        return view('classroom.classroom_all',  [
+            'title' => 'Quản lý phòng học',
+            'classroomShow' => $classroomShow
         ]);
     }
 
     public function create()
     {
         return view('classroom.classroom_add', [
-            'title' => 'Room Add'
+            'title' => 'Thêm phòng học'
         ]);
     }
     public function store(Request $request)
@@ -32,15 +33,16 @@ class ClassroomController extends Controller
         $classrooms->classroom_name = $request->classroom_name;
         $classrooms->save();
 
-        Toastr::success('Classroom add successfully!!', 'Success');
+        Toastr::success('Thêm phòng học thành công!!', 'Success');
         return redirect()->route('classroom/list');
     }
 
     public function edit($id)
     {
         $classrooms = DB::table('classrooms')->where('id', $id)->get();
-        return view('classroom.classroom_edit', compact('classrooms'), [
-            'title' => 'Classroom Edit'
+        return view('classroom.classroom_edit', [
+            'title' => 'Chỉnh sửa phòng học',
+            'classrooms' => $classrooms
         ]);
     }
 
@@ -54,7 +56,7 @@ class ClassroomController extends Controller
             'classroom_name' => $classroom_name
         ];
         Classroom::where('id', $request->id)->update($update);
-        Toastr::success('Classroom updated successfully!!', 'Success');
+        Toastr::success('Cập nhật phòng học thành công!!', 'Success');
         return redirect()->route('classroom/list');
     }
 
@@ -62,7 +64,7 @@ class ClassroomController extends Controller
     {
         $delete = Classroom::find($id);
         $delete->delete();
-        Toastr::success('Classroom deleted successfully!!', 'Success');
+        Toastr::success('Xóa phòng học thành công!!', 'Success');
         return redirect()->route('classroom/list');
     }
 }

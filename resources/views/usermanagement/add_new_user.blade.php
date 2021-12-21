@@ -1,8 +1,4 @@
-
 @extends('layouts.st_master')
-{{-- @section('menu')
-@extends('sidebar.dashboard')
-@endsection --}}
 @section('content')
     @include('sidebar.sidebar')
 
@@ -13,14 +9,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>Add New User</h4>
+                        <h4>Thêm người dùng mới</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">User</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Add New User</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý người dùng</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Thêm người dùng mới</a></li>
                     </ol>
                 </div>
             </div>
@@ -33,11 +29,11 @@
                                 <div class="row no-gutters">
                                     <div class="col-xl-12">
                                         <div class="auth-form">
-                                            <h4 class="text-center mb-4">Create new account</h4>
+                                            <h4 class="text-center mb-4">Thêm người dùng mới</h4>
                                             <form method="POST" action="{{ route('user/add/save') }}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <label><strong>Username</strong></label>
+                                                    <label><strong>Họ và tên</strong></label>
                                                     <input type="text" class="form-control @error('name') is-invalid
                                                     @enderror" name="name"  placeholder="Enter Your Name">
                                                     @error('name')
@@ -48,7 +44,7 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><strong>Image</strong></label>
+                                                    <label><strong>Ảnh</strong></label>
                                                     <input class="form-control @error('image') is-invalid @enderror"
                                                     name="image" type="file" id="image" multiple="">
                                                     @error('image')
@@ -69,7 +65,7 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><strong>Phone Number</strong></label>
+                                                    <label><strong>Số điện thoại</strong></label>
                                                     <input type="tel" class="form-control form-control-lg @error('phone') is-invalid @enderror" name="phone" value="{{ old('phone') }}" placeholder="Enter Your Phone Number">
                                                     @error('phone')
                                                         <span class="invalid-feedback" role="alert">
@@ -79,10 +75,10 @@
                                                 </div>
 
                                                 <div class="form-group">
-                                                    <label><strong>Role Name</strong></label>
+                                                    <label><strong>Vai trò</strong></label>
                                                     <select class="form-control @error('role_name') is-invalid @enderror"
                                                     name="role_name" id="role_name">
-                                                        <option selected disabled>Select Role Name</option>
+                                                        <option selected disabled>Chọn</option>
                                                         <option value="Admin">Admin</option>
                                                         <option value="Student">Student</option>
                                                         <option value="Teacher">Teacher</option>
@@ -94,7 +90,7 @@
                                                 @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><strong>Password</strong></label>
+                                                    <label><strong>Mật khẩu</strong></label>
                                                     <input type="password" class="form-control
                                                     @error('password') is-invalid @enderror" name="password" placeholder="Enter Password">
                                                     @error('password')
@@ -104,11 +100,11 @@
                                                     @enderror
                                                 </div>
                                                 <div class="form-group">
-                                                    <label><strong>Confirm Password</strong></label>
+                                                    <label><strong>Xác nhận mật khẩu</strong></label>
                                                     <input type="password" class="form-control" name="password_confirmation" placeholder="Choose Confirm Password">
                                                 </div>
                                                 <div class="text-center mt-4">
-                                                    <button type="submit" class="btn btn-primary btn-block">Create</button>
+                                                    <button type="submit" class="btn btn-primary btn-block">Tạo mới</button>
                                                 </div>
                                             </form>
                                         </div>

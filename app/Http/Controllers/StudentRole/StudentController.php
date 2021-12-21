@@ -219,7 +219,7 @@ class StudentController extends Controller
             ->where('course_id', '=', $course)
             ->where('student_id', '=', $student_id)
             ->orderBy('date', 'asc')
-            ->get();
+            ->paginate(10);
 
         return view('RoleStudent.student_attendance_view_details', [
             'title' => 'Thông tin điểm danh',

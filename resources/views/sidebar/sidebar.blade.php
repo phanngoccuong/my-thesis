@@ -5,103 +5,102 @@
         <ul class="metismenu" id="menu">
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-user-plus"></i>
-                    <span class="nav-text">Management</span>
+                    <span class="nav-text">Quản lý</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('userManagement') }}">All Users</a></li>
+                    <li><a href="{{ route('userManagement') }}">Quản lý tài khoản</a></li>
                 </ul>
             </li>
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-user"></i>
-                    <span class="nav-text">Teachers</span>
+                    <span class="nav-text">Giáo viên</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('teacher/list') }}">All Teachers</a></li>
-                    <li><a href="{{ route('teacher/add') }}">Add Teacher</a></li>
-                    {{-- <li><a href="{{ route('teacher/show') }}">Teachers Profile</a></li> --}}
+                    <li><a href="{{ route('teacher/list') }}">Quản lý giáo viên</a></li>
+                    <li><a href="{{ route('teacher/add') }}">Thêm giáo viên</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-calendar-o"></i>
-                    <span class="nav-text">Lessons</span>
+                    <span class="nav-text">Thời khóa biểu</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('lesson/list') }}">All Lessons</a></li>
-                    <li><a href="{{ route('lesson/add') }}">Add Lessons</a></li>
+                    <li><a href="{{ route('lesson/list') }}">Quản lý thời khóa biểu</a></li>
+                    <li><a href="{{ route('lesson/add') }}">Thêm tiết học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-users"></i>
-                    <span class="nav-text">Students</span>
+                    <span class="nav-text">Học sinh</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('student/list') }}">All Students</a></li>
-                    <li><a href="{{ route('student/add') }}">Add Students</a></li>
+                    <li><a href="{{ route('student/list') }}">Quản lý học sinh</a></li>
+                    <li><a href="{{ route('student/add') }}">Thêm học sinh</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-graduation-cap"></i>
-                    <span class="nav-text">Classes</span>
+                    <span class="nav-text">Lớp</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('classes/list') }}">All Classes</a></li>
-                    <li><a href="{{ route('classes/add') }}">Add Classes</a></li>
+                    <li><a href="{{ route('classes/list') }}">Quản lý lớp</a></li>
+                    <li><a href="{{ route('classes/add') }}">Thêm lớp</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-building"></i>
-                    <span class="nav-text">Classroom</span>
+                    <span class="nav-text">Phòng học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('classroom/list') }}">All Room</a></li>
-                    <li><a href="{{ route('classroom/add') }}">Add Room</a></li>
+                    <li><a href="{{ route('classroom/list') }}">Quản lý phòng học</a></li>
+                    <li><a href="{{ route('classroom/add') }}">Thêm phòng học</a></li>
                 </ul>
             </li>
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-university"></i>
-                    <span class="nav-text">Courses</span>
+                    <span class="nav-text">Môn học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('course/list') }}">All Courses</a></li>
-                    <li><a href="{{ route('course/add') }}">Add Course</a></li>
+                    <li><a href="{{ route('course/list') }}">Quản lý môn học</a></li>
+                    <li><a href="{{ route('course/add') }}">Thêm môn học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-book"></i>
-                    <span class="nav-text">Batches</span>
+                    <span class="nav-text">Niên khóa</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('batch/list') }}">All Batches</a></li>
-                    <li><a href="{{ route('batch/add') }}">Add Batch</a></li>
+                    <li><a href="{{ route('batch/list') }}">Quản lý niên khóa</a></li>
+                    <li><a href="{{ route('batch/add') }}">Thêm niên khóa</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-certificate"></i>
-                    <span class="nav-text">Semester</span>
+                    <span class="nav-text">Kì học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('semester/list') }}">All Semester</a></li>
-                    <li><a href="{{ route('semester/add') }}">Add Semester</a></li>
+                    <li><a href="{{ route('semester/list') }}">Quản lý kì học</a></li>
+                    <li><a href="{{ route('semester/add') }}">Thêm kì học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-cloud"></i>
-                    <span class="nav-text">Day</span>
+                    <span class="nav-text">Ngày học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('day/list') }}">All days</a></li>
-                    <li><a href="{{ route('day/add') }}">Add day</a></li>
+                    <li><a href="{{ route('day/list') }}">Quản lý ngày học</a></li>
+                    <li><a href="{{ route('day/add') }}">Thêm ngày học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-history"></i>
-                    <span class="nav-text">Time</span>
+                    <span class="nav-text">Giờ học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('time/list') }}">All Times</a></li>
-                    <li><a href="{{ route('time/add') }}">Add Time</a></li>
+                    <li><a href="{{ route('time/list') }}">Quản lý giờ học</a></li>
+                    <li><a href="{{ route('time/add') }}">Thêm giờ học</a></li>
                 </ul>
             </li>
         </ul>

@@ -11,16 +11,19 @@ class SemesterController extends Controller
 {
     public function index()
     {
-        $semesters = DB::table('semesters')->get();
-        return view('semester.semester_all', compact('semesters'), [
-            'title' => 'Semester Dashboard'
+        $semesters = DB::table('semesters')
+            ->orderBy('semester_name', 'asc')
+            ->paginate(10);
+        return view('semester.semester_all',  [
+            'title' => 'Quản lý học kì',
+            'semesters' => $semesters
         ]);
     }
 
     public function create()
     {
         return view('semester.semester_add', [
-            'title' => 'Semester Add'
+            'title' => 'Thêm học kì'
         ]);
     }
     public function store(Request $request)
@@ -32,16 +35,17 @@ class SemesterController extends Controller
         $semesters->semester_name = $request->semester_name;
         $semesters->save();
 
-        Toastr::success('Semester add successfully!!', 'Success');
+        Toastr::success('Thêm học kì thành công!!', 'Success');
         return redirect()->route('semester/list');
     }
 
     public function edit($id)
     {
         $semesters = DB::table('semesters')->where('id', $id)->get();
-        // $courseStatus = DB::table('course_types')->get();
-        return view('semester.semester_edit', compact('semesters'), [
-            'title' => 'Semester Edit'
+
+        return view('semester.semester_edit',  [
+            'title' => 'Chỉnh sửa kì học',
+            'semesters' => $semesters
         ]);
     }
 
@@ -56,7 +60,7 @@ class SemesterController extends Controller
             'semester_name' => $semester_name,
         ];
         Semester::where('id', $request->id)->update($update);
-        Toastr::success('Semester updated successfully!!', 'Success');
+        Toastr::success('Cập nhật học kì thành công!!', 'Success');
         return redirect()->route('semester/list');
     }
 
@@ -64,7 +68,7 @@ class SemesterController extends Controller
     {
         $delete = Semester::find($id);
         $delete->delete();
-        Toastr::success('Semester deleted successfully!!', 'Success');
+        Toastr::success('Xóa học kì thành công!!', 'Success');
         return redirect()->route('semester/list');
     }
 }

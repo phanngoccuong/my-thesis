@@ -19,7 +19,7 @@ class UserManagementController extends Controller
     public function index()
     {
         if (Auth::user()->role_name == 'Admin') {
-            $data = DB::table('users')->get();
+            $data = User::paginate(10);
             return view('usermanagement.user_control',  [
                 'title' => 'User All',
                 'data' => $data

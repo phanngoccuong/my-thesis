@@ -11,14 +11,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>View Update User</h4>
+                        <h4>Cập nhật người dùng</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">User</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Update User</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý người dùng</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Cập nhật người dùng</a></li>
                     </ol>
                 </div>
             </div>
@@ -26,9 +26,6 @@
             {!! Toastr::message() !!}
             <div class="col-12">
                 <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">User View Detial</h4>
-                    </div>
                     <div class="card-content">
                         <div class="card-body">
                             <form class="form form-horizontal" action="{{ route('update') }}" method="POST" enctype="multipart/form-data">
@@ -37,7 +34,7 @@
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-4">
-                                            <label>Full Name</label>
+                                            <label>Họ và tên</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -50,7 +47,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Photo</label>
+                                            <label>Ảnh</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-lefts">
@@ -67,7 +64,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Email Address</label>
+                                            <label>Email</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -78,7 +75,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-4">
-                                            <label>Mobile Number</label>
+                                            <label>Số điện thoại</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group has-icon-left">
@@ -90,7 +87,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Status</label>
+                                            <label>Trạng thái</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group position-relative has-icon-left">
@@ -108,7 +105,7 @@
                                         </div>
 
                                         <div class="col-md-4">
-                                            <label>Role Name</label>
+                                            <label>Vai trò</label>
                                         </div>
                                         <div class="col-md-8">
                                             <div class="form-group position-relative has-icon-left">
@@ -126,9 +123,9 @@
 
                                         <div class="col-12 d-flex justify-content-end">
                                             <button type="submit"
-                                                class="btn btn-primary me-1 mb-1">Update</button>
+                                                class="btn btn-primary me-1 mb-1">Cập nhật</button>
                                                 <a  href="{{ route('userManagement') }}"
-                                                class="btn btn-light-secondary me-1 mb-1">Back</a>
+                                                class="btn btn-light-secondary me-1 mb-1">Trở lại</a>
                                         </div>
                                     </div>
                                 </div>

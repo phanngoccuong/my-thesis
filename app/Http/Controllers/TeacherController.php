@@ -13,16 +13,19 @@ class TeacherController extends Controller
 {
     public function index()
     {
-        $teachers = DB::table('teachers')->get();
-        return view('teacher.teacher_all', compact('teachers'), [
-            'title' => 'Teacher Dashboard'
+        $teachers = DB::table('teachers')
+            ->orderBy('teacher_name', 'asc')
+            ->paginate(10);
+        return view('teacher.teacher_all',  [
+            'title' => 'Quản lý giáo viên',
+            'teachers' => $teachers
         ]);
     }
 
     public function create()
     {
         return view('teacher.teacher_add', [
-            'title' => 'Teacher Add'
+            'title' => 'Thêm giáo viên'
         ]);
     }
     public function store(Request $request)
@@ -52,15 +55,16 @@ class TeacherController extends Controller
         $teachers->upload  = $image;
         $teachers->save();
 
-        Toastr::success('Teacher add successfully!!', 'Success');
+        Toastr::success('Thêm giáo viên thành công!!', 'Success');
         return redirect()->route('teacher/list');
     }
 
     public function edit($id)
     {
         $teachers = DB::table('teachers')->where('id', $id)->get();
-        return view('teacher.teacher_edit', compact('teachers'), [
-            'title' => 'Teacher Edit'
+        return view('teacher.teacher_edit', [
+            'title' => 'Teacher Edit',
+            'teachers' => $teachers
         ]);
     }
 
@@ -97,7 +101,7 @@ class TeacherController extends Controller
 
         ];
         Teacher::where('id', $request->id)->update($update);
-        Toastr::success('Teacher updated successfully!!', 'Success');
+        Toastr::success('Cập nhật thông tin giáo viên thành công!!', 'Success');
         return redirect()->route('teacher/list');
     }
 
@@ -105,7 +109,7 @@ class TeacherController extends Controller
     {
         $delete = Teacher::find($id);
         $delete->delete();
-        Toastr::success('Teacher deleted successfully!!', 'Success');
+        Toastr::success('Xóa giáo viên thành công!!', 'Success');
         return redirect()->route('teacher/list');
     }
 

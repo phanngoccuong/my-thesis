@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StudentRequest;
 use App\Models\Batch;
 use App\Models\Classes;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class StudentController extends Controller
         $studentShow = Student::with('classes')->paginate(10);
 
         return view('student.student_all', [
-            'title' => 'Student Dashboard',
+            'title' => 'Quản lý học sinh',
             'studentShow' => $studentShow
         ]);
     }
@@ -38,29 +39,14 @@ class StudentController extends Controller
         $classes = Classes::all();
         $batches = Batch::all();
         return view('student.student_add', [
-            'title' => 'Student Add',
+            'title' => 'Thêm học sinh mới',
             'classes' => $classes,
             'batches' => $batches
         ]);
     }
     // student save
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $request->validate([
-
-            'name'                => 'required|string|max:255',
-            'email'               => 'required|string|email',
-            'batch_id'            => 'required|integer',
-            'class_id'            => 'required|integer',
-            'gender'              => 'required|integer|max:255',
-            'father_name'         => 'required|string|max:255',
-            'father_number'       => 'required|min:11|numeric',
-            'mother_name'         => 'required|string|max:255',
-            'mother_number'       => 'required|min:11|numeric',
-            'dateOfBirth'         => 'required|string|max:255',
-            'address'             => 'required|string|max:255',
-            'upload'              => 'required|image',
-        ]);
 
         $image = time() . '.' . $request->upload->extension();
         $request->upload->move(public_path('images'), $image);
@@ -80,7 +66,7 @@ class StudentController extends Controller
         $student->upload              = $image;
         $student->save();
 
-        Toastr::success('Student Add successfully!!', 'Success');
+        Toastr::success('Thêm học sinh thành công!!', 'Success');
         return redirect()->route('student/list');
     }
     // student edit
@@ -90,7 +76,7 @@ class StudentController extends Controller
         $classes = Classes::all();
         $batches = Batch::all();
         return view('student.student_edit', [
-            'title' => 'Student Edit',
+            'title' => 'Chỉnh sửa thông tin giáo viên',
             'student' => $student,
             'classes' => $classes,
             'batches' => $batches
@@ -140,7 +126,7 @@ class StudentController extends Controller
         ];
 
         Student::where('id', $request->id)->update($update);
-        Toastr::success('Data updated successfully :)', 'Success');
+        Toastr::success('Cập nhật thành công!!', 'Success');
         return redirect()->route('student/list');
     }
 
@@ -148,11 +134,11 @@ class StudentController extends Controller
     {
         $delete = Student::find($id);
         $delete->delete();
-        Toastr::success('Student deleted successfully!!', 'Success');
+        Toastr::success('Xóa học sinh thành công!!', 'Success');
         return redirect()->route('student/list');
     }
 
-    public function PDFGenerate(Request $request)
+    public function PDFGenerate()
     {
         $students = Student::all();
         $exportPDF = PDF::loadView('student.pdf_view', ['students' => $students]);
