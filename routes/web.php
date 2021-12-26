@@ -166,14 +166,15 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('/home', [App\Http\Controllers\StudentRole\StudentController::class, 'index'])->name('homeStudent');
     Route::get('/profile', [App\Http\Controllers\StudentRole\StudentController::class, 'showProfile'])->name('studentProfile');
     Route::get('/profile/classInfo', [App\Http\Controllers\StudentRole\StudentController::class, 'showClassInfo'])->name('studentClassInfo');
-    Route::get('timetable', [App\Http\Controllers\StudentRole\StudentController::class, 'searchTimetable'])->name('student.timetable.search');
-    Route::get('timetable/get', [App\Http\Controllers\StudentRole\StudentController::class, 'showTimetable'])->name('student.timetable.get');
-    Route::get('timetable/details', [App\Http\Controllers\StudentRole\StudentController::class, 'timetableDetails'])->name('timetableDetails');
-    Route::get('mark/view', [App\Http\Controllers\StudentRole\StudentController::class, 'show'])->name('student.mark.view');
-    Route::get('mark/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getMark'])->name('student.mark.get');
-    Route::get('attendance/show', [App\Http\Controllers\StudentRole\StudentController::class, 'showAttendance'])->name('student.attendance.show');
-    Route::get('attendance/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getAttendance'])->name('student.attendance.get');
-    Route::get('attendance/course/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getCourse'])->name('student.attendance.course.get');
+    Route::get('timetable', [App\Http\Controllers\StudentRole\TimetableController::class, 'searchTimetable'])->name('student.timetable.search');
+    Route::get('timetable/get', [App\Http\Controllers\StudentRole\TimetableController::class, 'showTimetable'])->name('student.timetable.get');
+    Route::get('timetable/details/view', [App\Http\Controllers\StudentRole\TimetableController::class, 'timetableDetailsIndex'])->name('timetableDetails');
+    Route::get('timetable/details/get', [App\Http\Controllers\StudentRole\TimetableController::class, 'timetableDetails'])->name('timetableDetails.get');
+    Route::get('mark/view', [App\Http\Controllers\StudentRole\MarkController::class, 'show'])->name('student.mark.view');
+    Route::get('mark/get', [App\Http\Controllers\StudentRole\MarkController::class, 'getMark'])->name('student.mark.get');
+    Route::get('attendance/show', [App\Http\Controllers\StudentRole\AttendanceController::class, 'showAttendance'])->name('student.attendance.show');
+    Route::get('attendance/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getAttendance'])->name('student.attendance.get');
+    Route::get('attendance/course/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getCourse'])->name('student.attendance.course.get');
 });
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {

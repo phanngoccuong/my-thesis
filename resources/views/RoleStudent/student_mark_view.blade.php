@@ -23,8 +23,6 @@
                         @enderror
                     </div>
                 </div>
-
-
                 <div class="col-lg" style="padding-top: 30px;">
                     <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a>
                 </div>
@@ -35,9 +33,6 @@
                     <div class="row tab-content">
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Danh sách học sinh </h4>
-                                </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table class="table table-striped table-responsive-sm">
