@@ -26,14 +26,24 @@ class RegisterController extends Controller
             'password_confirmation' => 'required',
         ]);
 
+        // Avatar
+        $path = 'images/';
+        $fontPath = public_path('fonts/CascadiaCode.ttf');
+        $char = strtoupper($request->name[0]);
+        $newAvatarName = rand(12, 34353) . time() . '_avatar.png';
+        $dest = $path . $newAvatarName;
+
+        $createAvatar = makeAvatar($fontPath, $dest, $char);
+        $avatar = $createAvatar == true ? $newAvatarName : '';
+
         User::create([
             'name'      => $request->name,
-            'avatar'    => $request->image,
+            'avatar'    => $avatar,
             'email'     => $request->email,
             'role_name' => $request->role_name,
             'password'  => Hash::make($request->password),
         ]);
-        Toastr::success('Create new account successfully!!', 'Success');
+        Toastr::success('Tạo tài khoản thành công!!', 'Success');
         return redirect('login');
     }
 }

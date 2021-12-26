@@ -7,10 +7,16 @@ use App\Models\Batch;
 use App\Models\Classes;
 use Illuminate\Http\Request;
 use App\Models\Student;
+use App\Models\User;
+use App\Notifications\EditStudent;
+use App\Notifications\Student as NotificationsStudent;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Notification;
+
 
 class StudentController extends Controller
 {
@@ -18,7 +24,6 @@ class StudentController extends Controller
     public function index()
     {
         $studentShow = Student::with('classes')->paginate(10);
-
         return view('student.student_all', [
             'title' => 'Quản lý học sinh',
             'studentShow' => $studentShow
@@ -76,7 +81,7 @@ class StudentController extends Controller
         $classes = Classes::all();
         $batches = Batch::all();
         return view('student.student_edit', [
-            'title' => 'Chỉnh sửa thông tin giáo viên',
+            'title' => 'Chỉnh sửa thông tin học sinh',
             'student' => $student,
             'classes' => $classes,
             'batches' => $batches
@@ -124,8 +129,11 @@ class StudentController extends Controller
             'address'             => $address,
             'upload'              => $image_name,
         ];
+        // $user = Auth::user();
 
+        $receiver = User::where('role_name', '=', 'Admin')->get();
         Student::where('id', $request->id)->update($update);
+        // Notification::send($receiver, new EditStudent($user, $name));
         Toastr::success('Cập nhật thành công!!', 'Success');
         return redirect()->route('student/list');
     }

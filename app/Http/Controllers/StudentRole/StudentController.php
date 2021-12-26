@@ -9,8 +9,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Day;
+use App\Models\Semester;
 use App\Models\StudentMarks;
 use App\Models\StudentAttendances;
+use App\Models\Time;
+use App\Services\TimetableService;
 
 class StudentController extends Controller
 {
@@ -50,54 +53,42 @@ class StudentController extends Controller
         ]);
     }
 
-    public function showTimetable()
+    public function searchTimetable()
     {
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
             ->get();
         $class_id = $studentInfo[0]->class_id;
-        $days = Day::all();
-        $shift1s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $class_id)
-            ->where('times.time', '=', '7h20-8h05')
-            ->select('courses.course_name')
+        $semesters = DB::table('lessons')
+            ->where('class_id', '=', $class_id)
+            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+            ->select('semesters.*')
+            ->distinct()
             ->get();
-        $shift2s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $class_id)
-            ->where('times.time', '=', '8h15-9h00')
-            ->select('courses.course_name')
-            ->get();
-        $shift3s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $class_id)
-            ->where('times.time', '=', '9h20-10h05')
-            ->select('courses.course_name')
-            ->get();
-        $shift4s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $class_id)
-            ->where('times.time', '=', '10h15-11h00')
-            ->select('courses.course_name')
-            ->get();
-        return view('RoleStudent.student_timetable', [
-            'title' => 'Student Timetable',
-            'days' => $days,
-            'shift1s' => $shift1s,
-            'shift2s' => $shift2s,
-            'shift3s' => $shift3s,
-            'shift4s' => $shift4s,
+
+        return view('RoleStudent.student_timetable_search', [
+            'title' => 'Thời khóa biểu',
+            'semesters' => $semesters
         ]);
     }
+
+    public function showTimetable(Request $request, TimetableService $timetableService)
+    {
+        $days = Day::all();
+        $currentUserEmail = Auth::user()->email;
+        $studentInfo = Student::where('email', '=', $currentUserEmail)
+            ->get();
+        $class_id = $studentInfo[0]->class_id;
+        $semester_id = $request->semester_id;
+        $timetableData = $timetableService->generateTimetable($days, $class_id, $semester_id);
+
+        return view('RoleStudent.student_timetable', [
+            'title' => 'Thời khóa biểu',
+            'days' => $days,
+            'timetableData' => $timetableData
+        ]);
+    }
+
 
     public function timetableDetails()
     {
@@ -122,31 +113,11 @@ class StudentController extends Controller
                 'teachers.teacher_name'
             )
             ->orderBy('day_name', 'asc')->get();
-        //dd($datas);
+
         return view('RoleStudent.timetable-details', [
             'title' => 'Timetable Details',
             'datas' => $datas
         ]);
-    }
-
-    public function getCourse(Request $request)
-    {
-        $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $class_id = $studentInfo[0]->class_id;
-        $semester_id = $request->semester_id;
-        $datas = DB::table('student_marks')
-            ->join('semesters', 'semesters.id', '=', 'student_marks.semester_id')
-            ->where('semesters.id', '=', $semester_id)
-            ->join('courses', 'courses.id', '=', 'student_marks.course_id')
-            ->select(
-                'courses.*',
-            )
-            ->distinct()
-            ->orderBy('course_name', 'asc')
-            ->get();
-        return response()->json($datas);
     }
 
     public function show()
@@ -154,11 +125,10 @@ class StudentController extends Controller
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
             ->get();
-        $class_id = $studentInfo[0]->class_id;
+        $id = $studentInfo[0]->id;
 
         $semesters = DB::table('student_marks')
-            ->join('classes', 'classes.id', '=', 'student_marks.class_id')
-            ->where('classes.id', '=', $class_id)
+            ->where('student_id', '=', $id)
             ->join('semesters', 'semesters.id', '=', 'student_marks.semester_id')
             ->select('semesters.*')
             ->distinct()
@@ -191,11 +161,10 @@ class StudentController extends Controller
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
             ->get();
-        $class_id = $studentInfo[0]->class_id;
+        $id = $studentInfo[0]->id;
 
         $semesters = DB::table('student_attendances')
-            ->join('classes', 'classes.id', '=', 'student_attendances.class_id')
-            ->where('classes.id', '=', $class_id)
+            ->where('student_id', '=', $id)
             ->join('semesters', 'semesters.id', '=', 'student_attendances.semester_id')
             ->select('semesters.*')
             ->distinct()
@@ -225,5 +194,24 @@ class StudentController extends Controller
             'title' => 'Thông tin điểm danh',
             'datas' => $datas
         ]);
+    }
+
+    public function getCourse(Request $request)
+    {
+        $currentUserEmail = Auth::user()->email;
+        $studentInfo = Student::where('email', '=', $currentUserEmail)
+            ->get();
+
+        $semester_id = $request->semester_id;
+        $datas = DB::table('student_attendances')
+            ->where('semester_id', '=', $semester_id)
+            ->join('courses', 'courses.id', '=', 'student_attendances.course_id')
+            ->select(
+                'courses.*',
+            )
+            ->distinct()
+            ->orderBy('course_name', 'asc')
+            ->get();
+        return response()->json($datas);
     }
 }

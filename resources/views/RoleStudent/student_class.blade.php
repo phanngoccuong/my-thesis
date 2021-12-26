@@ -60,9 +60,9 @@
                                                     <td>{{ $classStudent->name }}</td>
                                                     <td>{{ $classStudent->address }}</td>
                                                     <td>@if ($classStudent->gender == 1 )
-                                                        Male
+                                                        Nam
                                                         @else
-                                                        Female
+                                                        Nữ
                                                         @endif
                                                     </td>
                                                     <td>{{ $classStudent->dateOfBirth }}</td>

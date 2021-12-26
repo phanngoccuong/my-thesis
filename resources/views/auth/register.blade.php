@@ -21,7 +21,7 @@
                                             @enderror
                                         </div>
                                         {{-- insert defaults --}}
-                                        <input type="hidden" class="image" name="image" value="photo_defaults.jpg">
+                                        {{-- <input type="hidden" class="image" name="image" value="photo_defaults.jpg"> --}}
                                         <div class="form-group">
                                             <label><strong>Email</strong></label>
                                             <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" placeholder="Enter Your Email">

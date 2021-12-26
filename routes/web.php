@@ -166,7 +166,8 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('/home', [App\Http\Controllers\StudentRole\StudentController::class, 'index'])->name('homeStudent');
     Route::get('/profile', [App\Http\Controllers\StudentRole\StudentController::class, 'showProfile'])->name('studentProfile');
     Route::get('/profile/classInfo', [App\Http\Controllers\StudentRole\StudentController::class, 'showClassInfo'])->name('studentClassInfo');
-    Route::get('timetable', [App\Http\Controllers\StudentRole\StudentController::class, 'showTimetable'])->name('studentTimetable');
+    Route::get('timetable', [App\Http\Controllers\StudentRole\StudentController::class, 'searchTimetable'])->name('student.timetable.search');
+    Route::get('timetable/get', [App\Http\Controllers\StudentRole\StudentController::class, 'showTimetable'])->name('student.timetable.get');
     Route::get('timetable/details', [App\Http\Controllers\StudentRole\StudentController::class, 'timetableDetails'])->name('timetableDetails');
     Route::get('mark/view', [App\Http\Controllers\StudentRole\StudentController::class, 'show'])->name('student.mark.view');
     Route::get('mark/get', [App\Http\Controllers\StudentRole\StudentController::class, 'getMark'])->name('student.mark.get');

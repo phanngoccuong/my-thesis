@@ -127,7 +127,7 @@
                     <span class="nav-text">Kế hoạch học tập</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('studentTimetable') }}">Thời khóa biểu</a></li>
+                    <li><a href="{{ route('student.timetable.search') }}">Thời khóa biểu</a></li>
                     <li><a href="{{ route('timetableDetails') }}">Các môn đang học</a></li>
                 </ul>
             </li>
@@ -146,7 +146,7 @@
                     <span class="nav-text">Học phí</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('course/list') }}">Thông tin công nợ học phí</a></li>
+                    <li><a href="">Thông tin công nợ học phí</a></li>
                 </ul>
             </li>
         </ul>

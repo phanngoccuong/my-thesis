@@ -87,7 +87,7 @@ class LoginController extends Controller
         if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 'Active'])) {
 
             DB::table('activity_logs')->insert($activityLog);
-            Toastr::success('Login successfully :)', 'Success');
+            Toastr::success('Đăng nhập thành công!!', 'Success');
             if (Auth::user()->role_name == 'Admin') {
                 return redirect()->route('home');
             }
@@ -137,7 +137,7 @@ class LoginController extends Controller
         ];
         DB::table('activity_logs')->insert($activityLog);
         Auth::logout();
-        Toastr::success('Logout successfully :)', 'Success');
+        Toastr::success('Đăng xuất thành công!!', 'Success');
         return redirect('login');
     }
 }
