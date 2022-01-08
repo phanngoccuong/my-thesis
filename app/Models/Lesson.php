@@ -31,4 +31,16 @@ class Lesson extends Model
     {
         return $this->belongsTo(Course::class, 'course_id');
     }
+    public function room()
+    {
+        return $this->belongsTo(Classroom::class, 'classroom_id');
+    }
+    public function day()
+    {
+        return $this->belongsTo(Day::class, 'day_id');
+    }
+    public function time()
+    {
+        return $this->belongsTo(Time::class, 'time_id');
+    }
 }

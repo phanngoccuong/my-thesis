@@ -27,7 +27,7 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $courses->id }}">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Môn học</label>
                                             <input type="text" class="form-control
@@ -40,7 +40,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                      <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Khối</label>
                                             <select class="form-control @error('group_id') is-invalid @enderror"
@@ -63,6 +63,24 @@
                                                         Khối 5</option>
                                             </select>
                                             @error('group_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Tính điểm</label>
+                                            <select class="form-control @error('is_point') is-invalid @enderror"
+                                             name="is_point" id="is_point">
+                                                <option selected disabled>Chọn</option>
+                                                    <option value="1"
+                                                    {{$courses->is_point == 1 ? 'selected':'' }}>Có</option>
+                                                    <option value="0"
+                                                    {{$courses->is_point == 0 ? 'selected':'' }}>Không</option>
+                                            </select>
+                                            @error('is_point')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

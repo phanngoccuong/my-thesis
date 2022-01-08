@@ -17,6 +17,7 @@ class CreateCoursesTable extends Migration
             $table->id();
             $table->string('course_name')->unique();
             $table->unsignedInteger('group_id');
+            $table->integer('is_point');
             $table->timestamps();
         });
     }

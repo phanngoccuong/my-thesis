@@ -10,6 +10,7 @@ class Course extends Model
     use HasFactory;
     protected $fillable = [
         'course_name',
-        'group_id'
+        'group_id',
+        'is_point'
     ];
 }

@@ -188,8 +188,8 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::get('/home', [App\Http\Controllers\TeacherRole\TeacherController::class, 'index'])->name('homeTeacher');
-    Route::get('/timetable', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showTimetable'])->name('teacher.timetable.show');
-    Route::get('/timetable/search', [App\Http\Controllers\TeacherRole\TeacherController::class, 'timetableSearch'])->name('teacher.timetable.search');
+    Route::get('/timetable', [App\Http\Controllers\TeacherRole\TimetableController::class, 'showTimetable'])->name('teacher.timetable.show');
+    Route::get('/timetable/search', [App\Http\Controllers\TeacherRole\TimetableController::class, 'timetableSearch'])->name('teacher.timetable.search');
     Route::get('/class/list', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showClass'])->name('teacher.class.list');
     Route::get('/all-class', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showAll'])->name('classAll');
     Route::get('/all-class/about/{id}', [App\Http\Controllers\TeacherRole\TeacherController::class, 'showClassDetail'])->name('classDetail');
@@ -206,6 +206,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     });
     Route::prefix('attendance')->group(function () {
         Route::get('/add', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'create'])->name('attendance.add');
+        Route::get('/getList', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getAttendanceStudent'])->name('attendance.list.get');
         Route::post('/save', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'store'])->name('attendance.store');
         Route::get('/details', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'show'])->name('attendance.details');
         Route::get('/get/date', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getDate'])->name('date.get');

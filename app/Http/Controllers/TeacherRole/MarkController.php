@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\TeacherRole;
 
 use App\Http\Controllers\Controller;
+use App\Models\Classes;
+use App\Models\Course;
+use App\Models\Semester;
 use App\Models\Student;
 use App\Models\StudentMarks;
 use Illuminate\Support\Facades\Auth;
@@ -13,21 +16,35 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class MarkController extends Controller
 {
-    public function search(Request $request)
+    public function create()
     {
-        $class_id = $request->class_id;
-        $datas = Student::where('class_id', '=', $class_id)->get();
-        return response()->json($datas);
+        $currentUserEmail = Auth::user()->email;
+        $info = Teacher::where('email', '=', $currentUserEmail)
+            ->first();
+        $teacher_id = $info->id;
+
+        $semesters = DB::table('lessons')
+            ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
+            ->where('teachers.id', '=', $teacher_id)
+            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+            ->select('semesters.*')
+            ->distinct()
+            ->get();
+
+        return view('RoleTeacher.mark_add_search', [
+            'title' => 'Nhập điểm học sinh',
+            'semesters' => $semesters,
+        ]);
     }
 
     public function getClass(Request $request)
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
-            ->get();
-        $teacher_id = $info[0]->id;
+            ->first();
+        $teacher_id = $info->id;
         $semester_id = $request->semester_id;
-        $datas =
+        $data =
             DB::table('lessons')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
             ->where('teachers.id', '=', $teacher_id)
@@ -40,17 +57,18 @@ class MarkController extends Controller
             ->distinct()
             ->orderBy('class_name', 'asc')
             ->get();
-        return response()->json($datas);
+        return response()->json($data);
     }
+
 
     public function getCourse(Request $request)
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
-            ->get();
-        $teacher_id = $info[0]->id;
+            ->first();
+        $teacher_id = $info->id;
         $class_id = $request->class_id;
-        $datas =
+        $data =
             DB::table('lessons')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
             ->where('teachers.id', '=', $teacher_id)
@@ -63,44 +81,34 @@ class MarkController extends Controller
             ->distinct()
             ->orderBy('course_name', 'asc')
             ->get();
-        return response()->json($datas);
+        return response()->json($data);
     }
 
-    public function create()
+    public function search(Request $request)
     {
-        $currentUserEmail = Auth::user()->email;
-        $info = Teacher::where('email', '=', $currentUserEmail)
+        $course_id = $request->course_id;
+        $class_id = $request->class_id;
+        $semester_id = $request->semester_id;
+        $data = DB::table('students')
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->where('promotions.class_id', '=', $class_id)
+            ->where('semesters.id', '=', $semester_id)
+            ->select('students.*')
+            ->orderBy('name', 'asc')
             ->get();
-        $teacher_id = $info[0]->id;
-
-        $semesters = DB::table('lessons')
-            ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
-            ->where('teachers.id', '=', $teacher_id)
-            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
-            ->select('semesters.*')
-            ->distinct()
-            ->get();
-
+        $semester = Semester::where('id', $semester_id)->first();
+        $class = Classes::where('id', $class_id)->first();
+        $course = Course::where('id', $course_id)->first();
         return view('RoleTeacher.mark_add', [
-            'title' => 'Nhập điểm học sinh',
-            'semesters' => $semesters,
+            'title' => 'Nhập điểm cho học sinh',
+            'data' => $data,
+            'course' => $course,
+            'class' => $class,
+            'semester' => $semester
         ]);
     }
 
-    protected function isValidMark(Request $request)
-    {
-        $studentMark = DB::table('student_marks')->get();
-        for ($i = 0; $i < count($request->student_id); $i++) {
-            if (
-                $request->student_id[$i] == $studentMark[$i]->student_id
-                && $request->semester_id == $studentMark[$i]->semester_id
-            ) {
-                Toastr::error('HSinh da co diem', 'Error');
-                return false;
-            }
-            return true;
-        }
-    }
 
     public function store(Request $request)
     {
@@ -111,10 +119,12 @@ class MarkController extends Controller
                 $marks = new StudentMarks();
                 $marks->student_id = $request->student_id[$i];
                 $marks->class_id = $request->class_id;
+                $marks->is_point = $request->is_point;
                 $marks->course_id = $request->course_id;
                 $marks->semester_id = $request->semester_id;
                 $marks->half_mark = $request->half_mark[$i];
                 $marks->final_mark = $request->final_mark[$i];
+                $marks->result = $request->result[$i];
                 $marks->save();
             }
             Toastr::success('Nhập điểm thành công!!', 'Success');
@@ -126,8 +136,8 @@ class MarkController extends Controller
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
-            ->get();
-        $teacher_id = $info[0]->id;
+            ->first();
+        $teacher_id = $info->id;
 
         $semesters = DB::table('lessons')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
@@ -137,7 +147,7 @@ class MarkController extends Controller
             ->distinct()
             ->get();
 
-        return view('RoleTeacher.mark_edit', [
+        return view('RoleTeacher.mark_edit_search', [
             'title' => 'Xem điểm học sinh',
             'semesters' => $semesters,
         ]);
@@ -148,12 +158,21 @@ class MarkController extends Controller
         $class_id = $request->class_id;
         $course_id = $request->course_id;
         $semester_id = $request->semester_id;
+        $semester = Semester::where('id', $semester_id)->first();
+        $class = Classes::where('id', $class_id)->first();
+        $course = Course::where('id', $course_id)->first();
         $data = StudentMarks::with('student')
             ->where('class_id', '=', $class_id)
             ->where('semester_id', '=', $semester_id)
             ->where('course_id', '=', $course_id)
             ->get();
-        return response()->json($data);
+        return view('RoleTeacher.mark_edit_list', [
+            'title' => 'Kết quả học sinh',
+            'data' => $data,
+            'semester' => $semester,
+            'course' => $course,
+            'class' => $class
+        ]);
     }
 
     public function update(Request $request)
@@ -171,8 +190,10 @@ class MarkController extends Controller
                 $marks->class_id = $request->class_id;
                 $marks->course_id = $request->course_id;
                 $marks->semester_id = $request->semester_id;
+                $marks->is_point = $request->is_point;
                 $marks->half_mark = $request->half_mark[$i];
                 $marks->final_mark = $request->final_mark[$i];
+                $marks->result = $request->result[$i];
                 $marks->save();
             }
             Toastr::success('Sửa điểm thành công!!', 'Success');

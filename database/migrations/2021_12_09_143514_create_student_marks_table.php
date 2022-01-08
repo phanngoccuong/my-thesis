@@ -13,11 +13,13 @@ class CreateStudentMarksTable extends Migration
         Schema::create('student_marks', function (Blueprint $table) {
             $table->id();
             $table->integer('student_id');
-            $table->integer('class_id')->nullable();
-            $table->integer('course_id')->nullable();
-            $table->integer('semester_id')->nullable();
+            $table->integer('class_id');
+            $table->integer('course_id');
+            $table->integer('semester_id');
+            $table->integer('is_point');
             $table->double('half_mark')->nullable();
             $table->double('final_mark')->nullable();
+            $table->integer('result')->nullable();
             $table->timestamps();
         });
     }

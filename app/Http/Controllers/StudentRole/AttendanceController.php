@@ -3,24 +3,22 @@
 namespace App\Http\Controllers\StudentRole;
 
 use App\Http\Controllers\Controller;
+use App\Models\Course;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Student;
 use Illuminate\Support\Facades\DB;
 use App\Models\StudentAttendances;
+use App\Models\Semester;
 
 class AttendanceController extends Controller
 {
     public function showAttendance()
     {
         $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $id = $studentInfo[0]->id;
-
-        $semesters = DB::table('student_attendances')
-            ->where('student_id', '=', $id)
-            ->join('semesters', 'semesters.id', '=', 'student_attendances.semester_id')
+        $semesters = Student::where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
             ->select('semesters.*')
             ->distinct()
             ->get();
@@ -34,39 +32,42 @@ class AttendanceController extends Controller
     {
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $student_id = $studentInfo[0]->id;
-        $course = $request->course_id;
-        $semester = $request->semester_id;
+            ->first();
+        $student_id = $studentInfo->id;
+        $course_id = $request->course_id;
+        $course = Course::where('id', $course_id)->first();
+        $semester_id = $request->semester_id;
+        $semester = Semester::where('id', $semester_id)->first();
         $datas = StudentAttendances::with('student', 'course', 'classes', 'semester')
-            ->where('semester_id', '=', $semester)
-            ->where('course_id', '=', $course)
+            ->where('semester_id', '=', $semester_id)
+            ->where('course_id', '=', $course_id)
             ->where('student_id', '=', $student_id)
-            ->orderBy('date', 'asc')
-            ->paginate(10);
+            ->orderBy('date', 'asc')->get();
 
         return view('RoleStudent.student_attendance_view_details', [
             'title' => 'Thông tin điểm danh',
-            'datas' => $datas
+            'datas' => $datas,
+            'semester' => $semester,
+            'course' => $course
         ]);
     }
 
     public function getCourse(Request $request)
     {
         $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
 
         $semester_id = $request->semester_id;
-        $datas = DB::table('student_attendances')
+        $class = DB::table('students')->where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->where('semesters.id', '=', $semester_id)
+            ->select('promotions.class_id')
+            ->first();
+        $data = DB::table('lessons')
             ->where('semester_id', '=', $semester_id)
-            ->join('courses', 'courses.id', '=', 'student_attendances.course_id')
-            ->select(
-                'courses.*',
-            )
-            ->distinct()
-            ->orderBy('course_name', 'asc')
+            ->where('class_id', '=', $class->class_id)
+            ->join('courses', 'courses.id', '=', 'lessons.course_id')
             ->get();
-        return response()->json($datas);
+        return response()->json($data);
     }
 }

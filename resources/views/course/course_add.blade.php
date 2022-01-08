@@ -27,7 +27,7 @@
                             <form action="{{ route('course/save') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Môn học</label>
                                             <input type="text" class="form-control @error('course_name') is-invalid @enderror"
@@ -39,7 +39,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                     <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Khối</label>
                                             <select class="form-control @error('group_id') is-invalid @enderror"
@@ -52,6 +52,23 @@
                                                     <option value="5">Khối 5</option>
                                             </select>
                                             @error('group_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Tính điểm</label>
+                                            <select class="form-control @error('is_point') is-invalid @enderror"
+                                             name="is_point" id="is_point">
+                                                <option selected disabled>Chọn</option>
+                                                    <option value="1">Có</option>
+                                                    <option value="0">Không</option>
+                                            </select>
+                                            @error('is_point')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

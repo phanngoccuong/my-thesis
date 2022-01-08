@@ -13,7 +13,7 @@
                         <label class="form-label">Kì học</label>
                         <select class="form-control"
                             name="semester_id" id="semester_id">
-                            <option selected disabled>{{ $datas[0]->semester->semester_name }}</option>
+                            <option selected disabled>{{ $semester->semester_name }}</option>
                         </select>
                     </div>
                 </div>
@@ -24,7 +24,7 @@
                         <label class="form-label">Môn học</label>
                         <select class="form-control"
                             name="course_id" id="course_id">
-                            <option  selected disabled>{{ $datas[0]->course->course_name }}</option>
+                            <option  selected disabled>{{ $course->course_name }}</option>
                         </select>
                     </div>
                 </div>
@@ -68,9 +68,6 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="float-right">
-                                            {{ $datas->links('pagination::bootstrap-4') }}
-                                        </div>
                                     </div>
                                 </div>
                             </div>

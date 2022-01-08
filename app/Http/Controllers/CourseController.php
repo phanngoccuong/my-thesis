@@ -30,11 +30,13 @@ class CourseController extends Controller
     {
         $request->validate([
             'course_name' => 'required|string|max:255',
-            'group_id' => 'required|integer'
+            'group_id' => 'required|integer',
+            'is_point' => 'required|integer'
         ]);
         $courses = new Course;
         $courses->course_name = $request->course_name;
         $courses->group_id = $request->group_id;
+        $courses->is_point = $request->is_point;
         $courses->save();
 
         Toastr::success('Thêm môn học thành công!!', 'Success');
@@ -56,13 +58,14 @@ class CourseController extends Controller
         $id = $request->id;
         $course_name = $request->course_name;
         $group_id = $request->group_id;
+        $is_point = $request->is_point;
 
 
         $update = [
             'id' => $id,
             'course_name' => $course_name,
-            'group_id' => $group_id
-
+            'group_id' => $group_id,
+            'is_point' => $is_point
         ];
         Course::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật môn học thành công!!', 'Success');

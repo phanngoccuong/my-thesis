@@ -16,8 +16,8 @@ class AttendanceController extends Controller
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
-            ->get();
-        $teacher_id = $info[0]->id;
+            ->first();
+        $teacher_id = $info->id;
 
         $semesters = DB::table('lessons')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
@@ -31,6 +31,21 @@ class AttendanceController extends Controller
             'title' => 'Điểm danh',
             'semesters' => $semesters,
         ]);
+    }
+
+    public function getAttendanceStudent(Request $request)
+    {
+        $class_id = $request->class_id;
+        $semester_id = $request->semester_id;
+        $data = DB::table('students')
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->where('promotions.class_id', '=', $class_id)
+            ->where('semesters.id', '=', $semester_id)
+            ->select('students.*')
+            ->orderBy('name', 'asc')
+            ->get();
+        return response()->json($data);
     }
 
     public function store(Request $request)
@@ -57,8 +72,8 @@ class AttendanceController extends Controller
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
-            ->get();
-        $teacher_id = $info[0]->id;
+            ->first();
+        $teacher_id = $info->id;
 
         $semesters = DB::table('lessons')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Services\TimetableService;
 use App\Models\Day;
 
+
 class TimetableController extends Controller
 {
     public function searchTimetable()
@@ -19,8 +20,8 @@ class TimetableController extends Controller
             ->join('promotions', 'promotions.student_id', '=', 'students.id')
             ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
             ->select('semesters.*')
+            ->distinct()
             ->get();
-
 
         return view('RoleStudent.student_timetable_search', [
             'title' => 'Thời khóa biểu',
@@ -34,18 +35,19 @@ class TimetableController extends Controller
         $currentUserEmail = Auth::user()->email;
 
         $semester_id = $request->semester_id;
-        $class_id = DB::table('students')->where('email', '=', $currentUserEmail)
+        $class = DB::table('students')->where('email', '=', $currentUserEmail)
             ->join('promotions', 'promotions.student_id', '=', 'students.id')
             ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
             ->where('semesters.id', '=', $semester_id)
-            ->select('promotions.class_id')
+            ->select('promotions.class_id', 'semesters.semester_name')
             ->first();
 
-        $timetableData = $timetableService->generateTimetable($days, $class_id, $semester_id);
+        $timetableData = $timetableService->generateTimetable($days, $class, $semester_id);
 
         return view('RoleStudent.student_timetable', [
             'title' => 'Thời khóa biểu',
             'days' => $days,
+            'class' => $class,
             'timetableData' => $timetableData
         ]);
     }
@@ -54,13 +56,17 @@ class TimetableController extends Controller
     public function timetableDetails(Request $request)
     {
         $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $class_id = $studentInfo[0]->class_id;
-        $semesterRequest = $request->semester_id;
+
+        $semester_id = $request->semester_id;
+        $class = DB::table('students')->where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->where('semesters.id', '=', $semester_id)
+            ->select('promotions.class_id')
+            ->first();
         $data = DB::table('lessons')
-            ->where('semester_id', '=', $semesterRequest)
-            ->where('class_id', '=', $class_id)
+            ->where('semester_id', '=', $semester_id)
+            ->where('class_id', '=', $class->class_id)
             ->join('courses', 'courses.id', '=', 'lessons.course_id')
             ->join('times', 'times.id', '=', 'lessons.time_id')
             ->join('days', 'days.id', '=', 'lessons.day_id')
@@ -78,22 +84,19 @@ class TimetableController extends Controller
         return response()->json($data);
     }
 
-    // public function timetableDetailsIndex()
-    // {
-    //     $currentUserEmail = Auth::user()->email;
-    //     $studentInfo = Student::where('email', '=', $currentUserEmail)
-    //         ->get();
-    //     $class_id = $studentInfo[0]->class_id;
-    //     $semesters = DB::table('lessons')
-    //         ->where('class_id', '=', $class_id)
-    //         ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
-    //         ->select('semesters.*')
-    //         ->distinct()
-    //         ->get();
+    public function timetableDetailsIndex()
+    {
 
-    //     return view('RoleStudent.timetable-details', [
-    //         'title' => 'Thời khóa biểu chi tiết',
-    //         'semesters' => $semesters
-    //     ]);
-    // }
+        $currentUserEmail = Auth::user()->email;
+        $semesters = Student::where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->select('semesters.*')
+            ->distinct()
+            ->get();
+        return view('RoleStudent.timetable-details', [
+            'title' => 'Thời khóa biểu chi tiết',
+            'semesters' => $semesters
+        ]);
+    }
 }

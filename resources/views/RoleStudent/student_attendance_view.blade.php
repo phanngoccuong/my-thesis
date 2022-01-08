@@ -10,33 +10,24 @@
                     <div class="col-lg-2">
                         <div class="form-group">
                             <label class="form-label">Kì học</label>
-                            <select class="form-control @error('semester_id') is-invalid @enderror"
+                            <select class="form-control"
                                 name="semester_id" id="semester_id">
                                 <option selected disabled>Chọn kì</option>
                                 @foreach ($semesters as $semester)
                                     <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                                 @endforeach
                             </select>
-                            @error('semester_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+
                         </div>
                     </div>
 
                     <div class="col-lg-2">
                         <div class="form-group">
                             <label class="form-label">Môn học</label>
-                            <select class="form-control @error('course_id') is-invalid @enderror"
+                            <select class="form-control"
                                 name="course_id" id="course_id">
                                 <option>Chọn môn</option>
                             </select>
-                            @error('course_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
                         </div>
                     </div>
 

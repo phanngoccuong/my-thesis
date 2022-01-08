@@ -4,7 +4,7 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
-            <form action="{{ route('mark.save') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('mark.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row page-titles mx-0">
                     <div class="col-lg-2">
@@ -63,16 +63,18 @@
                                                 <tbody>
                                                     @foreach ($data as $student)
                                                         <tr>
-                                                            <input type="hidden" name="student_id[]" value="{{ $student->id }}">
-                                                            <td>{{ $student->id }}</td>
-                                                            <td>{{ $student->name }}</td>
-                                                            <td>{{ $student->dateOfBirth }}</td>
-                                                            <td>{{ $student->email }}</td>
+                                                            <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
+                                                            <td>{{ $student->student_id }}</td>
+                                                            <td>{{ $student->student->name }}</td>
+                                                            <td>{{ $student->student->dateOfBirth }}</td>
+                                                            <td>{{ $student->student->email }}</td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="half_mark[]">
+                                                                <input type="text" class="form-control"
+                                                                name="half_mark[]" value="{{ $student->half_mark  }}">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="final_mark[]">
+                                                                <input type="text" class="form-control"
+                                                                name="final_mark[]" value="{{ $student->final_mark }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -90,16 +92,19 @@
                                                 <tbody>
                                                     @foreach ($data as $student)
                                                         <tr>
-                                                             <input type="hidden" name="student_id[]" value="{{ $student->id }}">
-                                                            <td>{{ $student->id }}</td>
-                                                            <td>{{ $student->name }}</td>
-                                                            <td>{{ $student->dateOfBirth }}</td>
-                                                            <td>{{ $student->email }}</td>
+                                                             <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
+                                                            <td>{{ $student->student_id }}</td>
+                                                            <td>{{ $student->student->name }}</td>
+                                                            <td>{{ $student->student->dateOfBirth }}</td>
+                                                            <td>{{ $student->student->email }}</td>
                                                             <td>
                                                                 <select class="form-control" name="result[]">
                                                                     <option selected disabled>Chọn</option>
-                                                                    <option value="1">Đạt</option>
-                                                                    <option value="0">Không Đạt</option>
+                                                                    <option value="1"
+                                                                    {{ $student->result == 1 ? "selected": "" }}>Đạt</option>
+                                                                    <option value="0"
+                                                                    {{ $student->result == 0 ? "selected": "" }}
+                                                                    >Không Đạt</option>
                                                                 </select>
                                                             </td>
                                                         </tr>
@@ -108,7 +113,7 @@
                                                 @endif
                                             </table>
                                             <div class="col-lg-7">
-                                                <button type="submit" class="btn btn-primary">Nhập</button>
+                                                <button type="submit" class="btn btn-primary">Sửa</button>
                                             </div>
                                         </div>
                                     </div>
@@ -120,5 +125,4 @@
             </div>
         </form>
     </div>
-
 @endsection

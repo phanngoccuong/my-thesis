@@ -8,13 +8,13 @@ use App\Models\Time;
 
 class TimetableService
 {
-    public function generateTimetable($days, $class_id, $semester_id)
+    public function generateTimetable($days, $class, $semester_id)
     {
         $calendarData = [];
 
         $lessons = Lesson::with('course')
             ->where('semester_id', '=', $semester_id)
-            ->where('class_id', '=', $class_id->class_id)
+            ->where('class_id', '=', $class->class_id)
             ->get();
         $times = Time::all();
         foreach ($times as $time) {
