@@ -30,9 +30,11 @@ class CourseController extends Controller
     {
         $request->validate([
             'course_name' => 'required|string|max:255',
+            'group_id' => 'required|integer'
         ]);
         $courses = new Course;
         $courses->course_name = $request->course_name;
+        $courses->group_id = $request->group_id;
         $courses->save();
 
         Toastr::success('Thêm môn học thành công!!', 'Success');
@@ -41,7 +43,7 @@ class CourseController extends Controller
 
     public function edit($id)
     {
-        $courses = DB::table('courses')->where('id', $id)->get();
+        $courses = DB::table('courses')->where('id', $id)->first();
 
         return view('course.course_edit',  [
             'title' => 'Chỉnh sửa môn học',
@@ -53,11 +55,13 @@ class CourseController extends Controller
     {
         $id = $request->id;
         $course_name = $request->course_name;
+        $group_id = $request->group_id;
 
 
         $update = [
             'id' => $id,
             'course_name' => $course_name,
+            'group_id' => $group_id
 
         ];
         Course::where('id', $request->id)->update($update);

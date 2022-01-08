@@ -37,9 +37,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Ảnh</th>
                                                     <th>Họ và tên</th>
-                                                    <th>Lớp</th>
                                                     <th>Địa chỉ</th>
                                                     <th>Ngày sinh</th>
                                                     <th>Action</th>
@@ -49,20 +47,19 @@
                                                 @foreach ($studentShow as $key => $student )
                                                 <tr>
                                                     <td><strong>{{ ++$key }}</strong></td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <img class="rounded-circle" width="35"
                                                         src="{{ URL::to('/images/'. $student->upload) }}" alt="{{ $student->upload }}">
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $student->name }}</td>
-                                                    <td>{{ $student->classes->class_name }}</td>
                                                     <td>{{ $student->address }}</td>
                                                     <td>{{ $student->dateOfBirth }}</td>
                                                     <td>
                                                         <a href="{{ url('admin/student/edit/'.$student->id) }}"
-                                                            class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                            class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/student/delete/'.$student->id) }}"
                                                             onclick="return confirm('Are you sure to want to delete it?')">
-                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
+                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

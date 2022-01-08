@@ -39,6 +39,25 @@
                                             @enderror
                                         </div>
                                     </div>
+                                     <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="form-label">Khối</label>
+                                            <select class="form-control @error('group_id') is-invalid @enderror"
+                                             name="group_id" id="group_id">
+                                                <option selected disabled>Chọn</option>
+                                                    <option value="1">Khối 1</option>
+                                                    <option value="2">Khối 2</option>
+                                                    <option value="3">Khối 3</option>
+                                                    <option value="4">Khối 4</option>
+                                                    <option value="5">Khối 5</option>
+                                            </select>
+                                            @error('group_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
 
 
                                     <div class="col-lg-12">

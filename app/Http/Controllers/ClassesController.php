@@ -16,17 +16,32 @@ class ClassesController extends Controller
 {
     public function index()
     {
-        $classShow = Classes::with('formTeacher')
+        $class1s = Classes::where('group_id', '=', 1)
+            ->orderBy('class_name', 'asc')
+            ->paginate(10);
+        $class2s = Classes::where('group_id', '=', 2)
+            ->orderBy('class_name', 'asc')
+            ->paginate(10);
+        $class3s = Classes::where('group_id', '=', 3)
+            ->orderBy('class_name', 'asc')
+            ->paginate(10);
+        $class4s = Classes::where('group_id', '=', 4)
+            ->orderBy('class_name', 'asc')
+            ->paginate(10);
+        $class5s = Classes::where('group_id', '=', 5)
             ->orderBy('class_name', 'asc')
             ->paginate(10);
         return view('classes.classes_all', [
             'title' => 'Quản lý lớp',
-            'classShow' => $classShow
+            'class1s' => $class1s,
+            'class2s' => $class2s,
+            'class3s' => $class3s,
+            'class4s' => $class4s,
+            'class5s' => $class5s
         ]);
     }
 
     public function create()
-
     {
         $teachers = Teacher::all();
         return view('classes.classes_add', [
@@ -38,10 +53,11 @@ class ClassesController extends Controller
     {
         $request->validate([
             'class_name' => 'required|string|max:255',
+            'group_id' => 'required|integer'
         ]);
         $classes = new Classes;
         $classes->class_name = $request->class_name;
-        $classes->formteacher_id = $request->formteacher_id;
+        $classes->group_id = $request->group_id;
         $classes->save();
 
         Toastr::success('Thêm lớp thành công!!', 'Success');
@@ -50,12 +66,11 @@ class ClassesController extends Controller
 
     public function edit($id)
     {
-        $teachers = Teacher::all();
-        $classes = DB::table('classes')->where('id', $id)->get();
+
+        $classes = DB::table('classes')->where('id', $id)->first();
         return view('classes.classes_edit', [
             'title' => 'Chỉnh sửa lớp',
             'classes' => $classes,
-            'teachers' => $teachers
         ]);
     }
 
@@ -63,10 +78,12 @@ class ClassesController extends Controller
     {
         $id = $request->id;
         $class_name = $request->class_name;
+        $group_id = $request->group_id;
 
         $update = [
             'id' => $id,
-            'class_name' => $class_name
+            'class_name' => $class_name,
+            'group_id' => $group_id
         ];
         Classes::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật lớp thành công!!', 'Success');
@@ -81,77 +98,32 @@ class ClassesController extends Controller
         return redirect()->route('classes/list');
     }
 
-    public function show($id)
-    {
-        $classStudents = DB::table('classes')
-            ->join('students', 'students.class_id', '=', 'classes.id')
-            ->where('classes.id', '=', $id)
-            ->select('students.*', 'classes.class_name')
-            ->orderBy('name', 'asc')
-            ->paginate(10);
-        $classes = Classes::with('formTeacher')
-            ->find($id);
-        $totalStudent = Student::where('class_id', '=', $id)->count();
-        $maleTotal =
-            Student::where('class_id', '=', $id)
-            ->where('gender', '=', 1)
-            ->count();
-        $femaleTotal =
-            Student::where('class_id', '=', $id)
-            ->where('gender', '=', 2)
-            ->count();
-        return view('classes.classes_about', [
-            'title' => 'Thông tin lớp',
-            'classStudents' => $classStudents,
-            'classes' => $classes,
-            'totalStudent' => $totalStudent,
-            'maleTotal' => $maleTotal,
-            'femaleTotal' => $femaleTotal
-        ]);
-    }
-
-    public function showTimetable($id)
-    {
-        $days = Day::all();
-        $shift1s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $id)
-            ->where('times.time', '=', '7h20-8h05')
-            ->select('courses.course_name')
-            ->get();
-        $shift2s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $id)
-            ->where('times.time', '=', '8h15-9h00')
-            ->select('courses.course_name')
-            ->get();
-        $shift3s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $id)
-            ->where('times.time', '=', '9h20-10h05')
-            ->select('courses.course_name')
-            ->get();
-        $shift4s = DB::table('classes')
-            ->join('lessons', 'lessons.class_id', '=', 'classes.id')
-            ->join('courses', 'courses.id', '=', 'lessons.course_id')
-            ->join('times', 'times.id', '=', 'lessons.time_id')
-            ->where('classes.id', '=', $id)
-            ->where('times.time', '=', '10h15-11h00')
-            ->select('courses.course_name')
-            ->get();
-        return view('classes.classes_timetable', [
-            'title' => 'Thời khóa biểu lớp',
-            'days' => $days,
-            'shift1s' => $shift1s,
-            'shift2s' => $shift2s,
-            'shift3s' => $shift3s,
-            'shift4s' => $shift4s,
-        ]);
-    }
+    // public function show($id)
+    // {
+    //     $classStudents = DB::table('classes')
+    //         ->join('students', 'students.class_id', '=', 'classes.id')
+    //         ->where('classes.id', '=', $id)
+    //         ->select('students.*', 'classes.class_name')
+    //         ->orderBy('name', 'asc')
+    //         ->paginate(10);
+    //     $classes = Classes::with('formTeacher')
+    //         ->find($id);
+    //     $totalStudent = Student::where('class_id', '=', $id)->count();
+    //     $maleTotal =
+    //         Student::where('class_id', '=', $id)
+    //         ->where('gender', '=', 1)
+    //         ->count();
+    //     $femaleTotal =
+    //         Student::where('class_id', '=', $id)
+    //         ->where('gender', '=', 2)
+    //         ->count();
+    //     return view('classes.classes_about', [
+    //         'title' => 'Thông tin lớp',
+    //         'classStudents' => $classStudents,
+    //         'classes' => $classes,
+    //         'totalStudent' => $totalStudent,
+    //         'maleTotal' => $maleTotal,
+    //         'femaleTotal' => $femaleTotal
+    //     ]);
+    // }
 }

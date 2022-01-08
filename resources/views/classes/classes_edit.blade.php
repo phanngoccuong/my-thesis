@@ -25,14 +25,14 @@
                         <div class="card-body">
                             <form action="{{ route('classes/update') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $classes[0]->id }}">
+                                <input type="hidden" name="id" value="{{ $classes->id }}">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
                                             <label class="form-label">Tên lớp</label>
                                             <input type="text" class="form-control
                                             @error('class_name') is-invalid @enderror"
-                                            value="{{ $classes[0]->class_name }}" name="class_name" id="class_name">
+                                            value="{{ $classes->class_name }}" name="class_name" id="class_name">
                                             @error('class_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -43,18 +43,27 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                            <label class="form-label">Giáo viên chủ nhiệm</label>
-                                            <select class="form-control @error('formteacher_id') is-invalid @enderror"
-                                             name="formteacher_id" id="formteacher_id">
+                                            <label class="form-label">Khối</label>
+                                            <select class="form-control @error('group_id') is-invalid @enderror"
+                                             name="group_id" id="group_id">
                                                 <option selected disabled>Chọn</option>
-                                                @foreach ($teachers as $teacher)
-                                                    <option value="{{ $teacher->id }}"
-                                                        {{ $teacher->id == $classes[0]->formteacher_id ? 'selected':''}}>
-                                                        {{ $teacher->teacher_name }}</option>
-                                                @endforeach
-
+                                                    <option value="1"
+                                                        {{ $classes->id == 1 ? 'selected':''}}>
+                                                        Khối 1</option>
+                                                        <option value="2"
+                                                        {{ $classes->id == 2 ? 'selected':''}}>
+                                                        Khối 2</option>
+                                                        <option value="3"
+                                                        {{ $classes->id == 3 ? 'selected':''}}>
+                                                        Khối 3</option>
+                                                        <option value="4"
+                                                        {{ $classes->id == 4 ? 'selected':''}}>
+                                                        Khối 4</option>
+                                                        <option value="5"
+                                                        {{ $classes->id == 5 ? 'selected':''}}>
+                                                        Khối 5</option>
                                             </select>
-                                            @error('formteacher_id')
+                                            @error('group_id')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -62,7 +71,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                                         <button type="button" class="btn btn-light"><a href="{{ route('classes/list') }}">Trở lại</a></button>
                                     </div>

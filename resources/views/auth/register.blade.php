@@ -8,7 +8,7 @@
                         <div class="row no-gutters">
                             <div class="col-xl-12">
                                 <div class="auth-form">
-                                    <h4 class="text-center mb-4">Sign up your account</h4>
+                                    <h4 class="text-center mb-4">Đăng kí tài khoản</h4>
                                     <form method="POST" action="{{ route('register') }}">
                                         @csrf
                                         <div class="form-group">
@@ -33,9 +33,9 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label><strong>Role Name</strong></label>
+                                            <label><strong>Vai trò</strong></label>
                                             <select class="form-control @error('role_name') is-invalid @enderror" name="role_name" id="role_name">
-                                                <option selected disabled>Select Role Name</option>
+                                                <option selected disabled>Chọn</option>
                                                 <option value="Admin">Admin</option>
                                                 <option value="Student">Học sinh</option>
                                                 <option value="Teacher">Giáo viên</option>
@@ -47,7 +47,7 @@
                                         @enderror
                                     </div>
                                         <div class="form-group">
-                                            <label><strong>Password</strong></label>
+                                            <label><strong>Mật khẩu</strong></label>
                                             <input type="password" class="form-control @error('password') is-invalid @enderror" name="password" placeholder="Enter Password">
                                             @error('password')
                                                 <span class="invalid-feedback" role="alert">
@@ -56,15 +56,15 @@
                                             @enderror
                                         </div>
                                         <div class="form-group">
-                                            <label><strong>Confirm Password</strong></label>
+                                            <label><strong>Xác nhận mật khẩu</strong></label>
                                             <input type="password" class="form-control" name="password_confirmation" placeholder="Choose Confirm Password">
                                         </div>
                                         <div class="text-center mt-4">
-                                            <button type="submit" class="btn btn-primary btn-block">Sign me up</button>
+                                            <button type="submit" class="btn btn-primary btn-block">Đăng kí</button>
                                         </div>
                                     </form>
                                     <div class="new-account mt-3">
-                                        <p>Already have an account? <a class="text-primary" href="{{ route('login') }}">Sign in</a></p>
+                                        <p>Đã có tài khoản? <a class="text-primary" href="{{ route('login') }}">Đăng nhập</a></p>
                                     </div>
                                 </div>
                             </div>

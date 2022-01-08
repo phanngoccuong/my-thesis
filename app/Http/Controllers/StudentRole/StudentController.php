@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\StudentRole;
 
 use App\Http\Controllers\Controller;
-
+use App\Models\Semester;
 use App\Models\Student;
-
+use App\Services\PromotionService;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -18,32 +18,22 @@ class StudentController extends Controller
         ]);
     }
 
-    public function showProfile()
+    public function showProfile(PromotionService $promotionService)
     {
         $currentUserEmail = Auth::user()->email;
+        $currentYear = $promotionService->getLatestSession();
+        $currentYearId = $currentYear['id'];
         $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->with('classes', 'batches')
-            ->get();
-        //dd($studentInfo);
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->where('promotions.session_id', $currentYearId)
+            ->with('batches')
+            ->join('classes', 'classes.id', '=', 'promotions.class_id')
+            ->select('classes.class_name', 'students.*')
+            ->first();
+        // dd($studentInfo);
         return view('RoleStudent.student_profile', [
             'title' => 'Student Profile',
             'studentInfo' => $studentInfo
-        ]);
-    }
-
-    public function showClassInfo()
-    {
-        $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $class_id = $studentInfo[0]->class_id;
-        $classAllInfo = Student::join('classes', 'students.class_id', '=', 'classes.id')
-            ->where('classes.id', '=', $class_id)
-            ->select('classes.class_name', 'classes.formteacher_id', 'students.*')
-            ->get();
-        return view('RoleStudent.student_class', [
-            'title' => 'Student Class Info',
-            'classAllInfo' => $classAllInfo
         ]);
     }
 }

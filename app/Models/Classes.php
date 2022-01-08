@@ -10,12 +10,9 @@ class Classes extends Model
     use HasFactory;
     protected $fillable = [
         'class_name',
-        'formteacher_id'
+        'group_id'
     ];
-    public function formTeacher()
-    {
-        return  $this->hasOne(Teacher::class, 'id', 'formteacher_id');
-    }
+
     public function classLessons()
     {
         return $this->hasMany(Lesson::class, 'class_id', 'id');

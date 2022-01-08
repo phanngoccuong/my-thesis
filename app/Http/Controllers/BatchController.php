@@ -13,14 +13,14 @@ class BatchController extends Controller
     {
         $batchShow = DB::table('batches')->get();
         return view('batches.batch_all', compact('batchShow'), [
-            'title' => 'Batch Dashboard'
+            'title' => 'Quản lý niên khóa'
         ]);
     }
 
     public function create()
     {
         return view('batches.batch_add', [
-            'title' => 'Batch Add'
+            'title' => 'Thêm niên khóa'
         ]);
     }
     public function store(Request $request)
@@ -32,7 +32,7 @@ class BatchController extends Controller
         $batches->batch_name = $request->batch_name;
         $batches->save();
 
-        Toastr::success('Batch add successfully!!', 'Success');
+        Toastr::success('Thêm thành công!!', 'Success');
         return redirect()->route('batch/list');
     }
 
@@ -40,7 +40,7 @@ class BatchController extends Controller
     {
         $batches = DB::table('batches')->where('id', $id)->get();
         return view('batches.batch_edit', compact('batches'), [
-            'title' => 'Batch Edit'
+            'title' => 'Chỉnh sửa niên khóa'
         ]);
     }
 
@@ -54,7 +54,7 @@ class BatchController extends Controller
             'batch_name' => $batch_name
         ];
         Batch::where('id', $request->id)->update($update);
-        Toastr::success('Batch updated successfully!!', 'Success');
+        Toastr::success('Cập nhật thành công!!', 'Success');
         return redirect()->route('batch/list');
     }
 
@@ -62,7 +62,7 @@ class BatchController extends Controller
     {
         $delete = Batch::find($id);
         $delete->delete();
-        Toastr::success('Batch deleted successfully!!', 'Success');
+        Toastr::success('Xóa thành công!!', 'Success');
         return redirect()->route('batch/list');
     }
 }

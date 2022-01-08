@@ -188,7 +188,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    {{-- <div class="col-lg-12 col-md-12 col-sm-12">
                                         <label class="form-label">Ảnh</label>
                                         <div class="form-group fallback w-100">
                                             <input type="file" class="dropify @error('upload') is-invalid @enderror"
@@ -199,10 +199,11 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
+                                    <input type="hidden" name="session_id" value="{{$currentYearSession_id}}">
                                     <div class="col-lg-12 col-md-12 col-sm-12">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
-                                        <button type="submit" class="btn btn-light">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Thêm</button>
+                                        <button type="submit" class="btn btn-light">Hủy</button>
                                     </div>
                                 </div>
                             </form>

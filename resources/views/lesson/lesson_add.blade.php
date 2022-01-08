@@ -3,7 +3,6 @@
 @section('content')
     @include('sidebar.sidebar')
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
@@ -151,7 +150,6 @@
                                                 @foreach ($semesters as $semester)
                                                     <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                                                 @endforeach
-
                                             </select>
                                             @error('semester_id')
                                                 <span class="invalid-feedback" role="alert">

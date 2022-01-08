@@ -27,7 +27,7 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $semesters[0]->id }}">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Kì học</label>
                                             <input type="text" class="form-control
@@ -41,6 +41,30 @@
                                         </div>
                                     </div>
 
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Thời gian bắt đầu</label>
+                                            <input type="text" class="form-control datepicker @error('start_date') is-invalid @enderror"
+                                            value="{{ $semesters[0]->start_date }}" name="start_date" id="start_date">
+                                            @error('start_date')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label class="form-label">Thời gian kết thúc</label>
+                                            <input type="text" class="form-control datepicker @error('end_date') is-invalid @enderror"
+                                            value="{{  $semesters[0]->end_date }}" name="end_date" id="end_date">
+                                            @error('end_date')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
                                     <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                                         <button type="button" class="btn btn-light"><a href="{{ route('semester/list') }}">Trở lại</a></button>

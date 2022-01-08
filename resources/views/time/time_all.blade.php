@@ -47,10 +47,10 @@
                                                     <td>{{ $time->time }}</td>
                                                     <td>
                                                         <a href="{{ url('admin/time/edit/'.$time->id) }}"
-                                                             class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                             class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/time/delete/'.$time->id) }}"
                                                             onclick="return confirm('Are you sure to want to delete it?')">
-                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
+                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

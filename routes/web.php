@@ -73,7 +73,13 @@ Route::group(
         // ----------------------------- form change password ------------------------------//
         Route::get('change/password', [App\Http\Controllers\UserManagementController::class, 'changePasswordView'])->middleware('auth')->name('change/password');
         Route::post('change/password/db', [App\Http\Controllers\UserManagementController::class, 'changePasswordDB'])->name('change/password/db');
-
+        //  Session //
+        Route::get('session/list', [App\Http\Controllers\YearSessionController::class, 'index'])->name('session.list');
+        Route::get('session/add', [App\Http\Controllers\YearSessionController::class, 'create'])->name('session.add');
+        Route::post('session/save', [App\Http\Controllers\YearSessionController::class, 'store'])->name('session.save');
+        Route::get('session/edit/{id}', [App\Http\Controllers\YearSessionController::class, 'edit'])->name('session.edit');
+        Route::post('session/update', [App\Http\Controllers\YearSessionController::class, 'update'])->name('session.update');
+        Route::get('session/delete/{id}', [App\Http\Controllers\YearSessionController::class, 'delete'])->name('session.delete');
         // ----------------------------- student ------------------------------//
         Route::get('student/list', [App\Http\Controllers\StudentController::class, 'index'])->name('student/list');
         Route::get('student/add', [App\Http\Controllers\StudentController::class, 'create'])->name('student/add');
@@ -159,13 +165,16 @@ Route::group(
         Route::get('lesson/edit/{id}', [App\Http\Controllers\LessonController::class, 'edit'])->name('lesson/edit');
         Route::post('lesson/update', [App\Http\Controllers\LessonController::class, 'update'])->name('lesson/update');
         Route::get('lesson/delete/{id}', [App\Http\Controllers\LessonController::class, 'delete'])->name('lesson/delete');
+        //---------Promotion-------//
+        Route::get('promotion/index', [App\Http\Controllers\PromotionController::class, 'index'])->name('promotion.index');
+        Route::get('promotion/create', [App\Http\Controllers\PromotionController::class, 'create'])->name('promotion.create');
+        Route::post('promotion/save', [App\Http\Controllers\PromotionController::class, 'store'])->name('promotion.store');
     }
 );
 #Student
 Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('/home', [App\Http\Controllers\StudentRole\StudentController::class, 'index'])->name('homeStudent');
     Route::get('/profile', [App\Http\Controllers\StudentRole\StudentController::class, 'showProfile'])->name('studentProfile');
-    Route::get('/profile/classInfo', [App\Http\Controllers\StudentRole\StudentController::class, 'showClassInfo'])->name('studentClassInfo');
     Route::get('timetable', [App\Http\Controllers\StudentRole\TimetableController::class, 'searchTimetable'])->name('student.timetable.search');
     Route::get('timetable/get', [App\Http\Controllers\StudentRole\TimetableController::class, 'showTimetable'])->name('student.timetable.get');
     Route::get('timetable/details/view', [App\Http\Controllers\StudentRole\TimetableController::class, 'timetableDetailsIndex'])->name('timetableDetails');

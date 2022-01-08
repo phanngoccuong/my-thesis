@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Semester;
+use App\Models\YearSession;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
@@ -22,17 +23,24 @@ class SemesterController extends Controller
 
     public function create()
     {
+        $latest_session = YearSession::latest()->first();
         return view('semester.semester_add', [
-            'title' => 'Thêm học kì'
+            'title' => 'Thêm học kì',
+            'latest_session_id' => $latest_session->id
         ]);
     }
     public function store(Request $request)
     {
         $request->validate([
             'semester_name' => 'required|string|max:255',
+            'start_date'    => 'required|date',
+            'end_date'      => 'required|date',
         ]);
         $semesters = new Semester;
         $semesters->semester_name = $request->semester_name;
+        $semesters->session_id = $request->session_id;
+        $semesters->start_date = $request->start_date;
+        $semesters->end_date = $request->end_date;
         $semesters->save();
 
         Toastr::success('Thêm học kì thành công!!', 'Success');
@@ -58,6 +66,8 @@ class SemesterController extends Controller
         $update = [
             'id' => $id,
             'semester_name' => $semester_name,
+            'start_date' => $request->start_date,
+            'end_date' => $request->end_date
         ];
         Semester::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật học kì thành công!!', 'Success');

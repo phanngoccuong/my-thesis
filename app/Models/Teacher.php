@@ -16,7 +16,7 @@ class Teacher extends Model
         'dateOfBirth',
         'special',
         'address',
-        'upload',
+        // 'upload',
     ];
     public function teacherLessons()
     {

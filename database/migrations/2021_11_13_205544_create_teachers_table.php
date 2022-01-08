@@ -22,7 +22,7 @@ class CreateTeachersTable extends Migration
             $table->string('mobileNumber');
             $table->string('address');
             $table->string('special');
-            $table->string('upload')->nullable();
+            // $table->string('upload')->nullable();
             $table->timestamps();
         });
     }

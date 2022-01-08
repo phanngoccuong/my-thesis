@@ -112,7 +112,7 @@ class LoginController extends Controller
             }
             // return redirect()->intended('home');
         } else {
-            Toastr::error('fail, WRONG USERNAME OR PASSWORD!!', 'Error');
+            Toastr::error('Sai email hoặc mật khẩu!!', 'Error');
             return redirect('login');
         }
     }

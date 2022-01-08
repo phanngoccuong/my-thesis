@@ -16,8 +16,8 @@ class CreateStudentsTable extends Migration
         Schema::create('students', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
-            $table->date('registrationDate')->nullable();
-            $table->string('class_id')->nullable();
+            $table->string('email')->unique();
+            $table->unsignedInteger('batch_id');
             $table->smallInteger('gender')->default(1)->comment('1-name, 2-nu,0-other');
             $table->string('father_name')->nullable();
             $table->string('father_number')->nullable();
@@ -25,7 +25,6 @@ class CreateStudentsTable extends Migration
             $table->string('mother_number')->nullable();
             $table->date('dateOfBirth')->nullable();
             $table->string('address')->nullable();
-            $table->text('upload')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();

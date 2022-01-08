@@ -15,15 +15,12 @@ class TimetableController extends Controller
     public function searchTimetable()
     {
         $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $class_id = $studentInfo[0]->class_id;
-        $semesters = DB::table('lessons')
-            ->where('class_id', '=', $class_id)
-            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+        $semesters = Student::where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
             ->select('semesters.*')
-            ->distinct()
             ->get();
+
 
         return view('RoleStudent.student_timetable_search', [
             'title' => 'Thời khóa biểu',
@@ -35,10 +32,15 @@ class TimetableController extends Controller
     {
         $days = Day::all();
         $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $class_id = $studentInfo[0]->class_id;
+
         $semester_id = $request->semester_id;
+        $class_id = DB::table('students')->where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->where('semesters.id', '=', $semester_id)
+            ->select('promotions.class_id')
+            ->first();
+
         $timetableData = $timetableService->generateTimetable($days, $class_id, $semester_id);
 
         return view('RoleStudent.student_timetable', [
@@ -76,22 +78,22 @@ class TimetableController extends Controller
         return response()->json($data);
     }
 
-    public function timetableDetailsIndex()
-    {
-        $currentUserEmail = Auth::user()->email;
-        $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->get();
-        $class_id = $studentInfo[0]->class_id;
-        $semesters = DB::table('lessons')
-            ->where('class_id', '=', $class_id)
-            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
-            ->select('semesters.*')
-            ->distinct()
-            ->get();
+    // public function timetableDetailsIndex()
+    // {
+    //     $currentUserEmail = Auth::user()->email;
+    //     $studentInfo = Student::where('email', '=', $currentUserEmail)
+    //         ->get();
+    //     $class_id = $studentInfo[0]->class_id;
+    //     $semesters = DB::table('lessons')
+    //         ->where('class_id', '=', $class_id)
+    //         ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+    //         ->select('semesters.*')
+    //         ->distinct()
+    //         ->get();
 
-        return view('RoleStudent.timetable-details', [
-            'title' => 'Thời khóa biểu chi tiết',
-            'semesters' => $semesters
-        ]);
-    }
+    //     return view('RoleStudent.timetable-details', [
+    //         'title' => 'Thời khóa biểu chi tiết',
+    //         'semesters' => $semesters
+    //     ]);
+    // }
 }

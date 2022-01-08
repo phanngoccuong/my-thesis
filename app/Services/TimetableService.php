@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Lesson;
+use App\Models\Semester;
 use App\Models\Time;
 
 class TimetableService
@@ -13,7 +14,7 @@ class TimetableService
 
         $lessons = Lesson::with('course')
             ->where('semester_id', '=', $semester_id)
-            ->where('class_id', '=', $class_id)
+            ->where('class_id', '=', $class_id->class_id)
             ->get();
         $times = Time::all();
         foreach ($times as $time) {

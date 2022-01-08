@@ -9,40 +9,39 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>All Batch</h4>
+                        <h4>Niên khóa</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Batches</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">All Batches</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý niên khóa</a></li>
                     </ol>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-lg-12">
+                {{-- <div class="col-lg-12">
                     <ul class="nav nav-pills mb-3">
                         <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li>
                         <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Grid View</a></li>
                     </ul>
-                </div>
+                </div> --}}
                 <div class="col-lg-12">
                     <div class="row tab-content">
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">All List  </h4>
+                                    {{-- <h4 class="card-title">Danh sách</h4> --}}
                                     <a href="{{ route('batch/add') }}" class="btn btn-primary">+ Add new</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example3" class="display" style="min-width: 845px">
+                                        <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Batch</th>
+                                                    <th>Niên khóa</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -52,10 +51,11 @@
                                                     <td><strong>{{ ++$key }}</strong></td>
                                                     <td>{{ $batch->batch_name }}</td>
                                                     <td>
-                                                        <a href="{{ url('admin/batch/edit/'.$batch->id) }}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                        <a href="{{ url('admin/batch/edit/'.$batch->id) }}"
+                                                            class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/batch/delete/'.$batch->id) }}"
                                                             onclick="return confirm('Are you sure to want to delete it?')">
-                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
+                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

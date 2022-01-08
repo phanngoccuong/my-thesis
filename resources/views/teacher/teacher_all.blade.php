@@ -54,7 +54,7 @@
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Ảnh</th>
+                                                    {{-- <th>Ảnh</th> --}}
                                                     <th>Họ và tên</th>
                                                     <th>Giới tính</th>
                                                     <th>Email</th>
@@ -68,10 +68,10 @@
                                                 @foreach ($teachers as $key => $teacher )
                                                 <tr>
                                                     <td><strong>{{ ++$key }}</strong></td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <img class="rounded-circle" width="35" src="{{ URL::to('/images/'. $teacher->upload) }}"
                                                         alt="{{ $teacher->upload }}">
-                                                    </td>
+                                                    </td> --}}
                                                     <td>{{ $teacher->teacher_name }}</td>
                                                     <td>
                                                         @if ($teacher->gender == 1)
@@ -86,10 +86,10 @@
                                                     <td>{{ $teacher->special }}</td>
                                                     <td>
                                                         <a href="{{ url('admin/teacher/edit/'.$teacher->id) }}"
-                                                            class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                            class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/teacher/delete/'.$teacher->id) }}"
                                                             onclick="return confirm('Are you sure to want to delete it?')">
-                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
+                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

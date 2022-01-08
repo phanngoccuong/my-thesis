@@ -9,6 +9,6 @@ class Semester extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'semester_name'
+        'semester_name', 'start_date', 'end_date'
     ];
 }

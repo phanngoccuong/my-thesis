@@ -38,11 +38,11 @@ class TeacherController extends Controller
             'dateOfBirth'         => 'required|string|max:255',
             'address'             => 'required|string|max:255',
             'special'             => 'required|string|max:255',
-            'upload'              => 'required|image',
+            // 'upload'              => 'required|image',
         ]);
 
-        $image = time() . '.' . $request->upload->extension();
-        $request->upload->move(public_path('images'), $image);
+        // $image = time() . '.' . $request->upload->extension();
+        // $request->upload->move(public_path('images'), $image);
 
         $teachers = new Teacher;
         $teachers->teacher_name = $request->teacher_name;
@@ -52,7 +52,7 @@ class TeacherController extends Controller
         $teachers->dateOfBirth = $request->dateOfBirth;
         $teachers->address = $request->address;
         $teachers->special = $request->special;
-        $teachers->upload  = $image;
+        // $teachers->upload  = $image;
         $teachers->save();
 
         Toastr::success('Thêm giáo viên thành công!!', 'Success');
@@ -61,7 +61,7 @@ class TeacherController extends Controller
 
     public function edit($id)
     {
-        $teachers = DB::table('teachers')->where('id', $id)->get();
+        $teachers = DB::table('teachers')->where('id', $id)->first();
         return view('teacher.teacher_edit', [
             'title' => 'Teacher Edit',
             'teachers' => $teachers
@@ -79,14 +79,14 @@ class TeacherController extends Controller
         $address             = $request->address;
         $special             = $request->special;
 
-        $old_image = Teacher::find($id);
-        $image_name = $request->hidden_image;
-        $image = $request->file('upload');
+        // $old_image = Teacher::find($id);
+        // $image_name = $request->hidden_image;
+        // $image = $request->file('upload');
 
-        if ($image != '') {
-            $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $image_name);
-        }
+        // if ($image != '') {
+        //     $image_name = rand() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('images'), $image_name);
+        // }
 
         $update = [
             'id'                  => $id,
@@ -97,7 +97,7 @@ class TeacherController extends Controller
             'dateOfBirth'         => $dateOfBirth,
             'address'             => $address,
             'special'             => $special,
-            'upload'              => $image_name,
+            // 'upload'              => $image_name,
 
         ];
         Teacher::where('id', $request->id)->update($update);

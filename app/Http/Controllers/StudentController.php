@@ -5,62 +5,70 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StudentRequest;
 use App\Models\Batch;
 use App\Models\Classes;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use App\Models\Student;
 use App\Models\User;
-use App\Notifications\EditStudent;
-use App\Notifications\Student as NotificationsStudent;
+use App\Models\YearSession;
+use App\Services\PromotionService;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Notification;
+
 
 
 class StudentController extends Controller
 {
-    // view list all students
-    public function index()
+    public function index(PromotionService $promotionService)
     {
-        $studentShow = Student::with('classes')->paginate(10);
+        $latestYear = $promotionService->getLatestSession();
+        $studentShow = Student::orderBy('name', 'asc')->paginate(10);
+
         return view('student.student_all', [
-            'title' => 'Quản lý học sinh',
+            'title' => 'Danh sách học sinh',
             'studentShow' => $studentShow
         ]);
     }
-
-
-    public function about()
-    {
-        return view('student.student_about', [
-            'title' => 'Student About'
-        ]);
-    }
-    // student add
+    // public function about()
+    // {
+    //     return view('student.student_about', [
+    //         'title' => 'Student About'
+    //     ]);
+    // }
     public function create()
-
     {
+        $currentYearSession = YearSession::latest()->first();
         $classes = Classes::all();
         $batches = Batch::all();
+
         return view('student.student_add', [
             'title' => 'Thêm học sinh mới',
             'classes' => $classes,
-            'batches' => $batches
+            'batches' => $batches,
+            'currentYearSession_id' => $currentYearSession->id
         ]);
     }
-    // student save
-    public function store(StudentRequest $request)
+    public function store(Request $request)
     {
-
-        $image = time() . '.' . $request->upload->extension();
-        $request->upload->move(public_path('images'), $image);
-
+        $request->validate([
+            'name'                => 'required|string|max:255',
+            'email'               => 'required|string|email',
+            'batch_id'            => 'required|integer',
+            'gender'              => 'required|integer|max:255',
+            'father_name'         => 'required|string|max:255',
+            'father_number'       => 'required|min:11|numeric',
+            'mother_name'         => 'required|string|max:255',
+            'mother_number'       => 'required|min:11|numeric',
+            'dateOfBirth'         => 'required|string|max:255',
+            'address'             => 'required|string|max:255',
+        ]);
+        DB::beginTransaction();
         $student = new Student;
         $student->name                = $request->name;
         $student->email               = $request->email;
         $student->batch_id            = $request->batch_id;
-        $student->class_id            = $request->class_id;
         $student->gender              = $request->gender;
         $student->father_name         = $request->father_name;
         $student->father_number       = $request->father_number;
@@ -68,13 +76,19 @@ class StudentController extends Controller
         $student->mother_number       = $request->mother_number;
         $student->dateOfBirth         = $request->dateOfBirth;
         $student->address             = $request->address;
-        $student->upload              = $image;
         $student->save();
+        $promo = [
+            'student_id'    => $student->id,
+            'class_id'      => $request->class_id,
+            'session_id'    => $request->session_id,
+        ];
+        DB::table('promotions')->insert($promo);
+        DB::commit();
 
         Toastr::success('Thêm học sinh thành công!!', 'Success');
         return redirect()->route('student/list');
     }
-    // student edit
+
     public function edit($id)
     {
         $student = DB::table('students')->where('id', $id)->get();
@@ -87,14 +101,13 @@ class StudentController extends Controller
             'batches' => $batches
         ]);
     }
-    // student update to db
+
     public function update(Request $request)
     {
         $id                  = $request->id;
         $name                = $request->name;
         $email               = $request->email;
         $batch_id            = $request->batch_id;
-        $class_id            = $request->class_id;
         $gender              = $request->gender;
         $father_name         = $request->father_name;
         $father_number       = $request->father_number;
@@ -104,14 +117,14 @@ class StudentController extends Controller
         $address             = $request->address;
 
 
-        $old_image = Student::find($id);
+        // $old_image = Student::find($id);
         $image_name = $request->hidden_image;
         $image = $request->file('upload');
 
-        if ($image != '') {
-            $image_name = rand() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('images'), $image_name);
-        }
+        // if ($image != '') {
+        //     $image_name = rand() . '.' . $image->getClientOriginalExtension();
+        //     $image->move(public_path('images'), $image_name);
+        // }
 
         $update = [
 
@@ -119,7 +132,6 @@ class StudentController extends Controller
             'name'                => $name,
             'email'               => $email,
             'batch_id'            => $batch_id,
-            'class_id'            => $class_id,
             'gender'              => $gender,
             'father_name'         => $father_name,
             'father_number'       => $father_number,
@@ -127,7 +139,7 @@ class StudentController extends Controller
             'mother_number'       => $mother_number,
             'dateOfBirth'         => $dateOfBirth,
             'address'             => $address,
-            'upload'              => $image_name,
+            // 'upload'              => $image_name,
         ];
         // $user = Auth::user();
 

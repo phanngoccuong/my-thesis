@@ -122,7 +122,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-12">
+                                    {{-- <div class="col-lg-12">
                                         <label class="form-label">Ảnh</label>
                                         <div class="form-group fallback w-100">
                                             <input type="file" class="dropify @error('upload') is-invalid @enderror"
@@ -133,7 +133,7 @@
                                                 </span>
                                             @enderror
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                         <button type="submit" class="btn btn-light">Hủy</button>

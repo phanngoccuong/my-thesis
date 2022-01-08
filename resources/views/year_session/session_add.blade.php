@@ -2,37 +2,35 @@
 @section('content')
     @include('sidebar.sidebar')
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>Thêm niên khóa</h4>
+                        <h4>Năm học mới</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý niên khóa</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Thêm niên khóa</a></li>
+                        <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý năm học</a></li>
                     </ol>
                 </div>
             </div>
             {{-- message --}}
             {!! Toastr::message() !!}
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('batch/save') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('session.save') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label class="form-label">Niên khóa</label>
-                                            <input type="text" class="form-control @error('batch_name') is-invalid @enderror"
-                                            value="{{ old('batch_name') }}" name="batch_name" id="batch_name">
-                                            @error('batch_name')
+                                            <label class="form-label">Năm học mới</label>
+                                            <input type="text" class="form-control @error('session_name') is-invalid @enderror"
+                                            value="{{ old('session_name') }}" name="session_name" id="session_name">
+                                            @error('session_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
@@ -40,9 +38,8 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Thêm</button>
-                                        <button type="submit" class="btn btn-light">Hủy</button>
                                     </div>
                                 </div>
                             </form>

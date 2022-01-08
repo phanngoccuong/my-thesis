@@ -22,12 +22,6 @@
             </div>
 
             <div class="row">
-                {{-- <div class="col-lg-12">
-                    <ul class="nav nav-pills mb-3">
-                        <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li>
-                        <li class="nav-item"><a href="#grid-view" data-toggle="tab" class="nav-link btn-primary">Grid View</a></li>
-                    </ul>
-                </div> --}}
                 <div class="col-lg-12">
                     <div class="row tab-content">
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
@@ -43,6 +37,8 @@
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Kì học</th>
+                                                    <th>Bắt đầu</th>
+                                                    <th>Kết thúc</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
@@ -51,12 +47,14 @@
                                                 <tr>
                                                     <td><strong>{{ ++$key }}</strong></td>
                                                     <td>{{ $semester->semester_name }}</td>
+                                                    <td>{{ $semester->start_date }}</td>
+                                                    <td>{{  $semester->end_date}}</td>
                                                     <td>
                                                         <a href="{{ url('admin/semester/edit/'.$semester->id) }}"
-                                                             class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                             class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/semester/delete/'.$semester->id) }}"
                                                             onclick="return confirm('Are you sure to want to delete it?')">
-                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
+                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach

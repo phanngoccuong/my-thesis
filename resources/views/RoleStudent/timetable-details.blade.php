@@ -14,7 +14,6 @@
                             @foreach ($semesters as $semester)
                                 <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                             @endforeach
-
                         </select>
                         @error('semester_id')
                             <span class="invalid-feedback" role="alert">
@@ -44,21 +43,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="search-tr">
-                                    {{-- @foreach ($datas as $data)
-                                    <tr>
-                                        <td>{{ $data->course_name }}</td>
-                                        <td>
-                                            {{ $data->classroom_name }}
-                                        </td>
-                                        <td>{{ $data->teacher_name }}</td>
-                                        <td>
-                                            {{ $data->day_name }}
-                                        </td>
-                                        <td>
-                                            {{ $data->time }}
-                                        </td>
-                                    </tr>
-                                    @endforeach --}}
+
                                 </tbody>
                             </table>
                         </div>
@@ -87,7 +72,7 @@
                     '<td> '+v.classroom_name+'</td>'+
                     '<td>'+v.teacher_name+'</td>'+
                     '<td>'+v.day_name+'</td>'+
-                     '<td>'+v.time+'</td>'+
+                    '<td>'+v.time+'</td>'+
                     '</tr>';
                 });
                 html = $('#search-tr').html(html);

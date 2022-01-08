@@ -58,10 +58,10 @@
                                                     <td>{{ $lesson->teacher_name}}</td>
                                                     <td>{{ $lesson->classroom_name }}</td>
                                                     <td>
-                                                        <a href="{{ url('admin/lesson/edit/'.$lesson->id) }}" class="btn btn-sm btn-primary"><i class="la la-pencil"></i></a>
+                                                        <a href="{{ url('admin/lesson/edit/'.$lesson->id) }}" class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/lesson/delete/'.$lesson->id) }}"
                                                             onclick="return confirm('Are you sure to want to delete it?')">
-                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
+                                                        <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>
                                                 @endforeach
