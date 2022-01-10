@@ -129,6 +129,9 @@ class MarkController extends Controller
             }
             Toastr::success('Nhập điểm thành công!!', 'Success');
             return redirect()->route('mark.edit');
+        } else {
+            Toastr::error('Nhập điểm thất bại!!', 'Failed');
+            return redirect()->back();
         }
     }
 
@@ -197,6 +200,9 @@ class MarkController extends Controller
                 $marks->save();
             }
             Toastr::success('Sửa điểm thành công!!', 'Success');
+            return redirect()->back();
+        } else {
+            Toastr::error('Nhập điểm thất bại!!', 'Failed');
             return redirect()->back();
         }
     }

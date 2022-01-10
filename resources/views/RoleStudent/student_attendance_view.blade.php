@@ -17,7 +17,6 @@
                                     <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                                 @endforeach
                             </select>
-
                         </div>
                     </div>
 

@@ -36,6 +36,7 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('teacher/list') }}">Quản lý giáo viên</a></li>
                     <li><a href="{{ route('teacher/add') }}">Thêm giáo viên</a></li>
+                   <li><a href="{{ route('teacher.assign.list') }}">Danh sách giáo viên chủ nhiệm</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -73,6 +74,7 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('classes/list') }}">Quản lý lớp</a></li>
                     <li><a href="{{ route('classes/add') }}">Thêm lớp</a></li>
+                    <li><a href="{{ route('teacher.assign') }}">Bổ nhiệm giáo viên chủ nhiệm</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -155,7 +157,8 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('student.mark.view') }}">Bảng điểm cá nhân</a></li>
-                     <li><a href="{{ route('student.attendance.show') }}">Thông tin điểm danh</a></li>
+                    <li><a href="{{ route('student.attendance.show') }}">Thông tin điểm danh</a></li>
+                    <li><a href="{{ route('student.note.search') }}">Sổ liên lạc</a></li>
                 </ul>
             </li>
         </ul>
@@ -192,6 +195,15 @@
                     <li><a href="{{ route('mark.add') }}">Nhập điểm</a></li>
                     <li><a href="{{ route('mark.edit') }}">Xem điểm</a></li>
                 </ul>
+            </li>
+            <li><a class="has-arrow" href="{{ route('note.student.search') }}" aria-expanded="false">
+                    <i class="la la-certificate"></i>
+                    <span class="nav-text">Sổ liên lạc</span>
+                </a>
+                {{-- <ul aria-expanded="false">
+                    <li><a href="{{ route('mark.add') }}">Nhập điểm</a></li>
+                    <li><a href="{{ route('mark.edit') }}">Xem điểm</a></li>
+                </ul> --}}
             </li>
         </ul>
     </div>

@@ -17,6 +17,7 @@ class CreateAssignTeachersTable extends Migration
             $table->id();
             $table->unsignedInteger('teacher_id');
             $table->unsignedInteger('class_id');
+            $table->unsignedInteger('session_id');
             $table->timestamps();
         });
     }

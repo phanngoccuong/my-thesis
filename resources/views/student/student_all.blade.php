@@ -39,6 +39,8 @@
                                                     <th>#</th>
                                                     <th>Họ và tên</th>
                                                     <th>Địa chỉ</th>
+                                                    <th>Email</th>
+                                                    <th>Khóa</th>
                                                     <th>Ngày sinh</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -53,6 +55,8 @@
                                                     </td> --}}
                                                     <td>{{ $student->name }}</td>
                                                     <td>{{ $student->address }}</td>
+                                                    <td>{{ $student->address }}</td>
+                                                    <td>{{ $student->batches->batch_name }}</td>
                                                     <td>{{ $student->dateOfBirth }}</td>
                                                     <td>
                                                         <a href="{{ url('admin/student/edit/'.$student->id) }}"

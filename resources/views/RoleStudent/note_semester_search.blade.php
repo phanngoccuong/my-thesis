@@ -4,7 +4,7 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
-            <form action="{{ route('student.mark.get') }}" method="GET" enctype="multipart/form-data">
+            <form action="{{ route('student.note.get') }}" method="GET" enctype="multipart/form-data">
             @csrf
             <div class="row page-titles mx-0">
                 <div class="col-lg-2">
@@ -16,9 +16,7 @@
                             @foreach ($semesters as $semester)
                                 <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                             @endforeach
-
                         </select>
-
                     </div>
                 </div>
                 <div class="col-lg" style="padding-top: 30px;">

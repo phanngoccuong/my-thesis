@@ -32,7 +32,7 @@ class TeacherController extends Controller
     {
         $request->validate([
             'teacher_name'        => 'required|string|max:255',
-            'email'               => 'required|string|email',
+            'email'               => 'required|string|email|unique:teachers',
             'gender'              => 'required|string|max:255',
             'mobileNumber'        => 'required|min:11|numeric',
             'dateOfBirth'         => 'required|string|max:255',

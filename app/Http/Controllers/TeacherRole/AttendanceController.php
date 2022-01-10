@@ -9,6 +9,9 @@ use App\Models\Teacher;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use App\Models\Course;
+use App\Models\Classes;
+use App\Models\Semester;
 
 class AttendanceController extends Controller
 {
@@ -105,21 +108,29 @@ class AttendanceController extends Controller
 
     public function getAtten(Request $request)
     {
-        $class = $request->class_id;
-        $course = $request->course_id;
-        $semester = $request->semester_id;
+        $class_id = $request->class_id;
+        $course_id = $request->course_id;
+        $semester_id = $request->semester_id;
         $date = $request->date;
+        $semester = Semester::where('id', $semester_id)->first();
+        $class = Classes::where('id', $class_id)->first();
+        $course = Course::where('id', $course_id)->first();
+
         $datas = StudentAttendances::with('student', 'course', 'classes', 'semester')
-            ->where('class_id', '=', $class)
-            ->where('semester_id', '=', $semester)
-            ->where('course_id', '=', $course)
+            ->where('class_id', '=', $class_id)
+            ->where('semester_id', '=', $semester_id)
+            ->where('course_id', '=', $course_id)
             ->where('date', '=', $date)
             ->orderBy('id', 'asc')
             ->get();
 
         return view('RoleTeacher.attendance_details', [
             'title' => 'Điểm danh',
-            'datas' => $datas
+            'datas' => $datas,
+            'semester' => $semester,
+            'course' => $course,
+            'class' => $class,
+            'date' => $date
         ]);
     }
 }

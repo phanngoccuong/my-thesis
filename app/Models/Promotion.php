@@ -20,4 +20,8 @@ class Promotion extends Model
     {
         return $this->belongsTo(Student::class, 'student_id');
     }
+    public function year()
+    {
+        return $this->belongsTo(YearSession::class, 'session_id');
+    }
 }

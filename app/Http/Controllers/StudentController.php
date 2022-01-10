@@ -24,7 +24,8 @@ class StudentController extends Controller
     public function index(PromotionService $promotionService)
     {
         $latestYear = $promotionService->getLatestSession();
-        $studentShow = Student::orderBy('name', 'asc')->paginate(10);
+        $studentShow = Student::with('batches')
+            ->orderBy('name', 'asc')->paginate(10);
 
         return view('student.student_all', [
             'title' => 'Danh sách học sinh',
@@ -54,7 +55,7 @@ class StudentController extends Controller
     {
         $request->validate([
             'name'                => 'required|string|max:255',
-            'email'               => 'required|string|email',
+            'email'               => 'required|string|email|unique:students',
             'batch_id'            => 'required|integer',
             'gender'              => 'required|integer|max:255',
             'father_name'         => 'required|string|max:255',
@@ -143,7 +144,7 @@ class StudentController extends Controller
         ];
         // $user = Auth::user();
 
-        $receiver = User::where('role_name', '=', 'Admin')->get();
+
         Student::where('id', $request->id)->update($update);
         // Notification::send($receiver, new EditStudent($user, $name));
         Toastr::success('Cập nhật thành công!!', 'Success');

@@ -13,7 +13,7 @@
                         <label class="form-label">Kì học</label>
                         <select class="form-control"
                             name="semester_id" id="semester_id">
-                            <option selected disabled>{{ $datas[0]->semester->semester_name }}</option>
+                            <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                         </select>
                     </div>
                 </div>
@@ -22,7 +22,7 @@
                         <label class="form-label">Lớp</label>
                         <select class="form-control"
                             name="class_id" id="class_id">
-                            <option  selected disabled>{{ $datas[0]->classes->class_name }}</option>
+                            <option value="{{ $class->id }}">{{ $class->class_name }}</option>
                         </select>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <label class="form-label">Môn học</label>
                         <select class="form-control"
                             name="course_id" id="course_id">
-                            <option  selected disabled>{{ $datas[0]->course->course_name }}</option>
+                            <option value="{{ $course->id }}">{{ $course->course_name }}</option>
                         </select>
                     </div>
                 </div>
@@ -42,7 +42,7 @@
                         <label class="form-label">Ngày</label>
                         <select class="form-control"
                             name="date" id="date">
-                            <option  selected disabled>{{ $datas[0]->date }}</option>
+                            <option>{{ $date }}</option>
                         </select>
                     </div>
                 </div>
@@ -55,7 +55,7 @@
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example3" class="display" style="min-width: 845px">
+                                        <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -90,6 +90,7 @@
                                                 @endforeach
                                             </tbody>
                                         </table>
+
                                     </div>
                                 </div>
                             </div>

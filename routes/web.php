@@ -156,6 +156,10 @@ Route::group(
         Route::get('teacher/edit/{id}', [App\Http\Controllers\TeacherController::class, 'edit'])->name('teacher/edit');
         Route::post('teacher/update', [App\Http\Controllers\TeacherController::class, 'update'])->name('teacher/update');
         Route::get('teacher/delete/{id}', [App\Http\Controllers\TeacherController::class, 'delete'])->name('teacher/delete');
+        Route::get('teacher/assign', [App\Http\Controllers\AssignTeacherController::class, 'create'])->name('teacher.assign');
+        Route::post('teacher/assign/add', [App\Http\Controllers\AssignTeacherController::class, 'store'])->name('teacher.assign.store');
+        Route::get('teacher/assign/list', [App\Http\Controllers\AssignTeacherController::class, 'index'])->name('teacher.assign.list');
+        Route::get('teacher/assign/list/get', [App\Http\Controllers\AssignTeacherController::class, 'getFormTeacher'])->name('teacher.assign.list.get');
         #PDF
         Route::get('teacher/pdf-export', [App\Http\Controllers\TeacherController::class, 'PDFGenerate'])->name('teacher/pdf-export');
         //---------Timetable-------//
@@ -184,6 +188,8 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('attendance/show', [App\Http\Controllers\StudentRole\AttendanceController::class, 'showAttendance'])->name('student.attendance.show');
     Route::get('attendance/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getAttendance'])->name('student.attendance.get');
     Route::get('attendance/course/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getCourse'])->name('student.attendance.course.get');
+    Route::get('note', [App\Http\Controllers\StudentRole\TeacherNoteController::class, 'index'])->name('student.note.search');
+    Route::get('note/list', [App\Http\Controllers\StudentRole\TeacherNoteController::class, 'getTeacherNote'])->name('student.note.get');
 });
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
@@ -211,5 +217,15 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
         Route::get('/details', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'show'])->name('attendance.details');
         Route::get('/get/date', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getDate'])->name('date.get');
         Route::get('/show', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getAtten'])->name('attendance.get');
+    });
+    Route::prefix('end-semester-note')->group(function () {
+        Route::get('/student/list', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'search'])->name('note.student.search');
+        Route::get('/semester/get', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'getSemesterByYear'])->name('note.semester.get');
+        Route::get('/class/get', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'getClassByYear'])->name('note.class.get');
+        Route::get('/student/get', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'getStudentByYear'])->name('note.student.get');
+        Route::get('/add/{id}/{semester}', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'create'])->name('note.student.create');
+        Route::post('/save', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'store'])->name('note.student.store');
+        Route::get('/edit/{id}/{semester}', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'show'])->name('note.student.show');
+        Route::post('/update', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'update'])->name('note.student.update');
     });
 });
