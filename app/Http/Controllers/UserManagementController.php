@@ -43,13 +43,13 @@ class UserManagementController extends Controller
         }
     }
     // use activity log
-    public function activityLog()
-    {
-        $activityLog = DB::table('user_activity_logs')->get();
-        return view('usermanagement.user_activity_log', compact('activityLog'), [
-            'title' => 'User activity'
-        ]);
-    }
+    // public function activityLog()
+    // {
+    //     $activityLog = DB::table('user_activity_logs')->get();
+    //     return view('usermanagement.user_activity_log', compact('activityLog'), [
+    //         'title' => 'User activity'
+    //     ]);
+    // }
     // activity log
     public function activityLogInLogOut()
     {

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -19,6 +18,8 @@
     <link rel="stylesheet" href="http://cdn.bootcss.com/toastr.js/latest/css/toastr.min.css">
     <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="{{ URL::to('/ckeditor/ckeditor.js') }}"></script>
+    {{-- <script src="https://js.pusher.com/4.4/pusher.min.js"></script> --}}
 </head>
 <body>
     <!-- Preloader start -->
@@ -72,24 +73,39 @@
 										<path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
 										<path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
 									</svg>
-                                    <span class="badge badge-danger">3</span>
-                                    {{-- <div class="pulse-css"></div> --}}
+
+                                    <span class="badge badge-danger">
+                                        {{ Auth::user()->unreadNotifications->count() }}
+                                    </span>
                                 </a>
+                                   {{-- <span class="notify-time">3:20 am</span> --}}
                                 <div class="dropdown-menu dropdown-menu-right">
                                     <ul class="list-unstyled">
+                                        @if (Auth::user()->unreadNotifications->count())
+                                        @foreach (Auth::user()->unreadNotifications as $notification)
                                         <li class="media dropdown-item">
                                             <div class="media-body">
-                                                <a href="#">
-                                                    <p><strong>David</strong> purchased Light Dashboard 1.0.</p>
+                                                <a href="{{ route('boarding.list') }}">
+                                                    <p><strong>
+                                                       {{ $notification->data['title'] }}
+                                                       </strong>
+                                                    </p>
+                                                    <small class="text-danger"> {{ $notification->created_at }}</small>
                                                 </a>
                                             </div>
-                                            <span class="notify-time">3:20 am</span>
                                         </li>
-
+                                        @endforeach
+                                        @else
+                                        <li class="media dropdown-item">
+                                           Không có thông báo
+                                        </li>
+                                        @endif
                                     </ul>
-                                    <a class="all-notification" href="#">See all notifications <i class="ti-arrow-right"></i></a>
+                                    <a class="all-notification" href="{{ route('boarding.readNotice') }}">
+                                        Xem tất cả thông báo <i class="ti-arrow-right"></i></a>
                                 </div>
                             </li>
+
                             <li class="nav-item dropdown header-profile">
                                 <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                                     <img class="img-fluid rounded-circle"
@@ -105,14 +121,7 @@
                                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
-                                    {{-- <a href="email-inbox.html" class="dropdown-item ai-icon">
-                                        <svg id="icon-inbox" xmlns="http://www.w3.org/2000/svg"
-                                         width="18" height="18" viewbox="0 0 24 24" fill="none"
-                                         stroke="currentColor" stroke-width="2"
-                                         stroke-linecap="round" stroke-linejoin="round" class="feather feather-mail">
-                                         <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                                        <span class="ml-2">Inbox </span>
-                                    </a>  --}}
+
                                     <a href="{{ route('logout') }}" class="dropdown-item ai-icon">
                                         <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg"
                                         width="18" height="18" viewbox="0 0 24 24" fill="none"
@@ -168,6 +177,7 @@
             });
         });
     </script>
-    {{-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> --}}
+
+
 </body>
 </html>

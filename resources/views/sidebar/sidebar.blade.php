@@ -11,7 +11,7 @@
                     <li><a href="{{ route('session.add') }}">Quản lý năm học</a></li>
                 </ul>
             </li>
-             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-certificate"></i>
                     <span class="nav-text">Kì học</span>
                 </a>
@@ -21,12 +21,17 @@
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="la la-user-plus"></i>
-                    <span class="nav-text">Quản lý</span>
+                    <i class="la la-certificate"></i>
+                    <span class="nav-text">Thông báo</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('userManagement') }}">Quản lý tài khoản</a></li>
+                    <li><a href="{{ route('boarding.create') }}">Gửi thông báo</a></li>
                 </ul>
+            </li>
+            <li><a class="has-arrow" href="{{ route('userManagement') }} aria-expanded="false">
+                    <i class="la la-user-plus"></i>
+                    <span class="nav-text">Quản lý tài khoản</span>
+                </a>
             </li>
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">

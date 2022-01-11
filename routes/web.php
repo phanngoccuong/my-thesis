@@ -173,6 +173,11 @@ Route::group(
         Route::get('promotion/index', [App\Http\Controllers\PromotionController::class, 'index'])->name('promotion.index');
         Route::get('promotion/create', [App\Http\Controllers\PromotionController::class, 'create'])->name('promotion.create');
         Route::post('promotion/save', [App\Http\Controllers\PromotionController::class, 'store'])->name('promotion.store');
+        //---------Notice-------//
+        Route::get('boarding/list', [App\Http\Controllers\BoardingNoticeController::class, 'index'])->name('boarding.list');
+        Route::get('boarding/create', [App\Http\Controllers\BoardingNoticeController::class, 'create'])->name('boarding.create');
+        Route::post('boarding/save', [App\Http\Controllers\BoardingNoticeController::class, 'store'])->name('boarding.store');
+        Route::get('boarding/markAsRead', [App\Http\Controllers\BoardingNoticeController::class, 'readNotice'])->name('boarding.readNotice');
     }
 );
 #Student

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\YearSession;
 
 class HomeController extends Controller
 {
@@ -25,8 +26,16 @@ class HomeController extends Controller
     public function index()
     {
         $users = DB::table('users')->count();
-        $user_activity_logs = DB::table('user_activity_logs')->count();
+        $students = DB::table('students')->count();
         $activity_logs = DB::table('activity_logs')->count();
-        return view('dashboard.main_dashboard', compact('users', 'user_activity_logs', 'activity_logs'));
+        $teachers = DB::table('teachers')->count();
+        $year_session = YearSession::latest()->first();
+        return view('dashboard.main_dashboard', [
+            'title' => 'Admin Dashboard',
+            'users' => $users,
+            'students' => $students,
+            'teachers' => $teachers,
+            'year_session' => $year_session
+        ]);
     }
 }
