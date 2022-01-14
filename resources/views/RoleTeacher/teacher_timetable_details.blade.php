@@ -48,8 +48,13 @@
                                             <a href="{{ url('teacher/timetable/note/edit/'.$data->id) }}"
                                                 class="btn btn-sm btn-warning"><i class="la la-pencil"></i></a>
                                         </td>
-                                        <td><a href="{{ url('teacher/document/upload/'.$data->id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-cloud-upload"></i></a></td>
+                                        <td>
+                                            <a href="{{ url('teacher/document/upload/'.$data->id) }}"
+                                                class="btn btn-sm btn-success"><i class="la la-cloud-upload"></i></a>
+                                            <a href="{{ url('teacher/document/list/'.$data->id) }}"
+                                                class="btn btn-sm btn-info"><i class="la la-bullhorn"></i></a>
+                                        </td>
+
                                     </tr>
                                     @endforeach
                                 </tbody>

@@ -54,7 +54,7 @@
 
                                     <div class="col-lg-6">
                                         <div class="form-group">
-                                             <label for="" class="form-label">Tài liệu</label>
+                                            <label for="" class="form-label">Tài liệu</label>
                                             <input type="file" name="file" class="form-control" id="document-file" accept=".jpg,.jpeg,.bmp,.png,.gif,.doc,.docx,.csv,.rtf,.xlsx,.xls,.txt,.pdf,.zip" required>
                                         </div>
                                     </div>

@@ -25,12 +25,12 @@
                                 <th>Họ và tên</th>
                                 <th>Ngày sinh</th>
                                 <th>Lớp năm trước</th>
+                                <th>Năm học trước</th>
                                 <th>Lên lớp</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($datas as $key => $data )
-
                                     <tr>
                                         <input type="hidden" value="{{ $data->student->id }}" name="student_id[]">
                                         <input type="hidden" name="session_id" value="{{ $latestYearId }}">
@@ -38,9 +38,12 @@
                                         <td>{{ $data->student->name }}</td>
                                         <td>{{ $data->student->dateOfBirth }}</td>
                                         <td>{{ $data->classes->class_name }}</td>
+                                        <td>{{ $data->year->session_name }}</td>
                                         <td>
                                             <select class="form-control" name="class_id[]" id="class_id">
+                                                <option selected disabled>Chọn lớp</option>
                                                 @foreach ($newClass as $key=>$value)
+
                                                     <option value="{{ $value->id }}">{{ $value->class_name }}</option>
                                                 @endforeach
                                             </select>
@@ -51,7 +54,6 @@
                     </table>
                     <div class="col-lg-7">
                         <button type="submit" class="btn btn-primary">Thực hiện</button>
-
                     </div>
                 </div>
                 </form>

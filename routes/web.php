@@ -208,7 +208,7 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::post('timetable/note/update', [App\Http\Controllers\TeacherRole\TimetableController::class, 'updateNote'])->name('teacher.lesson.note.update');
     Route::get('document/upload/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'create'])->name('teacher.document.upload');
     Route::post('document/store', [App\Http\Controllers\TeacherRole\DocumentController::class, 'storeDocument'])->name('teacher.document.store');
-
+    Route::get('document/list/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'getDocumentList'])->name('teacher.document.list.get');
 
     #Student Mark
     Route::prefix('mark')->group(function () {

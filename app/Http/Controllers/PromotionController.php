@@ -39,7 +39,6 @@ class PromotionController extends Controller
         $currentGroup = Classes::where('id', $class_id)->select('group_id')->first();
         $newClass = Classes::where('group_id', '=', $currentGroup->group_id + 1)->get();
 
-
         return view('promtion.create', [
             'title' => 'Học sinh lên lớp',
             'datas' => $datas,
@@ -49,17 +48,32 @@ class PromotionController extends Controller
     }
     public function store(Request $request)
     {
-        $studentRequest = $request->student_id;
-
-        if ($studentRequest) {
-            for ($i = 0; $i < count($request->student_id); $i++) {
-                $data = new Promotion();
-                $data->student_id = $request->student_id[$i];
-                $data->class_id = $request->class_id[$i];
-                $data->session_id = $request->session_id;
-                $data->save();
+        $studentPromo =
+            Promotion::where('session_id',  $request->session_id)
+            ->where('student_id', $request->student_id)
+            ->get();
+        if ($studentPromo) {
+            Toastr::error('Học sinh đã được lên lớp!!', 'Failed');
+            return redirect()->back();
+        }
+        try {
+            $studentRequest = $request->student_id;
+            if ($studentRequest) {
+                for ($i = 0; $i < count($request->student_id); $i++) {
+                    $data = new Promotion();
+                    $data->student_id = $request->student_id[$i];
+                    $data->class_id = $request->class_id[$i];
+                    $data->session_id = $request->session_id;
+                    $data->save();
+                }
+                Toastr::success('Chuyển lớp thành công!!', 'Success');
+                return redirect()->back();
             }
-            Toastr::success('Chuyển lớp thành công!!', 'Success');
+        } catch (
+            \Exception
+            $err
+        ) {
+            Toastr::error('Vui lòng nhập lớp mới của tất cả học sinh!!', 'Thất bại');
             return redirect()->back();
         }
     }

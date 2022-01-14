@@ -25,16 +25,24 @@ class DocumentController extends Controller
     {
         $path = Storage::disk('public')->put('syllabi', $request['file']);
         try {
-            LessonDocument::create([
-                'document_name'           => $request['document_name'],
-                'document_file_path'      => $path,
-                'lesson_id'              => $request['lesson_id']
-            ]);
+            $upload = new LessonDocument;
+            $upload->document_name = $request->document_name;
+            $upload->document_file_path = $path;
+            $upload->lesson_id = $request->lesson_id;
+            $upload->save();
             Toastr::success('Gửi thành công', 'Success');
             return redirect()->back();
         } catch (\Exception $e) {
             Toastr::error('Gửi thất bại', 'Failed');
             return redirect()->back();
         }
+    }
+    public function getDocumentList($id)
+    {
+        $documents = LessonDocument::with('lesson')->where('lesson_id', $id)->get();
+        return view('RoleTeacher.document_list', [
+            'title' => 'Danh sách tài liệu',
+            'documents' => $documents
+        ]);
     }
 }
