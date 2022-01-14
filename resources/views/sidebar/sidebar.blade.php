@@ -183,11 +183,10 @@
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-users"></i>
-                    <span class="nav-text">Quản lý lớp</span>
+                    <span class="nav-text">Điểm danh</span>
                 </a>
                 <ul aria-expanded="false">
-                    {{-- <li><a href="{{ route('classShow') }}">Lớp chủ nhiệm</a></li> --}}
-                    <li><a href="{{ route('attendance.add') }}">Điểm danh</a></li>
+                    <li><a href="{{ route('attendance.add') }}">Điểm danh học sinh</a></li>
                     <li><a href="{{ route('attendance.details') }}">Thông tin điểm danh</a></li>
                 </ul>
             </li>

@@ -20,6 +20,7 @@ class CreateStudentMarksTable extends Migration
             $table->double('half_mark')->nullable();
             $table->double('final_mark')->nullable();
             $table->integer('result')->nullable();
+            $table->text('teacher_comment');
             $table->timestamps();
         });
     }

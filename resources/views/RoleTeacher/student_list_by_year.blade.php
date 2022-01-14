@@ -13,11 +13,11 @@
                         <label class="form-label">Năm học</label>
                         <select class="form-control"
                             name="session_id" id="session_id">
-                            <option value="{{ $year->id }}">{{ $year->session_name }}</option>
+                            <option value="{{ $years->id }}">{{ $years->session_name }}</option>
                         </select>
                     </div>
                 </div>
-                <div class="col-lg-2">
+                {{-- <div class="col-lg-2">
                     <div class="form-group">
                         <label class="form-label">Kì học</label>
                         <select class="form-control"
@@ -25,13 +25,13 @@
                             <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                         </select>
                     </div>
-                </div>
+                </div> --}}
                 <div class="col-lg-2">
                     <div class="form-group">
                         <label class="form-label">Lớp</label>
                         <select class="form-control"
                             name="class_id" id="class_id">
-                            <option value="{{ $class->id }}">{{ $class->class_name }}</option>
+                            <option value="{{ $classes->id }}">{{ $classes->class_name }}</option>
                         </select>
                     </div>
                 </div>
@@ -63,14 +63,14 @@
                                                     <td>{{ $student->student->address }}</td>
                                                     <td>{{ $student->student->email }}</td>
                                                     <td>{{ $student->student->dateOfBirth }}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <a href="{{ url('teacher/end-semester-note/add/'.$student->student->id.'/'.$semester->semester_name) }}">
                                                         <span class="btn btn-sm btn-info"><i class="la la-plus"></i></span>
                                                         </a>
                                                         <a href="{{ url('teacher/end-semester-note/edit/'.$student->student->id.'/'.$semester->semester_name) }}">
                                                         <span class="btn btn-sm btn-success"><i class="la la-eye"></i></span>
                                                         </a>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                                 @endforeach
                                             </tbody>

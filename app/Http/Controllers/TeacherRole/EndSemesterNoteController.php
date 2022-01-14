@@ -17,37 +17,37 @@ use Brian2694\Toastr\Facades\Toastr;
 
 class EndSemesterNoteController extends Controller
 {
-    public function search()
+    public function allClass()
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
             ->first();
         $teacher_id = $info->id;
-        $years = AssignTeacher::with('year')->where('teacher_id', $teacher_id)->get();
+        $datas = AssignTeacher::with('year')->where('teacher_id', $teacher_id)->orderBy('session_id', 'desc')->get();
         return view('RoleTeacher.note_search', [
             'title' => 'Sổ liên lạc',
-            'years' => $years
+            'datas' => $datas
         ]);
     }
 
-    public function getSemesterByYear(Request $request)
-    {
-        $year_request = $request->session_id;
-        $data = Semester::where('session_id', $year_request)->get();
-        return response()->json($data);
-    }
-    public function getClassByYear(Request $request)
-    {
-        $year_request = $request->session_id;
-        $currentUserEmail = Auth::user()->email;
-        $info = Teacher::where('email', '=', $currentUserEmail)
-            ->first();
-        $teacher_id = $info->id;
-        $data = AssignTeacher::with('class')->where('teacher_id', $teacher_id)
-            ->where('session_id', $year_request)
-            ->get();
-        return response()->json($data);
-    }
+    // public function getSemesterByYear(Request $request)
+    // {
+    //     $year_request = $request->session_id;
+    //     $data = Semester::where('session_id', $year_request)->get();
+    //     return response()->json($data);
+    // }
+    // public function getClassByYear(Request $request)
+    // {
+    //     $year_request = $request->session_id;
+    //     $currentUserEmail = Auth::user()->email;
+    //     $info = Teacher::where('email', '=', $currentUserEmail)
+    //         ->first();
+    //     $teacher_id = $info->id;
+    //     $data = AssignTeacher::with('class')->where('teacher_id', $teacher_id)
+    //         ->where('session_id', $year_request)
+    //         ->get();
+    //     return response()->json($data);
+    // }
 
     public function getStudentByYear(Request $request)
     {
@@ -66,6 +66,21 @@ class EndSemesterNoteController extends Controller
             'class' => $class,
             'year' => $year,
             'semester' => $semester
+        ]);
+    }
+
+    public function getStudentByClass($class, $year)
+    {
+        $classes = Classes::findOrFail($class);
+        $years = YearSession::findOrFail($year);
+        $students = Promotion::with('student')
+            ->where('class_id', $class)
+            ->where('session_id', $year)->paginate(10);
+        return view('RoleTeacher.student_list_by_year', [
+            'title' => 'Sổ liên lạc',
+            'students' => $students,
+            'classes' => $classes,
+            'years' => $years
         ]);
     }
 

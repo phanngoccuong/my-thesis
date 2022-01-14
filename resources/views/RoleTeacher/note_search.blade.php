@@ -4,69 +4,53 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
-            <form action="{{ route('note.student.get') }}" method="GET" enctype="multipart/form-data">
-                @csrf
-                <div class="row page-titles mx-0">
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label class="form-label">Năm học</label>
-                            <select class="form-control @error('session_id') is-invalid @enderror"
-                                name="session_id" id="session_id">
-                                <option selected disabled>Chọn năm</option>
-                                @foreach ($years as $year)
-                                    <option value="{{ $year->year->id }}">{{ $year->year->session_name }}</option>
-                                @endforeach
-
-                            </select>
-                            @error('session_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label class="form-label">Kì học</label>
-                            <select class="form-control @error('semester_id') is-invalid @enderror"
-                                name="semester_id" id="semester_id">
-                                <option>Chọn kì</option>
-                            </select>
-                            @error('semester_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2">
-                        <div class="form-group">
-                            <label class="form-label">Lớp chủ nhiệm</label>
-                            <select class="form-control @error('class_id') is-invalid @enderror"
-                                name="class_id" id="class_id">
-                                <option>Chọn lớp</option>
-                            </select>
-                            @error('class_id')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-lg" style="padding-top: 30px;">
-                        {{-- <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a> --}}
-                        <button class="btn btn-primary"  type="submit">Tìm kiếm</button>
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Danh sách lớp chủ nhiệm</h4>
                     </div>
                 </div>
             </div>
-        </form>
+             <div class="row">
+                <div class="col-lg-12">
+                    <div class="row tab-content">
+                        <div id="list-view" class="tab-pane fade active show col-lg-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table id="example3" class="display" style="min-width: 845px">
+                                            <thead>
+                                                <tr>
+                                                    <th>Năm học</th>
+                                                    <th>Chủ nhiệm lớp</th>
+                                                    <th>Xem danh sách</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($datas as $key => $data )
+                                                <tr>
+                                                   <td>{{ $data->year->session_name }}</td>
+                                                   <td>{{ $data->class->class_name }}</td>
+                                                   <td>
+                                                        <a href="{{ url('teacher/end-semester-note/class/list/'.$data->class_id.'/'.$data->session_id) }}"
+                                                            class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
+                                                   </td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
      $(function(){
         $(document).on('change','#session_id',function(){
             var session_id = $('#session_id').val();
@@ -104,5 +88,5 @@
             });
         });
     });
-</script>
+</script> --}}
 @endsection

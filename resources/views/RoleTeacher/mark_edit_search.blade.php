@@ -16,7 +16,6 @@
                                 @foreach ($semesters as $semester)
                                     <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                                 @endforeach
-
                             </select>
                             @error('semester_id')
                                 <span class="invalid-feedback" role="alert">
@@ -59,11 +58,11 @@
 
                     <div class="col-lg" style="padding-top: 30px;">
                         {{-- <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a> --}}
-                        <button class="btn btn-primary"  type="submit">Tìm kiếm</button>
+                        <button class="btn btn-primary" type="submit">Tìm kiếm</button>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
     {{-- AJAX --}}

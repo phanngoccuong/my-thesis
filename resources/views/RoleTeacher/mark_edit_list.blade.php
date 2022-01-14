@@ -58,6 +58,7 @@
                                                         <th>Email</th>
                                                         <th>Điểm giữa kì</th>
                                                         <th>Điểm cuối kì</th>
+                                                        <th>Nhận xét của giáo viên</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -75,6 +76,10 @@
                                                             <td>
                                                                 <input type="text" class="form-control"
                                                                 name="final_mark[]" value="{{ $student->final_mark }}">
+                                                            </td>
+                                                             <td class="w-50">
+                                                                <input type="text" class="form-control" name="teacher_comment[]"
+                                                                value="{{ $student->teacher_comment }}" >
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -100,12 +105,18 @@
                                                             <td>
                                                                 <select class="form-control" name="result[]">
                                                                     <option selected disabled>Chọn</option>
+                                                                    <option value="2"
+                                                                    {{ $student->result == 2 ? "selected": "" }}>Hoàn thành tốt</option>
                                                                     <option value="1"
-                                                                    {{ $student->result == 1 ? "selected": "" }}>Đạt</option>
+                                                                    {{ $student->result == 1 ? "selected": "" }}>Hoàn thành</option>
                                                                     <option value="0"
                                                                     {{ $student->result == 0 ? "selected": "" }}
-                                                                    >Không Đạt</option>
+                                                                    >Không hoàn thành</option>
                                                                 </select>
+                                                            </td>
+                                                            <td class="w-50">
+                                                                <input type="text" class="form-control" name="teacher_comment[]"
+                                                                value="{{ $student->teacher_comment }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach
