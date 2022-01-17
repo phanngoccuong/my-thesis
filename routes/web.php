@@ -229,15 +229,14 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
         Route::get('/get/date', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getDate'])->name('date.get');
         Route::get('/show', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getAtten'])->name('attendance.get');
     });
-    Route::prefix('end-semester-note')->group(function () {
-        Route::get('/class/list', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'allClass'])->name('note.student.search');
-        // Route::get('/semester/get', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'getSemesterByYear'])->name('note.semester.get');
-        // Route::get('/class/get', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'getClassByYear'])->name('note.class.get');
-        // Route::get('/student/get', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'getStudentByYear'])->name('note.student.get');
-        Route::get('/class/list/{class}/{year}', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'getStudentByClass'])->name('note.student.get');
-        Route::get('/add/{id}/{semester}', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'create'])->name('note.student.create');
-        Route::post('/save', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'store'])->name('note.student.store');
-        Route::get('/edit/{id}/{semester}', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'show'])->name('note.student.show');
-        Route::post('/update', [App\Http\Controllers\TeacherRole\EndSemesterNoteController::class, 'update'])->name('note.student.update');
+
+    Route::prefix('conduct')->group(function () {
+        Route::get('/class', [App\Http\Controllers\TeacherRole\ConductController::class, 'allClass'])->name('conduct.teacher.form.class');
+        Route::get('/add/{class}/{year}', [App\Http\Controllers\TeacherRole\ConductController::class, 'getStudentByClass'])->name('conduct.teacher.form.class.student');
+        Route::post('/save', [App\Http\Controllers\TeacherRole\ConductController::class, 'store'])->name('conduct.store');
+        Route::get('/edit/class', [App\Http\Controllers\TeacherRole\ConductController::class, 'allClassEdit'])->name('conduct.teacher.form.class.edit');
+        Route::get('/edit/{class}/{year}', [App\Http\Controllers\TeacherRole\ConductController::class, 'edit'])->name('conduct.edit');
+        Route::get('/show', [App\Http\Controllers\TeacherRole\ConductController::class, 'show'])->name('conduct.edit.show');
+        Route::post('/update', [App\Http\Controllers\TeacherRole\ConductController::class, 'update'])->name('conduct.update');
     });
 });

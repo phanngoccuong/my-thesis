@@ -135,7 +135,6 @@ class MarkController extends Controller
                     $marks->half_mark = $request->half_mark[$i];
                     $marks->final_mark = $request->final_mark[$i];
                     $marks->result = $request->result[$i];
-                    $marks->teacher_comment = $request->teacher_comment[$i];
                     $marks->save();
                 }
                 Toastr::success('Nhập điểm thành công!!', 'Success');
@@ -212,7 +211,6 @@ class MarkController extends Controller
                 $marks->half_mark = $request->half_mark[$i];
                 $marks->final_mark = $request->final_mark[$i];
                 $marks->result = $request->result[$i];
-                $marks->teacher_comment = $request->teacher_comment[$i];
                 $marks->save();
             }
             Toastr::success('Sửa điểm thành công!!', 'Success');

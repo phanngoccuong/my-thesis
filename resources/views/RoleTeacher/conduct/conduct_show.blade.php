@@ -7,34 +7,28 @@
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">
+            <form action="{{ route('conduct.update') }}" method="POST" enctype="multipart/form-data">
+                @csrf
             <div class="row page-titles mx-0">
-                <div class="col-lg-2">
-                    <div class="form-group">
-                        <label class="form-label">Năm học</label>
-                        <select class="form-control"
-                            name="session_id" id="session_id">
-                            <option value="{{ $years->id }}">{{ $years->session_name }}</option>
-                        </select>
-                    </div>
-                </div>
-                {{-- <div class="col-lg-2">
-                    <div class="form-group">
-                        <label class="form-label">Kì học</label>
-                        <select class="form-control"
-                            name="class_id" id="class_id">
-                            <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
-                        </select>
-                    </div>
-                </div> --}}
                 <div class="col-lg-2">
                     <div class="form-group">
                         <label class="form-label">Lớp</label>
                         <select class="form-control"
                             name="class_id" id="class_id">
-                            <option value="{{ $classes->id }}">{{ $classes->class_name }}</option>
+                            <option value="{{ $class->id }}">{{ $class->class_name }}</option>
                         </select>
                     </div>
                 </div>
+                <div class="col-lg-2">
+                    <div class="form-group">
+                        <label class="form-label">Học kì<span class="text-danger">*</span></label>
+                        <select class="form-control"
+                            name="semester_id">
+                                <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
+                        </select>
+                    </div>
+                </div>
+
             </div>
 
             <div class="row">
@@ -47,36 +41,37 @@
                                         <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>ID</th>
                                                     <th>Họ và tên</th>
                                                     <th>Địa chỉ</th>
                                                     <th>Email</th>
                                                     <th>Ngày sinh</th>
-                                                    <th>Action</th>
+                                                    <th>Nhập hạnh kiểm</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($students as $key => $student )
                                                 <tr>
-                                                    <td><strong>{{ ++$key }}</strong></td>
+                                                    <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
+                                                    <td><strong>{{ $student->student_id }}</strong></td>
                                                     <td>{{ $student->student->name }}</td>
                                                     <td>{{ $student->student->address }}</td>
                                                     <td>{{ $student->student->email }}</td>
                                                     <td>{{ $student->student->dateOfBirth }}</td>
-                                                    {{-- <td>
-                                                        <a href="{{ url('teacher/end-semester-note/add/'.$student->student->id.'/'.$semester->semester_name) }}">
-                                                        <span class="btn btn-sm btn-info"><i class="la la-plus"></i></span>
-                                                        </a>
-                                                        <a href="{{ url('teacher/end-semester-note/edit/'.$student->student->id.'/'.$semester->semester_name) }}">
-                                                        <span class="btn btn-sm btn-success"><i class="la la-eye"></i></span>
-                                                        </a>
-                                                    </td> --}}
+                                                    <td>
+                                                        <select class="form-control" name="conduct_type[]">
+                                                            <option selected disabled>Chọn</option>
+                                                            <option value="A" {{ $student->conduct_type == "A" ? 'selected':'' }}>Tốt</option>
+                                                            <option value="B" {{ $student->conduct_type == "B" ? 'selected':'' }}>Khá</option>
+                                                            <option value="C" {{ $student->conduct_type == "C" ? 'selected':'' }}>Trung bình</option>
+                                                        </select>
+                                                    </td>
                                                 </tr>
                                                 @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="float-right pt-2">
-                                            {{ $students->links('pagination::bootstrap-4') }}
+                                        <div class="col-lg-7">
+                                            <button type="submit" class="btn btn-primary">Cập nhật</button>
                                         </div>
                                     </div>
                                 </div>
@@ -85,6 +80,7 @@
                     </div>
                 </div>
             </div>
+            </form>
         </div>
     </div>
 @endsection

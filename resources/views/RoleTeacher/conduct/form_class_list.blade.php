@@ -4,13 +4,6 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
-            <div class="row page-titles mx-0">
-                <div class="col-sm-6 p-md-0">
-                    <div class="welcome-text">
-                        <h4>Danh sách lớp chủ nhiệm</h4>
-                    </div>
-                </div>
-            </div>
              <div class="row">
                 <div class="col-lg-12">
                     <div class="row tab-content">
@@ -23,7 +16,7 @@
                                                 <tr>
                                                     <th>Năm học</th>
                                                     <th>Chủ nhiệm lớp</th>
-                                                    <th>Xem danh sách</th>
+                                                    <th>Nhập hạnh kiểm</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -32,7 +25,7 @@
                                                    <td>{{ $data->year->session_name }}</td>
                                                    <td>{{ $data->class->class_name }}</td>
                                                    <td>
-                                                        <a href="{{ url('teacher/end-semester-note/class/list/'.$data->class_id.'/'.$data->session_id) }}"
+                                                        <a href="{{ url('teacher/conduct/add/'.$data->class_id.'/'.$data->session_id) }}"
                                                             class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
                                                    </td>
                                                 </tr>

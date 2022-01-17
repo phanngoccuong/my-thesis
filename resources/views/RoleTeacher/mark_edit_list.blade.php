@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-responsive-sm">
+                                            <table class="table header-border table-responsive-sm">
                                                 @if ($course->is_point == 1)
                                                 <thead>
                                                     <tr>
@@ -58,7 +58,7 @@
                                                         <th>Email</th>
                                                         <th>Điểm giữa kì</th>
                                                         <th>Điểm cuối kì</th>
-                                                        <th>Nhận xét của giáo viên</th>
+
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -76,10 +76,6 @@
                                                             <td>
                                                                 <input type="text" class="form-control"
                                                                 name="final_mark[]" value="{{ $student->final_mark }}">
-                                                            </td>
-                                                             <td class="w-50">
-                                                                <input type="text" class="form-control" name="teacher_comment[]"
-                                                                value="{{ $student->teacher_comment }}" >
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -113,10 +109,6 @@
                                                                     {{ $student->result == 0 ? "selected": "" }}
                                                                     >Không hoàn thành</option>
                                                                 </select>
-                                                            </td>
-                                                            <td class="w-50">
-                                                                <input type="text" class="form-control" name="teacher_comment[]"
-                                                                value="{{ $student->teacher_comment }}">
                                                             </td>
                                                         </tr>
                                                     @endforeach

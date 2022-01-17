@@ -200,14 +200,14 @@
                     <li><a href="{{ route('mark.edit') }}">Xem điểm</a></li>
                 </ul>
             </li>
-            <li><a class="has-arrow" href="{{ route('note.student.search') }}" aria-expanded="false">
+            <li><a class="has-arrow"  aria-expanded="false">
                     <i class="la la-certificate"></i>
-                    <span class="nav-text">Sổ liên lạc</span>
+                    <span class="nav-text">Sổ hạnh kiểm</span>
                 </a>
-                {{-- <ul aria-expanded="false">
-                    <li><a href="{{ route('mark.add') }}">Nhập điểm</a></li>
-                    <li><a href="{{ route('mark.edit') }}">Xem điểm</a></li>
-                </ul> --}}
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('conduct.teacher.form.class') }}">Nhập hạnh kiểm</a></li>
+                    <li><a href="{{ route('conduct.teacher.form.class.edit') }}">Xem thông tin hạnh kiểm</a></li>
+                </ul>
             </li>
         </ul>
     </div>

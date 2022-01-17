@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table table-striped table-responsive-sm">
+                                            <table class="table header-border table-responsive-sm">
                                                 @if ($course->is_point == 1)
                                                 <thead>
                                                     <tr>
@@ -58,7 +58,6 @@
                                                         <th>Email</th>
                                                         <th>Điểm giữa kì</th>
                                                         <th>Điểm cuối kì</th>
-                                                        <th>Nhận xét của giáo viên</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -75,9 +74,6 @@
                                                             <td>
                                                                 <input type="number" class="form-control" name="final_mark[]">
                                                             </td>
-                                                            <td class="w-50">
-                                                                <input type="text" class="form-control" name="teacher_comment[]">
-                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -89,7 +85,6 @@
                                                         <th>Ngày sinh</th>
                                                         <th>Email</th>
                                                         <th>Kết quả</th>
-                                                        <th>Nhận xét của giáo viên</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -108,9 +103,6 @@
                                                                     <option value="0">Không hoàn thành</option>
                                                                 </select>
                                                             </td>
-                                                            <td class="w-50">
-                                                                <input type="text" class="form-control" name="teacher_comment[]">
-                                                            </td>
                                                         </tr>
                                                     @endforeach
                                                 </tbody>
@@ -126,8 +118,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 
 @endsection
