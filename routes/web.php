@@ -194,8 +194,12 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('attendance/show', [App\Http\Controllers\StudentRole\AttendanceController::class, 'showAttendance'])->name('student.attendance.show');
     Route::get('attendance/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getAttendance'])->name('student.attendance.get');
     Route::get('attendance/course/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getCourse'])->name('student.attendance.course.get');
-    Route::get('note', [App\Http\Controllers\StudentRole\TeacherNoteController::class, 'index'])->name('student.note.search');
-    Route::get('note/list', [App\Http\Controllers\StudentRole\TeacherNoteController::class, 'getTeacherNote'])->name('student.note.get');
+    Route::get('ability-quality', [App\Http\Controllers\StudentRole\AbilityQualityController::class, 'index'])->name('student.a-q.search');
+    Route::get('ability-quality/get', [App\Http\Controllers\StudentRole\AbilityQualityController::class, 'getAQ'])->name('student.a-q.get');
+    Route::get('conduct/get', [App\Http\Controllers\StudentRole\ConductController::class, 'index'])->name('student.conduct.get');
+    Route::get('document/list/{id}', [App\Http\Controllers\StudentRole\TimetableController::class, 'getDocumentList']);
+    Route::get('comment/view', [App\Http\Controllers\StudentRole\CourseCommentController::class, 'searchComment'])->name('student.comment.show');
+    Route::get('comment/get', [App\Http\Controllers\StudentRole\CourseCommentController::class, 'getTeacherComment'])->name('student.comment.get');
 });
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
@@ -238,5 +242,22 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
         Route::get('/edit/{class}/{year}', [App\Http\Controllers\TeacherRole\ConductController::class, 'edit'])->name('conduct.edit');
         Route::get('/show', [App\Http\Controllers\TeacherRole\ConductController::class, 'show'])->name('conduct.edit.show');
         Route::post('/update', [App\Http\Controllers\TeacherRole\ConductController::class, 'update'])->name('conduct.update');
+    });
+    Route::prefix('course-comment')->group(function () {
+        Route::get('/search', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'search'])->name('comment.search');
+        Route::get('/add', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'create'])->name('comment.add');
+        Route::post('/save', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'store'])->name('comment.store');
+        Route::get('/show', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'show'])->name('comment.show');
+        Route::get('/edit/list', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'edit'])->name('comment.edit');
+        Route::post('/update', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'update'])->name('comment.update');
+    });
+    Route::prefix('ability-quality')->group(function () {
+        Route::get('/search', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'allClass'])->name('a-q.class.search');
+        Route::get('/list/{class}/{year}', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'classList'])->name('a-q.list');
+        Route::get('/add/{student}/{class}/{year}', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'add'])->name('a-q.add');
+        Route::post('/save', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'store'])->name('a-q.store');
+        Route::get('/show/{student}/{class}/{year}', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'show'])->name('a-q.show');
+        Route::get('/get', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'showDetails'])->name('a-q.get');
+        Route::post('/update', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'update'])->name('comment.update');
     });
 });

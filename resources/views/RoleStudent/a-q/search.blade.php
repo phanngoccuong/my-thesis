@@ -4,7 +4,7 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
-            <form action="{{ route('student.note.get') }}" method="GET" enctype="multipart/form-data">
+            <form action="{{ route('student.a-q.get') }}" method="GET" enctype="multipart/form-data">
             @csrf
             <div class="row page-titles mx-0">
                 <div class="col-lg-2">

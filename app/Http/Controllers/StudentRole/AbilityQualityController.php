@@ -3,16 +3,17 @@
 namespace App\Http\Controllers\StudentRole;
 
 use App\Http\Controllers\Controller;
+use App\Models\AbilityQuality;
+use App\Models\AssignTeacher;
+use App\Models\Promotion;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Student;
-use App\Models\StudentMarks;
-use Illuminate\Support\Facades\DB;
-use App\Models\Semester;
 
-class MarkController extends Controller
+class AbilityQualityController extends Controller
 {
-    public function show()
+    public function index()
     {
         $currentUserEmail = Auth::user()->email;
         $semesters = Student::where('email', '=', $currentUserEmail)
@@ -21,14 +22,12 @@ class MarkController extends Controller
             ->select('semesters.*')
             ->distinct()
             ->get();
-
-        return view('RoleStudent.mark.student_mark_view', [
-            'title' => 'Điểm học sinh',
+        return view('RoleStudent.a-q.search', [
+            'title' => 'Năng lực phẩm chất',
             'semesters' => $semesters,
         ]);
     }
-
-    public function getMark(Request $request)
+    public function getAQ(Request $request)
     {
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
@@ -36,15 +35,20 @@ class MarkController extends Controller
         $studentID = $studentInfo->id;
         $semester_id = $request->semester_id;
         $semester = Semester::where('id', $semester_id)->first();
-        $data = StudentMarks::with('course')
-            ->where('student_id', '=', $studentID)
+        $class = Promotion::with('classes')
+            ->where('student_id', $studentID)->where('session_id', $semester->session_id)->first();
+        $teacher = AssignTeacher::with('teacher')
+            ->where('class_id', $class->class_id)->where('session_id', $semester->session_id)->first();
+        $data = AbilityQuality::where('student_id', '=', $studentID)
             ->where('semester_id', '=', $semester_id)
-            ->get();
+            ->first();
 
-        return view('RoleStudent.mark.student_mark_details', [
-            'title' => 'Kết quả học tập',
+        return view('RoleStudent.a-q.details', [
+            'title' => 'Năng lực phẩm chất',
+            'semester' => $semester,
             'data' => $data,
-            'semester' => $semester
+            'class' => $class,
+            'teacher' => $teacher
         ]);
     }
 }

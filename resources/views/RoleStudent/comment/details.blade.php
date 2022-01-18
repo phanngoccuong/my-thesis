@@ -21,46 +21,23 @@
                     <div class="row tab-content">
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Danh sách học sinh</h4>
-                                </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-striped table-responsive-sm">
+                                        <table class="table header-border table-responsive-sm">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
                                                     <th>Môn học</th>
-                                                    <th>Điểm giữa kì</th>
-                                                    <th>Điểm cuối kì</th>
-                                                    <th>Tổng kết</th>
+                                                    <th>Nhận xét của giáo viên</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($data as $key=>$value)
-                                                    @php
-                                                        $final = ($value->half_mark + $value->final_mark) /2;
-                                                    @endphp
                                                     <tr>
                                                         <td>{{ ++$key }}</td>
                                                         <td>{{ $value->course->course_name }}</td>
-                                                        @if ($value->is_point == 1)
-                                                        <td>{{ $value->half_mark }}</td>
-                                                        <td>{{ $value->final_mark }}</td>
-                                                        <td>{{ $final }}</td>
-                                                        @elseif ($value->is_point == 0)
-                                                        <td>
-                                                            <i class="la la-close"></i>
-                                                        </td>
-                                                        <td> <i class="la la-close"></i></td>
-                                                        @if ($value->result == 1)
-                                                        <td><span class="badge bg-success">
-                                                            Đạt</span></td>
-                                                        @elseif ($value->result == 0)
-                                                            <td><span class="badge bg-danger">
-                                                            Không đạt</span></td>
-                                                        @endif
-                                                        @endif
+                                                        <td>{{
+                                                        $value->comment }}</td>
                                                     </tr>
                                                 @endforeach
                                             </tbody>
@@ -74,5 +51,4 @@
             </div>
         </div>
     </div>
-
 @endsection

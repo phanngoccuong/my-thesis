@@ -22,7 +22,7 @@ class AttendanceController extends Controller
             ->select('semesters.*')
             ->distinct()
             ->get();
-        return view('RoleStudent.student_attendance_view', [
+        return view('RoleStudent.attendance.student_attendance_view', [
             'title' => 'Thông tin điểm danh',
             'semesters' => $semesters,
         ]);
@@ -44,7 +44,7 @@ class AttendanceController extends Controller
             ->where('student_id', '=', $student_id)
             ->orderBy('date', 'asc')->get();
 
-        return view('RoleStudent.student_attendance_view_details', [
+        return view('RoleStudent.attendance.student_attendance_view_details', [
             'title' => 'Thông tin điểm danh',
             'datas' => $datas,
             'semester' => $semester,

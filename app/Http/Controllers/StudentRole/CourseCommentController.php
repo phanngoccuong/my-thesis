@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\StudentRole;
 
 use App\Http\Controllers\Controller;
+use App\Models\Semester;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Student;
-use App\Models\StudentMarks;
-use Illuminate\Support\Facades\DB;
-use App\Models\Semester;
+use App\Models\TeacherComment;
 
-class MarkController extends Controller
+class CourseCommentController extends Controller
 {
-    public function show()
+    public function searchComment()
     {
         $currentUserEmail = Auth::user()->email;
         $semesters = Student::where('email', '=', $currentUserEmail)
@@ -22,13 +21,12 @@ class MarkController extends Controller
             ->distinct()
             ->get();
 
-        return view('RoleStudent.mark.student_mark_view', [
-            'title' => 'Điểm học sinh',
+        return view('RoleStudent.comment.search', [
+            'title' => 'Nhận xét của giáo viên',
             'semesters' => $semesters,
         ]);
     }
-
-    public function getMark(Request $request)
+    public function getTeacherComment(Request $request)
     {
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
@@ -36,13 +34,13 @@ class MarkController extends Controller
         $studentID = $studentInfo->id;
         $semester_id = $request->semester_id;
         $semester = Semester::where('id', $semester_id)->first();
-        $data = StudentMarks::with('course')
+        $data = TeacherComment::with('course')
             ->where('student_id', '=', $studentID)
             ->where('semester_id', '=', $semester_id)
             ->get();
 
-        return view('RoleStudent.mark.student_mark_details', [
-            'title' => 'Kết quả học tập',
+        return view('RoleStudent.comment.details', [
+            'title' => 'Nhận xét của giáo viên',
             'data' => $data,
             'semester' => $semester
         ]);

@@ -26,7 +26,7 @@
                                     <tr class="text-center">
                                         <th scope="col">Môn học</th>
                                         <th scope="col">Phòng học</th>
-                                        <th scope="col">Lớp</th>
+                                        <th scope="col">Giáo viên</th>
                                         <th scope="col">Ngày</th>
                                         <th scope="col">Giờ</th>
                                         <th scope="col">Mã lớp Online</th>
@@ -38,20 +38,14 @@
                                     <tr class="text-center">
                                         <td>{{ $data->course->course_name }}</td>
                                         <td>{{ $data->room->classroom_name }}</td>
-                                        <td>{{ $data->classes->class_name }}</td>
+                                        <td>{{ $data->teachers->teacher_name }}</td>
                                         <td>{{ $data->day->day_name }}</td>
                                         <td>{{ $data->time->time }}</td>
                                         <td>
                                             <span> {{ $data->note['lesson_code'] }}</span>
-                                            <a href="{{ url('teacher/note/add/timetable/'.$data->id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
-                                            <a href="{{ url('teacher/timetable/note/edit/'.$data->id) }}"
-                                                class="btn btn-sm btn-warning"><i class="la la-pencil"></i></a>
                                         </td>
                                         <td>
-                                            <a href="{{ url('teacher/document/upload/'.$data->id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-cloud-upload"></i></a>
-                                            <a href="{{ url('teacher/document/list/'.$data->id) }}"
+                                            <a href="{{ url('student/document/list/'.$data->id) }}"
                                                 class="btn btn-sm btn-info"><i class="la la-bullhorn"></i></a>
                                         </td>
 

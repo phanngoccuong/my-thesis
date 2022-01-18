@@ -4,6 +4,8 @@
 {!! Toastr::message() !!}
 <div class="content-body">
     <div class="container-fluid">
+        <form action="{{ route('timetableDetails.get') }}" method="GET" enctype="multipart/form-data">
+            @csrf
         <div class="row page-titles mx-0">
             <div class="col-lg-2">
                     <div class="form-group">
@@ -23,11 +25,12 @@
                     </div>
                 </div>
                 <div class="col-lg" style="padding-top: 30px;">
-                    <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a>
+                    {{-- <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a> --}}
+                     <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                 </div>
             </div>
 
-        <div class="row d-none" id="search-result">
+        {{-- <div class="row d-none" id="search-result">
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
@@ -50,12 +53,13 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
+        </form>
     </div>
 </div>
 
 {{-- AJAX --}}
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $(document).on('click','#search',function(){
         var semester_id = $('#semester_id').val();
         $.ajax({
@@ -79,5 +83,5 @@
             }
         });
     });
-</script>
+</script> --}}
 @endsection

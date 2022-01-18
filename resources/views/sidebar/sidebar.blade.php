@@ -153,7 +153,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('student.timetable.search') }}">Thời khóa biểu</a></li>
-                    <li><a href="{{ route('timetableDetails') }}">Các môn đang học</a></li>
+                    <li><a href="{{ route('timetableDetails') }}">Lịch học chi tiết</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -163,7 +163,9 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('student.mark.view') }}">Bảng điểm cá nhân</a></li>
                     <li><a href="{{ route('student.attendance.show') }}">Thông tin điểm danh</a></li>
-                    <li><a href="{{ route('student.note.search') }}">Sổ liên lạc</a></li>
+                    <li><a href="{{ route('student.a-q.search') }}">Năng lực phẩm chất</a></li>
+                    <li><a href="{{ route('student.conduct.get') }}">Hạnh kiểm</a></li>
+                    <li><a href="{{ route('student.comment.show') }}">Nhận xét của giáo viên</a></li>
                 </ul>
             </li>
         </ul>
@@ -192,7 +194,7 @@
             </li>
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="la la-certificate"></i>
+                    <i class="la la-flag"></i>
                     <span class="nav-text">Quản lý điểm</span>
                 </a>
                 <ul aria-expanded="false">
@@ -201,12 +203,30 @@
                 </ul>
             </li>
             <li><a class="has-arrow"  aria-expanded="false">
-                    <i class="la la-certificate"></i>
+                    <i class="la la-bank"></i>
                     <span class="nav-text">Sổ hạnh kiểm</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('conduct.teacher.form.class') }}">Nhập hạnh kiểm</a></li>
                     <li><a href="{{ route('conduct.teacher.form.class.edit') }}">Xem thông tin hạnh kiểm</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow"  aria-expanded="false">
+                    <i class="la la-commenting-o"></i>
+                    <span class="nav-text">Sổ nhận xét</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('comment.search') }}">Nhập nhận xét</a></li>
+                    <li><a href="{{ route('comment.show') }}">Xem nhận xét</a></li>
+                </ul>
+            </li>
+            <li><a class="has-arrow"  aria-expanded="false">
+                    <i class="la la-commenting-o"></i>
+                    <span class="nav-text">Sổ năng lực-phẩm chất</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="{{ route('a-q.class.search') }}">Ghi sổ</a></li>
+                    <li><a href="{{ route('comment.show') }}">Xem nhận xét</a></li>
                 </ul>
             </li>
         </ul>
