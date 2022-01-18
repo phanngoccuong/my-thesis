@@ -32,6 +32,10 @@ class CourseController extends Controller
             'course_name' => 'required|string|max:255',
             'group_id' => 'required|integer',
             'is_point' => 'required|integer'
+        ], [
+            'course_name.required' => 'Vui lòng nhập tên môn học',
+            'group_id.required' => 'Vui lòng nhập khối lớp',
+            'is_point.required' => 'Vui lòng nhập trạng thái tính điểm'
         ]);
         $courses = new Course;
         $courses->course_name = $request->course_name;

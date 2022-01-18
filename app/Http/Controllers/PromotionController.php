@@ -33,7 +33,7 @@ class PromotionController extends Controller
             ->where('session_id', '=', $previousYear['id'])
             ->where('class_id', $class_id)
             ->get();
-        $studentCount = $datas->count();
+
 
 
         $currentGroup = Classes::where('id', $class_id)->select('group_id')->first();

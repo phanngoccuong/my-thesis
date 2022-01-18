@@ -28,11 +28,12 @@ class ClassroomController extends Controller
     {
         $request->validate([
             'classroom_name' => 'required|string|max:255',
+        ], [
+            'classroom_name.required' => 'Vui lòng nhập thông tin phòng'
         ]);
         $classrooms = new Classroom;
         $classrooms->classroom_name = $request->classroom_name;
         $classrooms->save();
-
         Toastr::success('Thêm phòng học thành công!!', 'Success');
         return redirect()->route('classroom/list');
     }

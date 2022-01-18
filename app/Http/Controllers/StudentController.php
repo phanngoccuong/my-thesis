@@ -54,6 +54,7 @@ class StudentController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'class_id'            => 'required|integer',
             'name'                => 'required|string|max:255',
             'email'               => 'required|string|email|unique:students',
             'batch_id'            => 'required|integer',
@@ -64,6 +65,18 @@ class StudentController extends Controller
             'mother_number'       => 'required|min:11|numeric',
             'dateOfBirth'         => 'required|string|max:255',
             'address'             => 'required|string|max:255',
+        ], [
+            'name.required' => 'Vui lòng nhập tên học sinh',
+            'email.required' => 'Vui lòng nhập email',
+            'batch_id.required' => 'Vui lòng nhập niên khóa',
+            'gender.required' => 'Vui lòng nhập giới tính',
+            'father_name.required' => 'Vui lòng nhập họ và tên bố',
+            'father_number.required' => 'Vui lòng nhập số điện thoại bố',
+            'mother_name.required' => 'Vui lòng nhập họ và tên mẹ',
+            'mother_number.required' => 'Vui lòng nhập số điện thoại mẹ',
+            'dateOfBirth.required' => 'Vui lòng nhập ngày sinh',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+            'email.unique' => 'Email đã được dùng',
         ]);
         DB::beginTransaction();
         $student = new Student;
@@ -85,7 +98,6 @@ class StudentController extends Controller
         ];
         DB::table('promotions')->insert($promo);
         DB::commit();
-
         Toastr::success('Thêm học sinh thành công!!', 'Success');
         return redirect()->route('student/list');
     }

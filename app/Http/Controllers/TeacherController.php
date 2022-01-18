@@ -39,6 +39,15 @@ class TeacherController extends Controller
             'address'             => 'required|string|max:255',
             'special'             => 'required|string|max:255',
             // 'upload'              => 'required|image',
+        ], [
+            'teacher_name.required' => 'Vui lòng nhập tên giáo viên',
+            'email.required' => 'Vui lòng nhập email giáo viên',
+            'gender.required' => 'Vui lòng nhập giới tính',
+            'mobileNumber.required' => 'Vui lòng nhập số điện thoại',
+            'dateOfBirth.required' => 'Vui lòng nhập ngày sinh',
+            'address.required' => 'Vui lòng nhập địa chỉ',
+            'special.required' => 'Vui lòng nhập chuyên môn',
+            'email.unique' => 'Email đã được sử dụng'
         ]);
 
         // $image = time() . '.' . $request->upload->extension();

@@ -31,6 +31,8 @@ class DayController extends Controller
     {
         $request->validate([
             'day_name' => 'required|string|max:255',
+        ], [
+            'day_name.required' => 'Vui lòng nhập ngày học'
         ]);
         $days = new Day;
         $days->day_name = $request->day_name;

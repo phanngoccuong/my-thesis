@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher;
 use App\Models\Semester;
 use Brian2694\Toastr\Facades\Toastr;
-use Svg\Tag\Rect;
+
 
 class TimetableController extends Controller
 {
@@ -72,6 +72,8 @@ class TimetableController extends Controller
     {
         $request->validate([
             'lesson_code' => 'required'
+        ], [
+            'lesson_code.required' => 'Vui lòng nhập ghi chú'
         ]);
         try {
             $note = new LessonNote;

@@ -54,6 +54,9 @@ class ClassesController extends Controller
         $request->validate([
             'class_name' => 'required|string|max:255',
             'group_id' => 'required|integer'
+        ], [
+            'class_name.required' => 'Vui lòng nhập tên lớp',
+            'group_id.required' => 'Vui lòng chọn khối lớp'
         ]);
         $classes = new Classes;
         $classes->class_name = $request->class_name;
@@ -66,7 +69,6 @@ class ClassesController extends Controller
 
     public function edit($id)
     {
-
         $classes = DB::table('classes')->where('id', $id)->first();
         return view('classes.classes_edit', [
             'title' => 'Chỉnh sửa lớp',
@@ -97,33 +99,4 @@ class ClassesController extends Controller
         Toastr::success('Xóa lớp thành công!!', 'Success');
         return redirect()->route('classes/list');
     }
-
-    // public function show($id)
-    // {
-    //     $classStudents = DB::table('classes')
-    //         ->join('students', 'students.class_id', '=', 'classes.id')
-    //         ->where('classes.id', '=', $id)
-    //         ->select('students.*', 'classes.class_name')
-    //         ->orderBy('name', 'asc')
-    //         ->paginate(10);
-    //     $classes = Classes::with('formTeacher')
-    //         ->find($id);
-    //     $totalStudent = Student::where('class_id', '=', $id)->count();
-    //     $maleTotal =
-    //         Student::where('class_id', '=', $id)
-    //         ->where('gender', '=', 1)
-    //         ->count();
-    //     $femaleTotal =
-    //         Student::where('class_id', '=', $id)
-    //         ->where('gender', '=', 2)
-    //         ->count();
-    //     return view('classes.classes_about', [
-    //         'title' => 'Thông tin lớp',
-    //         'classStudents' => $classStudents,
-    //         'classes' => $classes,
-    //         'totalStudent' => $totalStudent,
-    //         'maleTotal' => $maleTotal,
-    //         'femaleTotal' => $femaleTotal
-    //     ]);
-    // }
 }

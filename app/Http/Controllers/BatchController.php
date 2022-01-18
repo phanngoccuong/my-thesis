@@ -27,6 +27,8 @@ class BatchController extends Controller
     {
         $request->validate([
             'batch_name' => 'required|string|max:255',
+        ], [
+            'batch_name.required' => 'Vui lòng nhập niên khóa mới'
         ]);
         $batches = new Batch;
         $batches->batch_name = $request->batch_name;

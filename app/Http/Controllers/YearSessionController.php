@@ -27,6 +27,8 @@ class YearSessionController extends Controller
     {
         $request->validate([
             'session_name' => 'required|string|max:255',
+        ], [
+            'session_name.required' => 'Vui lòng nhập năm học'
         ]);
         $year_session = new YearSession;
         $year_session->session_name = $request->session_name;

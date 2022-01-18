@@ -76,6 +76,14 @@ class LessonController extends Controller
             'day_id' => 'required|integer',
             'time_id' => 'required|integer',
             'semester_id' => 'required|integer',
+        ], [
+            'course_id.required' => 'Vui lòng chọn môn học',
+            'class_id.required' => 'Vui lòng chọn lớp',
+            'teacher_id.required' => 'Vui lòng chọn giáo viên',
+            'classroom_id.required' => 'Vui lòng chọn địa điểm',
+            'day_id.required' => 'Vui lòng chọn ngày học',
+            'time_id.required' => 'Vui lòng chọn thời gian',
+            'semester_id.required' => 'Vui lòng chọn kì học',
         ]);
 
         $lessons = new Lesson;

@@ -30,6 +30,8 @@ class TimeController extends Controller
     {
         $request->validate([
             'time' => 'required|string|max:255',
+        ], [
+            'time.required' => 'Vui lòng nhập thời gian'
         ]);
         $times = new Time;
         $times->time = $request->time;

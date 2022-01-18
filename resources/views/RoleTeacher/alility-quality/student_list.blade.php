@@ -5,10 +5,9 @@
     {{-- message --}}
     {!! Toastr::message() !!}
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
-            <form action="{{ route('conduct.get') }}" method="GET" enctype="multipart/form-data">
-                @csrf
+            {{-- <form action="{{ route('conduct.get') }}" method="GET" enctype="multipart/form-data">
+                @csrf --}}
             <div class="row page-titles mx-0">
                 <div class="col-lg-2">
                     <div class="form-group">
@@ -75,7 +74,7 @@
                     </div>
                 </div>
             </div>
-            </form>
+            {{-- </form> --}}
         </div>
     </div>
 @endsection
