@@ -12,8 +12,6 @@
                     </div>
                 </div>
             </div>
-
-
             <div class="card-body">
                 <form action="{{ route('promotion.store') }}" method="post" enctype="multipart/form-data">
                 @csrf
@@ -40,13 +38,17 @@
                                         <td>{{ $data->classes->class_name }}</td>
                                         <td>{{ $data->year->session_name }}</td>
                                         <td>
-                                            <select class="form-control" name="class_id[]" id="class_id">
+                                            <select class="form-control @error('class_id') is-invalid @enderror" name="class_id[]" id="class_id">
                                                 <option selected disabled>Chọn lớp</option>
                                                 @foreach ($newClass as $key=>$value)
-
                                                     <option value="{{ $value->id }}">{{ $value->class_name }}</option>
                                                 @endforeach
                                             </select>
+                                            @error('class_id')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
                                         </td>
                                     </tr>
                             @endforeach

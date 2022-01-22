@@ -21,9 +21,8 @@ use Illuminate\Support\Facades\Auth;
 
 class StudentController extends Controller
 {
-    public function index(PromotionService $promotionService)
+    public function index()
     {
-        $latestYear = $promotionService->getLatestSession();
         $studentShow = Student::with('batches')
             ->orderBy('name', 'asc')->paginate(10);
 
@@ -95,11 +94,13 @@ class StudentController extends Controller
             'student_id'    => $student->id,
             'class_id'      => $request->class_id,
             'session_id'    => $request->session_id,
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ];
         DB::table('promotions')->insert($promo);
         DB::commit();
         Toastr::success('Thêm học sinh thành công!!', 'Success');
-        return redirect()->route('student/list');
+        return redirect()->route('student.list');
     }
 
     public function edit($id)
@@ -131,8 +132,8 @@ class StudentController extends Controller
 
 
         // $old_image = Student::find($id);
-        $image_name = $request->hidden_image;
-        $image = $request->file('upload');
+        // $image_name = $request->hidden_image;
+        // $image = $request->file('upload');
 
         // if ($image != '') {
         //     $image_name = rand() . '.' . $image->getClientOriginalExtension();
@@ -154,13 +155,10 @@ class StudentController extends Controller
             'address'             => $address,
             // 'upload'              => $image_name,
         ];
-        // $user = Auth::user();
-
 
         Student::where('id', $request->id)->update($update);
-        // Notification::send($receiver, new EditStudent($user, $name));
         Toastr::success('Cập nhật thành công!!', 'Success');
-        return redirect()->route('student/list');
+        return redirect()->route('student.list');
     }
 
     public function delete($id)
@@ -168,7 +166,21 @@ class StudentController extends Controller
         $delete = Student::find($id);
         $delete->delete();
         Toastr::success('Xóa học sinh thành công!!', 'Success');
-        return redirect()->route('student/list');
+        return redirect()->route('student.list');
+    }
+    public function search(Request $request)
+    {
+        if ($request->name) {
+            $studentShow = Student::where('name', 'LIKE', '%' . $request->name . '%')
+                ->orderBy('name', 'asc')->paginate(10);
+        }
+        if ($request->email) {
+            $studentShow = Student::where('email', 'LIKE', '%' . $request->email . '%')
+                ->orderBy('name', 'asc')->paginate(10);
+        }
+        return view('student.student_search', compact('studentShow'), [
+            'title' => 'Danh sách học sinh',
+        ]);
     }
 
     public function PDFGenerate()

@@ -28,9 +28,9 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="card-body">
-                            <form class="form form-horizontal" action="{{ route('update') }}" method="POST" enctype="multipart/form-data">
+                            <form class="form form-horizontal" action="{{ route('user.update') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $data[0]->id }}">
+                                <input type="hidden" name="id" value="{{ $data->id }}">
                                 <div class="form-body">
                                     <div class="row">
                                         <div class="col-md-4">
@@ -40,25 +40,8 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <input type="text" class="form-control"
-                                                        placeholder="Name" id="first-name-icon" name="fullName"
-                                                        value="{{ $data[0]->name }}">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-4">
-                                            <label>Ảnh</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-lefts">
-                                                <div class="position-relative">
-                                                    <input type="file" class="form-control"
-                                                    placeholder="Name" id="first-name-icon" name="image"/>
-                                                    <div class="avatar avatar-xl">
-                                                        <img class="rounded-circle" width="35"
-                                                         src="{{ URL::to('/assets/images/'. $data[0]->avatar) }}">
-                                                    </div>
-                                                    <input type="hidden" name="hidden_image" value="{{ $data[0]->avatar }}">
+                                                          name="name"
+                                                        value="{{ $data->name }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -70,39 +53,12 @@
                                             <div class="form-group has-icon-left">
                                                 <div class="position-relative">
                                                     <input type="email" class="form-control"
-                                                    placeholder="Email" id="first-name-icon" name="email" value="{{ $data[0]->email }}">
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-4">
-                                            <label>Số điện thoại</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group has-icon-left">
-                                                <div class="position-relative">
-                                                    <input type="number" class="form-control"
-                                                    placeholder="Mobile" name="phone_number" value="{{ $data[0]->phone_number }}">
+                                                    placeholder="Email"
+                                                    name="email" value="{{ $data->email }}">
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4">
-                                            <label>Trạng thái</label>
-                                        </div>
-                                        <div class="col-md-8">
-                                            <div class="form-group position-relative has-icon-left">
-                                                <select class="form-control" name="status" id="status">
-                                                    <option value="{{ $data[0]->status }}"
-                                                        {{ ( $data[0]->status == $data[0]->status) ? 'selected' : ''}}>
-                                                        {{ $data[0]->status }}
-                                                    </option>
-                                                    @foreach ($userStatus as $key => $value)
-                                                    <option value="{{ $value->type_name }}">
-                                                            {{ $value->type_name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
 
                                         <div class="col-md-4">
                                             <label>Vai trò</label>
@@ -110,13 +66,19 @@
                                         <div class="col-md-8">
                                             <div class="form-group position-relative has-icon-left">
                                                 <select class="form-control" name="role_name" id="role_name">
-                                                    <option value="{{ $data[0]->role_name }}"
-                                                        {{ ( $data[0]->role_name == $data[0]->role_name) ? 'selected' : ''}}>
-                                                        {{ $data[0]->role_name }}
+                                                    <option value="Admin"
+                                                        {{ ( $data->role_name == "Admin") ? 'selected' : ''}}>
+                                                      Admin
                                                     </option>
-                                                    @foreach ($roleName as $key => $value)
-                                                    <option value="{{ $value->role_type }}"> {{ $value->role_type }}</option>
-                                                    @endforeach
+                                                    <option value="Student"
+                                                        {{ ( $data->role_name == "Student") ? 'selected' : ''}}>
+                                                      Học sinh
+                                                    </option>
+                                                    <option value="Teacher"
+                                                        {{ ( $data->role_name == "Teacher") ? 'selected' : ''}}>
+                                                      Giáo viên
+                                                    </option>
+
                                                 </select>
                                             </div>
                                         </div>

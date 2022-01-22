@@ -28,16 +28,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="nav nav-pills mb-3">
-                        {{-- <li class="nav-item"><a href="#list-view" data-toggle="tab" class="nav-link btn-primary mr-1 show active">List View</a></li> --}}
-                        <div class="dropdown">
-                            <button class="btn btn-danger dropdown-toggle" type="button" style="height: 38.4px"
-                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="la la-file-pdf-o"></i> PDF
-                            </button>
-                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <a class="dropdown-item" href="{{ route('teacher/pdf-export') }}">Xuất file PDF</a>
-                            </div>
-                        </div>
+
                     </ul>
                 </div>
                 <div class="col-lg-12">
@@ -46,14 +37,25 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Danh sách giáo viên</h4>
-                                    <a href="{{ route('teacher/add') }}" class="btn btn-primary">+ Thêm mới</a>
+                                    <div class="d-flex">
+                                        <div class="dropdown">
+                                            <button class="btn btn-danger dropdown-toggle" type="button" style="height: 38.4px"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="la la-file-pdf-o"></i> PDF
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="{{ route('teacher/pdf-export') }}">Xuất file PDF</a>
+                                            </div>
+                                        </div>
+                                        <a href="{{ route('teacher/add') }}" class="btn btn-primary">+ Thêm mới</a>
+                                    </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
                                         <table id="example2" class="display" style="min-width: 845px">
                                             <thead>
                                                 <tr>
-                                                    <th>#</th>
+                                                    <th>ID</th>
                                                     {{-- <th>Ảnh</th> --}}
                                                     <th>Họ và tên</th>
                                                     <th>Giới tính</th>
@@ -67,7 +69,7 @@
                                             <tbody>
                                                 @foreach ($teachers as $key => $teacher )
                                                 <tr>
-                                                    <td><strong>{{ ++$key }}</strong></td>
+                                                    <td><strong>{{ $teacher->id }}</strong></td>
                                                     {{-- <td>
                                                         <img class="rounded-circle" width="35" src="{{ URL::to('/images/'. $teacher->upload) }}"
                                                         alt="{{ $teacher->upload }}">

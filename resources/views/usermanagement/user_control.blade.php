@@ -32,7 +32,6 @@
                                             <th>Họ và tên</th>
                                             <th>Ảnh</th>
                                             <th>Email</th>
-                                            <th>Trạng thái</th>
                                             <th>Vai trò</th>
                                             <th class="text-center">Action</th>
                                         </tr>
@@ -45,20 +44,12 @@
                                                 <td class="name">
                                                     <div class="avatar avatar-xl">
                                                         <img class="rounded-circle" width="35"
-                                                        src="{{ URL::to('/assets/images/'. $item->avatar) }}"
+                                                       src="{{ URL::to('/images/'. $item->avatar) }}"
                                                         alt="{{ $item->avatar }}">
                                                     </div>
                                                 </td>
                                                 <td class="email">{{ $item->email }}</td>
-                                                @if($item->status =='Active')
-                                                <td class="status"><span class="badge bg-success">{{ $item->status }}</span></td>
-                                                @endif
-                                                @if($item->status =='Disable')
-                                                <td class="status"><span class="badge bg-danger">{{ $item->status }}</span></td>
-                                                @endif
-                                                @if($item->status ==null)
-                                                <td class="status"><span class="badge bg-danger">{{ $item->status }}</span></td>
-                                                @endif
+
                                                 @if($item->role_name =='Admin')
                                                 <td class="role_name"><span  class="badge bg-success">{{ $item->role_name }}</span></td>
                                                 @endif
@@ -69,9 +60,9 @@
                                                 <td class="role_name"><span  class=" badge bg-warning">{{ $item->role_name }}</span></td>
                                                 @endif
                                                 <td class="text-center">
-                                                    <a href="{{ route('user/add/new') }}">
+                                                    {{-- <a href="{{ route('user/add/new') }}">
                                                         <span class="btn btn-sm btn-info"><i class="la la-plus"></i></span>
-                                                    </a>
+                                                    </a> --}}
                                                     <a href="{{ url('admin/view/detail/'.$item->id) }}">
                                                         <span class="btn btn-sm btn-primary"><i class="la la-pencil"></i></span>
                                                     </a>

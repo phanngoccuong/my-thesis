@@ -65,10 +65,9 @@ Route::group(
         Route::get('user/add/new', [App\Http\Controllers\UserManagementController::class, 'addNewUser'])->name('user/add/new');
         Route::post('user/add/save', [App\Http\Controllers\UserManagementController::class, 'addNewUserSave'])->name('user/add/save');
         Route::get('view/detail/{id}', [App\Http\Controllers\UserManagementController::class, 'viewDetail']);
-        Route::post('update', [App\Http\Controllers\UserManagementController::class, 'update'])->name('update');
+        Route::post('update', [App\Http\Controllers\UserManagementController::class, 'update'])->name('user.update');
         Route::get('delete_user/{id}', [App\Http\Controllers\UserManagementController::class, 'delete']);
-        Route::get('activity/log', [App\Http\Controllers\UserManagementController::class, 'activityLog'])->name('activity/log');
-        Route::get('activity/login/logout', [App\Http\Controllers\UserManagementController::class, 'activityLogInLogOut'])->name('activity/login/logout');
+
 
         // ----------------------------- form change password ------------------------------//
         Route::get('change/password', [App\Http\Controllers\UserManagementController::class, 'changePasswordView'])->middleware('auth')->name('change/password');
@@ -81,13 +80,14 @@ Route::group(
         Route::post('session/update', [App\Http\Controllers\YearSessionController::class, 'update'])->name('session.update');
         Route::get('session/delete/{id}', [App\Http\Controllers\YearSessionController::class, 'delete'])->name('session.delete');
         // ----------------------------- student ------------------------------//
-        Route::get('student/list', [App\Http\Controllers\StudentController::class, 'index'])->name('student/list');
-        Route::get('student/add', [App\Http\Controllers\StudentController::class, 'create'])->name('student/add');
-        Route::post('student/save', [App\Http\Controllers\StudentController::class, 'store'])->name('student/save');
-        Route::get('student/show', [App\Http\Controllers\StudentController::class, 'show'])->name('student/show');
-        Route::get('student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit'])->name('student/edit');
-        Route::post('student/update', [App\Http\Controllers\StudentController::class, 'update'])->name('student/update');
-        Route::get('student/delete/{id}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student/delete');
+        Route::post('student/search', [App\Http\Controllers\StudentController::class, 'search'])->name('student.search');
+        Route::get('student/list', [App\Http\Controllers\StudentController::class, 'index'])->name('student.list');
+        Route::get('student/add', [App\Http\Controllers\StudentController::class, 'create'])->name('student.add');
+        Route::post('student/save', [App\Http\Controllers\StudentController::class, 'store'])->name('student.save');
+        Route::get('student/show', [App\Http\Controllers\StudentController::class, 'show'])->name('student.show');
+        Route::get('student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit'])->name('student.edit');
+        Route::post('student/update', [App\Http\Controllers\StudentController::class, 'update'])->name('student.update');
+        Route::get('student/delete/{id}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student.delete');
         #PDF
         Route::get('student/pdf-export', [App\Http\Controllers\StudentController::class, 'PDFGenerate'])->name('student/pdf-export');
         //----------Classes--------------------//

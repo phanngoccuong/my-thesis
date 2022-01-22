@@ -8,27 +8,27 @@
                     <span class="nav-text">Năm học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('session.add') }}">Quản lý năm học</a></li>
+                    <li><a href="{{ route('session.list') }}">Danh sách năm học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-certificate"></i>
-                    <span class="nav-text">Kì học</span>
+                    <span class="nav-text">Quản lý kì học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('semester/list') }}">Quản lý kì học</a></li>
+                    <li><a href="{{ route('semester/list') }}">Danh sách kì học</a></li>
                     <li><a href="{{ route('semester/add') }}">Thêm kì học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-certificate"></i>
-                    <span class="nav-text">Thông báo</span>
+                    <span class="nav-text">Quản lý thông báo</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('boarding.create') }}">Gửi thông báo</a></li>
                 </ul>
             </li>
-            <li><a class="has-arrow" href="{{ route('userManagement') }} aria-expanded="false">
+            <li><a class="has-arrow" href="{{ route('userManagement')}}" aria-expanded="false">
                     <i class="la la-user-plus"></i>
                     <span class="nav-text">Quản lý tài khoản</span>
                 </a>
@@ -36,11 +36,12 @@
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-user"></i>
-                    <span class="nav-text">Giáo viên</span>
+                    <span class="nav-text">Quản lý giáo viên</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('teacher/list') }}">Quản lý giáo viên</a></li>
+                    <li><a href="{{ route('teacher/list') }}">Danh sách giáo viên</a></li>
                     <li><a href="{{ route('teacher/add') }}">Thêm giáo viên</a></li>
+                    <li><a href="{{ route('teacher.assign') }}">Bổ nhiệm giáo viên chủ nhiệm</a></li>
                    <li><a href="{{ route('teacher.assign.list') }}">Danh sách giáo viên chủ nhiệm</a></li>
                 </ul>
             </li>
@@ -58,28 +59,20 @@
                     <span class="nav-text">Học sinh</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('student/list') }}">Quản lý học sinh</a></li>
-                    <li><a href="{{ route('student/add') }}">Thêm học sinh</a></li>
+                    <li><a href="{{ route('student.list') }}">Quản lý học sinh</a></li>
+                    <li><a href="{{ route('student.add') }}">Thêm học sinh</a></li>
                 </ul>
             </li>
 
-            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="la la-angle-double-up"></i>
-                    <span class="nav-text">Lên lớp</span>
-                </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ route('promotion.index') }}">Quản lý học sinh lên lớp</a></li>
-                </ul>
-            </li>
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-graduation-cap"></i>
-                    <span class="nav-text">Lớp</span>
+                    <span class="nav-text">Quản lý Lớp</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('classes/list') }}">Quản lý lớp</a></li>
+                    <li><a href="{{ route('classes/list') }}">Danh sách lớp</a></li>
                     <li><a href="{{ route('classes/add') }}">Thêm lớp</a></li>
-                    <li><a href="{{ route('teacher.assign') }}">Bổ nhiệm giáo viên chủ nhiệm</a></li>
+                     <li><a href="{{ route('promotion.index') }}">Quản lý học sinh lên lớp</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">

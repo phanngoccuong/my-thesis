@@ -27,7 +27,7 @@ class HomeController extends Controller
     {
         $users = DB::table('users')->count();
         $students = DB::table('students')->count();
-        $activity_logs = DB::table('activity_logs')->count();
+
         $teachers = DB::table('teachers')->count();
         $year_session = YearSession::latest()->first();
         return view('dashboard.main_dashboard', [

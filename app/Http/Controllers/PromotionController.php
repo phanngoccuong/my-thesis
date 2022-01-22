@@ -7,6 +7,8 @@ use App\Models\Promotion;
 use App\Services\PromotionService;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class PromotionController extends Controller
 {
@@ -34,8 +36,6 @@ class PromotionController extends Controller
             ->where('class_id', $class_id)
             ->get();
 
-
-
         $currentGroup = Classes::where('id', $class_id)->select('group_id')->first();
         $newClass = Classes::where('group_id', '=', $currentGroup->group_id + 1)->get();
 
@@ -48,33 +48,34 @@ class PromotionController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'class_id.*' => 'required',
+            'student_id' => 'required',
+            'session_id' => 'required'
+        ], [
+            'class_id.*.required' => 'Vui lòng nhập lớp'
+        ]);
         $studentPromo =
             Promotion::where('session_id',  $request->session_id)
             ->where('student_id', $request->student_id)
-            ->get();
+            ->first();
+        // dd($request->student_id);
         if ($studentPromo) {
-            Toastr::error('Học sinh đã được lên lớp!!', 'Failed');
+            Toastr::error('Học sinh đã được lên lớp!!', 'Thất bại');
             return redirect()->back();
         }
-        try {
-            $studentRequest = $request->student_id;
-            if ($studentRequest) {
-                for ($i = 0; $i < count($request->student_id); $i++) {
-                    $data = new Promotion();
-                    $data->student_id = $request->student_id[$i];
-                    $data->class_id = $request->class_id[$i];
-                    $data->session_id = $request->session_id;
-                    $data->save();
-                }
-                Toastr::success('Chuyển lớp thành công!!', 'Success');
-                return redirect()->back();
-            }
-        } catch (
-            \Exception
-            $err
-        ) {
-            Toastr::error('Vui lòng nhập lớp mới của tất cả học sinh!!', 'Thất bại');
-            return redirect()->back();
+        $studentRequest = $request->student_id;
+        foreach ($studentRequest as $key => $value) {
+            $save = [
+                'student_id' => $request->student_id[$key],
+                'class_id' => $request->class_id[$key],
+                'session_id' => $request->session_id,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
+            ];
+            DB::table('promotions')->insert($save);
         }
+        Toastr::success('Lên lớp thành công!!', 'Success');
+        return redirect()->route('promotion.index');
     }
 }

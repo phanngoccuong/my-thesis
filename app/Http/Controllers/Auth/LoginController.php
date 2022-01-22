@@ -70,23 +70,23 @@ class LoginController extends Controller
         if (auth()->attempt(['email' => $email, 'password' => $password], $remember_me)) {
             $user = auth()->user();
         } else {
-            Toastr::error('fail, WRONG USERNAME OR PASSWORD!!', 'Error');
+            Toastr::error('fail, Sai email hoặc mật khẩu!!', 'Error');
             return back();
         }
 
         $dt         = Carbon::now();
         $todayDate  = $dt->toDayDateTimeString();
 
-        $activityLog = [
+        // $activityLog = [
 
-            'name'        => $email,
-            'email'       => $email,
-            'description' => 'has log in',
-            'date_time'   => $todayDate,
-        ];
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'status' => 'Active'])) {
+        //     'name'        => $email,
+        //     'email'       => $email,
+        //     'description' => 'has log in',
+        //     'date_time'   => $todayDate,
+        // ];
+        if (Auth::attempt(['email' => $email, 'password' => $password,])) {
 
-            DB::table('activity_logs')->insert($activityLog);
+            // DB::table('activity_logs')->insert($activityLog);
             Toastr::success('Đăng nhập thành công!!', 'Success');
             if (Auth::user()->role_name == 'Admin') {
                 return redirect()->route('home');
@@ -98,19 +98,8 @@ class LoginController extends Controller
                 return   redirect()->route('homeTeacher');
             }
             // return redirect()->intended('home');
-        } elseif (Auth::attempt(['email' => $email, 'password' => $password, 'status' => null])) {
-            DB::table('activity_logs')->insert($activityLog);
-            Toastr::success('Login successfully :)', 'Success');
-            if (Auth::user()->role_name == 'Admin') {
-                return redirect()->route('home');
-            }
-            if (Auth::user()->role_name == 'Student') {
-                return redirect()->route('homeStudent');
-            }
-            if (Auth::user()->role_name == 'Teacher') {
-                return  redirect()->route('homeTeacher');
-            }
-            // return redirect()->intended('home');
+
+
         } else {
             Toastr::error('Sai email hoặc mật khẩu!!', 'Error');
             return redirect('login');
@@ -128,14 +117,14 @@ class LoginController extends Controller
         $dt         = Carbon::now();
         $todayDate  = $dt->toDayDateTimeString();
 
-        $activityLog = [
+        // $activityLog = [
 
-            'name'        => $name,
-            'email'       => $email,
-            'description' => 'has logged out',
-            'date_time'   => $todayDate,
-        ];
-        DB::table('activity_logs')->insert($activityLog);
+        //     'name'        => $name,
+        //     'email'       => $email,
+        //     'description' => 'has logged out',
+        //     'date_time'   => $todayDate,
+        // ];
+        // DB::table('activity_logs')->insert($activityLog);
         Auth::logout();
         Toastr::success('Đăng xuất thành công!!', 'Success');
         return redirect('login');

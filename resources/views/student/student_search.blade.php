@@ -21,12 +21,13 @@
                     </ol>
                 </div>
             </div>
+            {{-- search form --}}
             <form action="{{ route('student.search') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Họ và tên"  name="name">
+                            <input type="text" class="form-control" placeholder="Họ và tên" name="name">
                         </div>
                     </div>
                     <div class="col-lg-2">
@@ -39,6 +40,7 @@
                     </div>
                 </div>
             </form>
+            {{-- //end form --}}
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row tab-content">

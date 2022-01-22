@@ -122,6 +122,7 @@ class MarkController extends Controller
             Toastr::error('Học sinh đã được nhập điểm!!', 'Failed');
             return redirect()->back();
         }
+
         try {
             $studentRequest = $request->student_id;
             if ($studentRequest) {

@@ -74,7 +74,7 @@ let dataSet = [
         },
         "paging": false,
         "bInfo": false,
-
+        "searching": false,
     });
 
     table2.on('click', 'tbody tr', function() {

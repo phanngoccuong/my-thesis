@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
                         <li class="breadcrumb-item active"><a href="javascript:void(0);">Quản lý học sinh</a></li>
                         <li class="breadcrumb-item active"><a href="javascript:void(0);">Chỉnh sửa thông tin học sinh</a></li>
                     </ol>
@@ -26,7 +26,7 @@
                 <div class="col-xl-12 col-xxl-12 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('student/update') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('student.update') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $student[0]->id }}">
                                 <div class="row">
@@ -210,7 +210,7 @@
                                     </div> --}}
                                     <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                        <button type="button" class="btn btn-light"><a href="{{ route('student/list') }}">Trở lại</a></button>
+                                        <button type="button" class="btn btn-light"><a href="{{ route('student.list') }}">Trở lại</a></button>
                                     </div>
                                 </div>
                             </form>
