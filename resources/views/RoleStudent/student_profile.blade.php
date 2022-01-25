@@ -19,33 +19,7 @@
         </div>
         <!-- row -->
         <div class="row">
-            <div class="col-lg-4">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="profile-statistics">
-                            <div class="text-center container-fluid">
-                                {{-- <div class="profile-photo">
-                                    <img class="img-fluid rounded-circle" width="200"
-                                    src="{{ URL::to('/images/'. $studentInfo[0]->upload) }}"">
-                                </div> --}}
-                                <h3 class="item-title pt-1">{{ $studentInfo->name }}</h3>
-                                    <p>Trường tiểu học Xuân Phương</p>
-                            </div>
-                            <div class="text-center mt-4 border-bottom-1 pb-3">
-                                <div class="row">
-                                    <div class="col">
-                                        <h3 class="m-b-0">Lớp đang học</h3><span>{{ $studentInfo->class_name }}</span>
-                                    </div>
-                                    <div class="col">
-                                        <h3 class="m-b-0">Khóa</h3><span>{{ $studentInfo->batches->batch_name }}</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8">
+            <div class="col-lg-12">
                 <div class="card">
                     <div class="card-body">
                         <div class="profile-tab">
@@ -53,25 +27,37 @@
                                 <div class="settings-form">
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Email</label>
+                                            <label><strong>Họ và tên</strong></label>
+                                            <input type="email" value="{{ $studentInfo->name }}"
+                                                class="form-control" readonly>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label><strong>Niên khóa</strong></label>
+                                                <input type="text" value="{{ $studentInfo->batches->batch_name  }}"
+                                                class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label><strong>Email</strong></label>
                                             <input type="email" value="{{ $studentInfo->email }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Ngày sinh</label>
+                                            <label><strong>Ngày sinh</strong></label>
                                                 <input type="text" value="{{ $studentInfo->dateOfBirth }}"
                                                 class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Địa chỉ</label>
+                                            <label><strong>Địa chỉ</strong></label>
                                             <input type="text" class="form-control"
                                             value="{{ $studentInfo->address }}">
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label>Giới tính</label>
+                                            <label><strong>Giới tính</strong></label>
                                             <input type="text" class="form-control"
                                             @if ($studentInfo->gender == 1)
                                                 value="Nam"
@@ -83,12 +69,12 @@
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Họ và tên bố</label>
+                                            <label><strong>Họ và tên bố</strong></label>
                                             <input type="text" value="{{ $studentInfo->father_name }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Số điện thoại bố</label>
+                                            <label><strong>Số điện thoại bố</strong></label>
                                             <input type="text" value="{{ $studentInfo->father_number }}"
                                                 class="form-control" readonly>
                                         </div>
@@ -96,12 +82,12 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Họ và tên mẹ</label>
+                                            <label><strong>Họ và tên mẹ</strong></label>
                                             <input type="text" value="{{ $studentInfo->mother_name }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Số điện thoại mẹ</label>
+                                            <label><strong>Số điện thoại mẹ</strong></label>
                                             <input type="text" value="{{ $studentInfo->mother_number }}"
                                                 class="form-control" readonly>
                                         </div>
@@ -112,6 +98,40 @@
                     </div>
                 </div>
             </div>
+
+             <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title"><strong>Thành tích<span class="text-danger">*</span></strong></h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="col-12">
+                            <div class="form-group">
+                                <div class="table-responsive">
+                                       <table class="table table-striped table-responsive-sm">
+                                            <thead>
+                                                <tr>
+                                                    <th>Học kì</th>
+                                                    <th>Lớp</th>
+                                                    <th>Thành tích</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                @foreach ($rewards as $key => $reward )
+                                                <tr>
+                                                    <td>{{ $reward->semester->semester_name }}</td>
+                                                    <td>{{ $reward->classes->class_name }}</td>
+                                                    <td>{{ $reward->student_reward }}</td>
+                                                </tr>
+                                                @endforeach
+                                            </tbody>
+                                        </table>
+                                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             </div>
         </div>
     </div>
 </div>

@@ -98,13 +98,12 @@ Route::group(
         Route::get('classes/edit/{id}', [App\Http\Controllers\ClassesController::class, 'edit'])->name('classes/edit');
         Route::post('classes/update', [App\Http\Controllers\ClassesController::class, 'update'])->name('classes/update');
         Route::get('classes/delete/{id}', [App\Http\Controllers\ClassesController::class, 'delete'])->name('classes/delete');
-        Route::get('classes/timetable/{id}', [App\Http\Controllers\ClassesController::class, 'showTimetable'])->name('classes/timetable');
+
 
         //----------Classroom--------------//
         Route::get('classroom/list', [App\Http\Controllers\ClassroomController::class, 'index'])->name('classroom/list');
         Route::get('classroom/add', [App\Http\Controllers\ClassroomController::class, 'create'])->name('classroom/add');
         Route::post('classroom/save', [App\Http\Controllers\ClassroomController::class, 'store'])->name('classroom/save');
-        Route::get('classroom/show', [App\Http\Controllers\ClassroomController::class, 'show'])->name('classroom/show');
         Route::get('classroom/edit/{id}', [App\Http\Controllers\ClassroomController::class, 'edit'])->name('classroom/edit');
         Route::post('classroom/update', [App\Http\Controllers\ClassroomController::class, 'update'])->name('classroom/update');
         Route::get('classroom/delete/{id}', [App\Http\Controllers\ClassroomController::class, 'delete'])->name('classroom/delete');
@@ -112,7 +111,6 @@ Route::group(
         Route::get('batch/list', [App\Http\Controllers\BatchController::class, 'index'])->name('batch/list');
         Route::get('batch/add', [App\Http\Controllers\BatchController::class, 'create'])->name('batch/add');
         Route::post('batch/save', [App\Http\Controllers\BatchController::class, 'store'])->name('batch/save');
-        Route::get('batch/show', [App\Http\Controllers\BatchController::class, 'show'])->name('batch/show');
         Route::get('batch/edit/{id}', [App\Http\Controllers\BatchController::class, 'edit'])->name('batch/edit');
         Route::post('batch/update', [App\Http\Controllers\BatchController::class, 'update'])->name('batch/update');
         Route::get('batch/delete/{id}', [App\Http\Controllers\BatchController::class, 'delete'])->name('batch/delete');
@@ -120,7 +118,6 @@ Route::group(
         Route::get('course/list', [App\Http\Controllers\CourseController::class, 'index'])->name('course/list');
         Route::get('course/add', [App\Http\Controllers\CourseController::class, 'create'])->name('course/add');
         Route::post('course/save', [App\Http\Controllers\CourseController::class, 'store'])->name('course/save');
-        Route::get('course/show', [App\Http\Controllers\CourseController::class, 'show'])->name('course/show');
         Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course/edit');
         Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course/update');
         Route::get('course/delete/{id}', [App\Http\Controllers\CourseController::class, 'delete'])->name('course/delete');
@@ -128,7 +125,6 @@ Route::group(
         Route::get('semester/list', [App\Http\Controllers\SemesterController::class, 'index'])->name('semester/list');
         Route::get('semester/add', [App\Http\Controllers\SemesterController::class, 'create'])->name('semester/add');
         Route::post('semester/save', [App\Http\Controllers\SemesterController::class, 'store'])->name('semester/save');
-        Route::get('semester/show', [App\Http\Controllers\SemesterController::class, 'show'])->name('semester/show');
         Route::get('semester/edit/{id}', [App\Http\Controllers\SemesterController::class, 'edit'])->name('semester/edit');
         Route::post('semester/update', [App\Http\Controllers\SemesterController::class, 'update'])->name('semester/update');
         Route::get('semester/delete/{id}', [App\Http\Controllers\SemesterController::class, 'delete'])->name('semester/delete');
@@ -136,7 +132,6 @@ Route::group(
         Route::get('day/list', [App\Http\Controllers\DayController::class, 'index'])->name('day/list');
         Route::get('day/add', [App\Http\Controllers\DayController::class, 'create'])->name('day/add');
         Route::post('day/save', [App\Http\Controllers\DayController::class, 'store'])->name('day/save');
-        Route::get('day/show', [App\Http\Controllers\DayController::class, 'show'])->name('day/show');
         Route::get('day/edit/{id}', [App\Http\Controllers\DayController::class, 'edit'])->name('day/edit');
         Route::post('day/update', [App\Http\Controllers\DayController::class, 'update'])->name('day/update');
         Route::get('day/delete/{id}', [App\Http\Controllers\DayController::class, 'delete'])->name('day/delete');
@@ -144,7 +139,6 @@ Route::group(
         Route::get('time/list', [App\Http\Controllers\TimeController::class, 'index'])->name('time/list');
         Route::get('time/add', [App\Http\Controllers\TimeController::class, 'create'])->name('time/add');
         Route::post('time/save', [App\Http\Controllers\TimeController::class, 'store'])->name('time/save');
-        Route::get('time/show', [App\Http\Controllers\TimeController::class, 'show'])->name('time/show');
         Route::get('time/edit/{id}', [App\Http\Controllers\TimeController::class, 'edit'])->name('time/edit');
         Route::post('time/update', [App\Http\Controllers\TimeController::class, 'update'])->name('time/update');
         Route::get('time/delete/{id}', [App\Http\Controllers\TimeController::class, 'delete'])->name('time/delete');
@@ -169,29 +163,38 @@ Route::group(
         Route::get('lesson/edit/{id}', [App\Http\Controllers\LessonController::class, 'edit'])->name('lesson/edit');
         Route::post('lesson/update', [App\Http\Controllers\LessonController::class, 'update'])->name('lesson/update');
         Route::get('lesson/delete/{id}', [App\Http\Controllers\LessonController::class, 'delete'])->name('lesson/delete');
+        Route::post('lesson/search', [App\Http\Controllers\LessonController::class, 'search'])->name('lesson.search');
         //---------Promotion-------//
         Route::get('promotion/index', [App\Http\Controllers\PromotionController::class, 'index'])->name('promotion.index');
         Route::get('promotion/create', [App\Http\Controllers\PromotionController::class, 'create'])->name('promotion.create');
         Route::post('promotion/save', [App\Http\Controllers\PromotionController::class, 'store'])->name('promotion.store');
         //---------Notice-------//
 
-        Route::get('boarding/create', [App\Http\Controllers\BoardingNoticeController::class, 'create'])->name('boarding.create');
-        Route::post('boarding/save', [App\Http\Controllers\BoardingNoticeController::class, 'store'])->name('boarding.store');
+        Route::get('notice/create', [App\Http\Controllers\BoardingNoticeController::class, 'create'])->name('boarding.create');
+        Route::post('notice/save', [App\Http\Controllers\BoardingNoticeController::class, 'store'])->name('boarding.store');
+        //---------Reward-------//
+        Route::get('reward/list', [App\Http\Controllers\RewardController::class, 'index'])->name('reward.list');
+        Route::post('reward/add', [App\Http\Controllers\RewardController::class, 'ImportExcel'])->name('reward.import');
+        Route::get('reward/delete/{id}', [App\Http\Controllers\RewardController::class, 'delete'])->name('reward.delete');
+        Route::get('reward/pdf-export', [App\Http\Controllers\RewardController::class, 'PDFGenerate'])->name('reward.pdf-export');
+        Route::post('reward/search', [App\Http\Controllers\RewardController::class, 'search'])->name('reward.search');
+        //---------Excel-------//
+        Route::get('excel-export-teacher', [App\Http\Controllers\TeacherController::class, 'ExcelExport'])->name('teacher.excel.export');
     }
 );
-Route::get('boarding/list', [App\Http\Controllers\BoardingNoticeController::class, 'index'])->name('boarding.list');
-Route::get('boarding/markAsRead', [App\Http\Controllers\BoardingNoticeController::class, 'readNotice'])->name('boarding.readNotice');
+Route::get('notice/list', [App\Http\Controllers\BoardingNoticeController::class, 'index'])->name('boarding.list');
+Route::get('notice/markAsRead', [App\Http\Controllers\BoardingNoticeController::class, 'readNotice'])->name('boarding.readNotice');
 #Student
 Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('/home', [App\Http\Controllers\StudentRole\StudentController::class, 'index'])->name('homeStudent');
     Route::get('/profile', [App\Http\Controllers\StudentRole\StudentController::class, 'showProfile'])->name('studentProfile');
     Route::get('timetable', [App\Http\Controllers\StudentRole\TimetableController::class, 'searchTimetable'])->name('student.timetable.search');
     Route::get('timetable/get', [App\Http\Controllers\StudentRole\TimetableController::class, 'showTimetable'])->name('student.timetable.get');
-    Route::get('timetable/details/view', [App\Http\Controllers\StudentRole\TimetableController::class, 'timetableDetailsIndex'])->name('timetableDetails');
+    Route::get('timetable/details', [App\Http\Controllers\StudentRole\TimetableController::class, 'timetableDetailsIndex'])->name('timetableDetails');
     Route::get('timetable/details/get', [App\Http\Controllers\StudentRole\TimetableController::class, 'timetableDetails'])->name('timetableDetails.get');
-    Route::get('mark/view', [App\Http\Controllers\StudentRole\MarkController::class, 'show'])->name('student.mark.view');
+    Route::get('mark', [App\Http\Controllers\StudentRole\MarkController::class, 'show'])->name('student.mark.view');
     Route::get('mark/get', [App\Http\Controllers\StudentRole\MarkController::class, 'getMark'])->name('student.mark.get');
-    Route::get('attendance/show', [App\Http\Controllers\StudentRole\AttendanceController::class, 'showAttendance'])->name('student.attendance.show');
+    Route::get('attendance', [App\Http\Controllers\StudentRole\AttendanceController::class, 'showAttendance'])->name('student.attendance.show');
     Route::get('attendance/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getAttendance'])->name('student.attendance.get');
     Route::get('attendance/course/get', [App\Http\Controllers\StudentRole\AttendanceController::class, 'getCourse'])->name('student.attendance.course.get');
     Route::get('ability-quality', [App\Http\Controllers\StudentRole\AbilityQualityController::class, 'index'])->name('student.a-q.search');

@@ -20,12 +20,12 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('lesson/update') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $lesson[0]->id }}">
+                                <input type="hidden" name="id" value="{{ $lesson->id }}">
                                 <div class="row">
                                     <div class="col-lg-6">
                                         <div class="form-group">
@@ -35,7 +35,7 @@
                                                 <option selected disabled>Chọn môn</option>
                                                 @foreach ($courses as $course)
                                                     <option value="{{ $course->id }}"
-                                                        {{ $course->id == $lesson[0]->course_id ? 'selected':'' }}>
+                                                        {{ $course->id == $lesson->course_id ? 'selected':'' }}>
                                                         {{ $course->course_name }}</option>
                                                 @endforeach
 
@@ -56,7 +56,7 @@
                                                 <option selected disabled>Chọn lớp</option>
                                                 @foreach ($classes as $class)
                                                     <option value="{{ $class->id }}"
-                                                        {{ $class->id == $lesson[0]->class_id ? 'selected':''}}>
+                                                        {{ $class->id == $lesson->class_id ? 'selected':''}}>
                                                         {{ $class->class_name }}</option>
                                                 @endforeach
 
@@ -77,7 +77,7 @@
                                                 <option selected disabled>Chọn giáo viên</option>
                                                 @foreach ($teachers as $teacher)
                                                     <option value="{{ $teacher->id }}"
-                                                        {{ $teacher->id == $lesson[0]->teacher_id ? 'selected':''}}>
+                                                        {{ $teacher->id == $lesson->teacher_id ? 'selected':''}}>
                                                         {{ $teacher->teacher_name }}</option>
                                                 @endforeach
 
@@ -98,7 +98,7 @@
                                                 <option selected disabled>Chọn phòng</option>
                                                 @foreach ($classrooms as $classroom)
                                                     <option value="{{ $classroom->id }}"
-                                                        {{ $classroom->id == $lesson[0]->classroom_id ? 'selected':''}}>
+                                                        {{ $classroom->id == $lesson->classroom_id ? 'selected':''}}>
                                                         {{ $classroom->classroom_name }}</option>
                                                 @endforeach
 
@@ -119,7 +119,7 @@
                                                 <option selected disabled>Chọn ngày</option>
                                                 @foreach ($days as $day)
                                                     <option value="{{ $day->id }}"
-                                                        {{ $day->id == $lesson[0]->day_id ? 'selected':''}}>
+                                                        {{ $day->id == $lesson->day_id ? 'selected':''}}>
                                                         {{ $day->day_name }}</option>
                                                 @endforeach
 
@@ -140,7 +140,7 @@
                                                 <option selected disabled>Chọn giờ</option>
                                                 @foreach ($times as $time)
                                                     <option value="{{ $time->id }}"
-                                                        {{ $time->id == $lesson[0]->time_id ? 'selected':''}}>
+                                                        {{ $time->id == $lesson->time_id ? 'selected':''}}>
                                                         {{ $time->time }}</option>
                                                 @endforeach
 
@@ -161,7 +161,7 @@
                                                 <option selected disabled>Chọn kì</option>
                                                 @foreach ($semesters as $semester)
                                                     <option value="{{ $semester->id }}"
-                                                        {{ $semester->id == $lesson[0]->semester_id ? 'selected':''}}>
+                                                        {{ $semester->id == $lesson->semester_id ? 'selected':''}}>
                                                         {{ $semester->semester_name }}</option>
                                                 @endforeach
 

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\TeacherExport;
+use App\Http\Requests\TeacherControllerRequest;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
-
+use Maatwebsite\Excel\Facades\Excel;
 
 class TeacherController extends Controller
 {
@@ -17,7 +19,7 @@ class TeacherController extends Controller
             ->orderBy('teacher_name', 'asc')
             ->paginate(10);
         return view('teacher.teacher_all',  [
-            'title' => 'Quản lý giáo viên',
+            'title' => 'Danh sách giáo viên',
             'teachers' => $teachers
         ]);
     }
@@ -28,27 +30,9 @@ class TeacherController extends Controller
             'title' => 'Thêm giáo viên'
         ]);
     }
-    public function store(Request $request)
+    public function store(TeacherControllerRequest $request)
     {
-        $request->validate([
-            'teacher_name'        => 'required|string|max:255',
-            'email'               => 'required|string|email|unique:teachers',
-            'gender'              => 'required|string|max:255',
-            'mobileNumber'        => 'required|min:11|numeric',
-            'dateOfBirth'         => 'required|string|max:255',
-            'address'             => 'required|string|max:255',
-            'special'             => 'required|string|max:255',
-            // 'upload'              => 'required|image',
-        ], [
-            'teacher_name.required' => 'Vui lòng nhập tên giáo viên',
-            'email.required' => 'Vui lòng nhập email giáo viên',
-            'gender.required' => 'Vui lòng nhập giới tính',
-            'mobileNumber.required' => 'Vui lòng nhập số điện thoại',
-            'dateOfBirth.required' => 'Vui lòng nhập ngày sinh',
-            'address.required' => 'Vui lòng nhập địa chỉ',
-            'special.required' => 'Vui lòng nhập chuyên môn',
-            'email.unique' => 'Email đã được sử dụng'
-        ]);
+
 
         // $image = time() . '.' . $request->upload->extension();
         // $request->upload->move(public_path('images'), $image);
@@ -70,14 +54,14 @@ class TeacherController extends Controller
 
     public function edit($id)
     {
-        $teachers = DB::table('teachers')->where('id', $id)->first();
+        $teachers = Teacher::findOrFail($id);
         return view('teacher.teacher_edit', [
-            'title' => 'Teacher Edit',
+            'title' => 'Chỉnh sửa thông tin giáo viên',
             'teachers' => $teachers
         ]);
     }
 
-    public function update(Request $request)
+    public function update(TeacherControllerRequest $request)
     {
         $id                  = $request->id;
         $teacher_name        = $request->teacher_name;
@@ -134,10 +118,10 @@ class TeacherController extends Controller
         return $exportPDF->download('danh_sach_giao_vien.pdf');
     }
 
-    // public function ExcelExport_xlsx()
-    // {
-    //     return Excel::download(new Teacher_Export, 'giaovien.xlsx');
-    // }
+    public function ExcelExport()
+    {
+        return Excel::download(new TeacherExport, 'giaovien.xlsx');
+    }
 
     // public function ExcelExport_xls()
     // {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LessonRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Brian2694\Toastr\Facades\Toastr;
@@ -38,12 +39,13 @@ class LessonController extends Controller
             )
             ->orderBy('class_name', 'asc')
             ->paginate(10);
-
+        $classes = Classes::orderBy('id', 'asc')->get();
         return view(
             'lesson.lesson_all',
             [
                 'title' => 'Quản lý tiết học',
-                'lessons' => $lessons
+                'lessons' => $lessons,
+                'classes' => $classes
             ]
         );
     }
@@ -66,25 +68,9 @@ class LessonController extends Controller
             ]
         );
     }
-    public function store(Request $request)
+    public function store(LessonRequest $request)
     {
-        $request->validate([
-            'course_id' => 'required|integer',
-            'class_id' => 'required|integer',
-            'teacher_id' => 'required|integer',
-            'classroom_id' => 'required|integer',
-            'day_id' => 'required|integer',
-            'time_id' => 'required|integer',
-            'semester_id' => 'required|integer',
-        ], [
-            'course_id.required' => 'Vui lòng chọn môn học',
-            'class_id.required' => 'Vui lòng chọn lớp',
-            'teacher_id.required' => 'Vui lòng chọn giáo viên',
-            'classroom_id.required' => 'Vui lòng chọn địa điểm',
-            'day_id.required' => 'Vui lòng chọn ngày học',
-            'time_id.required' => 'Vui lòng chọn thời gian',
-            'semester_id.required' => 'Vui lòng chọn kì học',
-        ]);
+
 
         $lessons = new Lesson;
         $lessons->course_id = $request->course_id;
@@ -102,7 +88,7 @@ class LessonController extends Controller
 
     public function edit($id)
     {
-        $lesson = DB::table('lessons')->where('id', $id)->get();
+        $lesson = Lesson::findOrFail($id);
 
         $courses = Course::all();
         $classes = Classes::all();
@@ -122,7 +108,7 @@ class LessonController extends Controller
         );
     }
 
-    public function update(Request $request)
+    public function update(LessonRequest $request)
     {
         $id = $request->id;
         $course_id = $request->course_id;
@@ -155,5 +141,79 @@ class LessonController extends Controller
         $delete->delete();
         Toastr::success('Xóa tiết học thành công!!', 'Success');
         return redirect()->route('lesson/list');
+    }
+
+    public function search(Request $request)
+    {
+        if ($request->course) {
+            $lessons = DB::table('lessons')
+                ->join('courses', 'courses.id', '=', 'lessons.course_id')
+                ->join('classes', 'classes.id', '=', 'lessons.class_id')
+                ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
+                ->join('days', 'days.id', '=', 'lessons.day_id')
+                ->join('times', 'times.id', '=', 'lessons.time_id')
+                ->join('classrooms', 'classrooms.id', '=', 'lessons.classroom_id')
+                ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+                ->where('courses.course_name', 'LIKE', '%' . $request->course . '%')
+                ->select(
+                    'courses.course_name',
+                    'classes.class_name',
+                    'days.day_name',
+                    'times.time',
+                    'classrooms.classroom_name',
+                    'semesters.semester_name',
+                    'lessons.*',
+                    'teachers.teacher_name'
+                )
+                ->orderBy('semester_id', 'asc')->paginate(10);
+        }
+        if ($request->teacher) {
+            $lessons = DB::table('lessons')
+                ->join('courses', 'courses.id', '=', 'lessons.course_id')
+                ->join('classes', 'classes.id', '=', 'lessons.class_id')
+                ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
+                ->join('days', 'days.id', '=', 'lessons.day_id')
+                ->join('times', 'times.id', '=', 'lessons.time_id')
+                ->join('classrooms', 'classrooms.id', '=', 'lessons.classroom_id')
+                ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+                ->where('teachers.teacher_name', 'LIKE', '%' . $request->teacher . '%')
+                ->select(
+                    'courses.course_name',
+                    'classes.class_name',
+                    'days.day_name',
+                    'times.time',
+                    'classrooms.classroom_name',
+                    'semesters.semester_name',
+                    'lessons.*',
+                    'teachers.teacher_name'
+                )
+                ->orderBy('semester_id', 'asc')->paginate(10);
+        }
+        if ($request->class_id) {
+            $lessons = DB::table('lessons')
+                ->join('courses', 'courses.id', '=', 'lessons.course_id')
+                ->join('classes', 'classes.id', '=', 'lessons.class_id')
+                ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
+                ->join('days', 'days.id', '=', 'lessons.day_id')
+                ->join('times', 'times.id', '=', 'lessons.time_id')
+                ->join('classrooms', 'classrooms.id', '=', 'lessons.classroom_id')
+                ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+                ->where('lessons.class_id', $request->class_id)
+                ->select(
+                    'courses.course_name',
+                    'classes.class_name',
+                    'days.day_name',
+                    'times.time',
+                    'classrooms.classroom_name',
+                    'semesters.semester_name',
+                    'lessons.*',
+                    'teachers.teacher_name'
+                )
+                ->orderBy('semester_id', 'asc')->paginate(10);
+        }
+        $classes = Classes::orderBy('id', 'asc')->get();
+        return view('lesson.lesson_search', compact('lessons', 'classes'), [
+            'title' => 'Danh sách tiết học',
+        ]);
     }
 }

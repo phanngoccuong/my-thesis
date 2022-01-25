@@ -20,19 +20,19 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('classroom/update') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $classrooms[0]->id }}">
+                                <input type="hidden" name="id" value="{{ $classrooms->id }}">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">Phòng học</label>
                                             <input type="text" class="form-control
                                             @error('classroom_name') is-invalid @enderror"
-                                            value="{{ $classrooms[0]->classroom_name }}" name="classroom_name" id="classroom_name">
+                                            value="{{ $classrooms->classroom_name }}" name="classroom_name" id="classroom_name">
                                             @error('classroom_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                                         <button type="button" class="btn btn-light">
                                             <a href="{{ route('classroom/list') }}">Trở lại</a></button>

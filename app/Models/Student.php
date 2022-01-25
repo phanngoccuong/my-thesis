@@ -11,7 +11,7 @@ class Student extends Model
     use Notifiable;
     use HasFactory;
     public $table = 'students';
-    protected $primaryKey = 'id';
+
     protected $fillable = [
         'name',
         'email',
@@ -28,9 +28,5 @@ class Student extends Model
     public function batches()
     {
         return $this->hasOne(Batch::class, 'id', 'batch_id');
-    }
-    public function promo()
-    {
-        return $this->hasMany(Promotion::class, 'student_id');
     }
 }

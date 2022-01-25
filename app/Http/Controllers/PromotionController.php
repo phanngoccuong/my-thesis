@@ -2,17 +2,20 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PromotionRequest;
 use App\Models\Classes;
 use App\Models\Promotion;
+use App\Models\Student;
 use App\Services\PromotionService;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Validator;
 
 class PromotionController extends Controller
 {
-    public function index(Request $request, PromotionService $promotionService)
+    public function index(PromotionService $promotionService)
     {
         $classes = Classes::where('group_id', '!=', 5)->get();
         $previousYear = $promotionService->getPreviousSession();
@@ -46,36 +49,41 @@ class PromotionController extends Controller
             'latestYearId' => $latestYear->id,
         ]);
     }
-    public function store(Request $request)
+    public function store(PromotionRequest $request)
     {
-        $request->validate([
-            'class_id.*' => 'required',
-            'student_id' => 'required',
-            'session_id' => 'required'
-        ], [
-            'class_id.*.required' => 'Vui lòng nhập lớp'
-        ]);
         $studentPromo =
             Promotion::where('session_id',  $request->session_id)
             ->where('student_id', $request->student_id)
             ->first();
-        // dd($request->student_id);
         if ($studentPromo) {
             Toastr::error('Học sinh đã được lên lớp!!', 'Thất bại');
             return redirect()->back();
         }
+
+
+        // $latestYear = $promotionService->getLatestSession();
+
+        // $classRequest = $request->class_id;
+        // $students = Student::all();
+
+        // foreach ($request->datas as $student_id => $class_id) {
+        //     $student = $students->find($student_id);
+        //     $session_id = $latestYear->id;
+        //     $student->classes()->attach($class_id, ['session_id' => $session_id]);
+        // }
+
         $studentRequest = $request->student_id;
-        foreach ($studentRequest as $key => $value) {
-            $save = [
-                'student_id' => $request->student_id[$key],
-                'class_id' => $request->class_id[$key],
-                'session_id' => $request->session_id,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now()
-            ];
-            DB::table('promotions')->insert($save);
+
+        if ($studentRequest) {
+            for ($i = 0; $i < count($request->student_id); $i++) {
+                $promo = new Promotion;
+                $promo->student_id = $request->student_id[$i];
+                $promo->class_id = $request->class_id[$i];
+                $promo->session_id = $request->session_id;
+                $promo->save();
+            }
+            Toastr::success('Lên lớp thành công!!', 'Success');
+            return redirect()->route('promotion.index');
         }
-        Toastr::success('Lên lớp thành công!!', 'Success');
-        return redirect()->route('promotion.index');
     }
 }

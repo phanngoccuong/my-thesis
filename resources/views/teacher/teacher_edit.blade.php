@@ -32,7 +32,7 @@
                                             <label class="form-label">Họ và tên</label>
                                             <input type="text" class="form-control
                                             @error('teacher_name') is-invalid @enderror"
-                                            value="{{ $teachers->teacher_name }}" teacher_name="teacher_name" id="teacher_name">
+                                            value="{{ $teachers->teacher_name }}" name="teacher_name" id="teacher_name">
                                             @error('teacher_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -61,9 +61,9 @@
                                             <select class="form-control @error('gender') is-invalid @enderror"
                                              name="gender" id="gender">
                                                 <option selected disabled>Gender</option>
-                                                <option value="Male"
+                                                <option value="1"
                                                 {{ $teachers->gender == '1' ? 'selected' : '' }}>Nam</option>
-                                                <option value="Female"
+                                                <option value="2"
                                                 {{ $teachers->gender == '2' ? 'selected' : '' }}>Nữ</option>
                                             </select>
                                             @error('gender')

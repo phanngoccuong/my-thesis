@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CourseRequest;
 use App\Models\Course;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -26,17 +27,9 @@ class CourseController extends Controller
             'title' => 'Thêm môn học'
         ]);
     }
-    public function store(Request $request)
+    public function store(CourseRequest $request)
     {
-        $request->validate([
-            'course_name' => 'required|string|max:255',
-            'group_id' => 'required|integer',
-            'is_point' => 'required|integer'
-        ], [
-            'course_name.required' => 'Vui lòng nhập tên môn học',
-            'group_id.required' => 'Vui lòng nhập khối lớp',
-            'is_point.required' => 'Vui lòng nhập trạng thái tính điểm'
-        ]);
+
         $courses = new Course;
         $courses->course_name = $request->course_name;
         $courses->group_id = $request->group_id;
@@ -49,7 +42,7 @@ class CourseController extends Controller
 
     public function edit($id)
     {
-        $courses = DB::table('courses')->where('id', $id)->first();
+        $courses = Course::findOrFail($id);
 
         return view('course.course_edit',  [
             'title' => 'Chỉnh sửa môn học',
@@ -57,7 +50,7 @@ class CourseController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(CourseRequest $request)
     {
         $id = $request->id;
         $course_name = $request->course_name;

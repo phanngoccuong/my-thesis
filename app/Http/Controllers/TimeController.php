@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\TimeRequest;
 use App\Models\Time;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -26,13 +27,9 @@ class TimeController extends Controller
             'title' => 'Thêm giờ học'
         ]);
     }
-    public function store(Request $request)
+    public function store(TimeRequest $request)
     {
-        $request->validate([
-            'time' => 'required|string|max:255',
-        ], [
-            'time.required' => 'Vui lòng nhập thời gian'
-        ]);
+
         $times = new Time;
         $times->time = $request->time;
         $times->save();
@@ -43,14 +40,14 @@ class TimeController extends Controller
 
     public function edit($id)
     {
-        $times = DB::table('times')->where('id', $id)->get();
+        $times = Time::findOrFail($id);
         return view('time.time_edit',  [
             'title' => 'Chỉnh sửa giờ học',
             'times' => $times
         ]);
     }
 
-    public function update(Request $request)
+    public function update(TimeRequest $request)
     {
         $id = $request->id;
         $time = $request->time;

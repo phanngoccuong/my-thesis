@@ -20,19 +20,19 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-12">
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('batch/update') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $batches[0]->id }}">
+                                <input type="hidden" name="id" value="{{ $batches->id }}">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">Niên khóa</label>
                                             <input type="text" class="form-control
                                             @error('batch_name') is-invalid @enderror"
-                                            value="{{ $batches[0]->batch_name }}" name="batch_name" id="batch_name">
+                                            value="{{ $batches->batch_name }}" name="batch_name" id="batch_name">
                                             @error('batch_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                                         <button type="button" class="btn btn-light">
                                             <a href="{{ route('batch/list') }}">Trở lại</a></button>

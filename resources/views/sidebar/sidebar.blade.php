@@ -12,7 +12,7 @@
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="la la-certificate"></i>
+                    <i class="la la-calendar-plus-o"></i>
                     <span class="nav-text">Quản lý kì học</span>
                 </a>
                 <ul aria-expanded="false">
@@ -21,7 +21,7 @@
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
-                    <i class="la la-certificate"></i>
+                    <i class="la la-bell-o"></i>
                     <span class="nav-text">Quản lý thông báo</span>
                 </a>
                 <ul aria-expanded="false">
@@ -56,11 +56,12 @@
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-users"></i>
-                    <span class="nav-text">Học sinh</span>
+                    <span class="nav-text">Quản lý học sinh</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('student.list') }}">Quản lý học sinh</a></li>
+                    <li><a href="{{ route('student.list') }}">Danh sách học sinh</a></li>
                     <li><a href="{{ route('student.add') }}">Thêm học sinh</a></li>
+                    <li><a href="{{ route('reward.list') }}">Quản lý khen thưởng</a></li>
                 </ul>
             </li>
 
@@ -178,7 +179,7 @@
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-users"></i>
-                    <span class="nav-text">Điểm danh</span>
+                    <span class="nav-text">Sổ điểm danh</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('attendance.add') }}">Điểm danh học sinh</a></li>

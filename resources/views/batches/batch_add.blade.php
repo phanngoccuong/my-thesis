@@ -21,13 +21,13 @@
             {{-- message --}}
             {!! Toastr::message() !!}
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('batch/save') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">Niên khóa</label>
                                             <input type="text" class="form-control @error('batch_name') is-invalid @enderror"
@@ -40,7 +40,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                         <button type="submit" class="btn btn-light">Hủy</button>
                                     </div>

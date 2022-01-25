@@ -20,19 +20,19 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-6">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('time/update') }}" method="post" enctype="multipart/form-data">
                                 @csrf
-                                <input type="hidden" name="id" value="{{ $times[0]->id }}">
+                                <input type="hidden" name="id" value="{{ $times->id }}">
                                 <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
                                             <label class="form-label">Giờ học</label>
                                             <input type="text" class="form-control
                                             @error('time') is-invalid @enderror"
-                                            value="{{ $times[0]->time }}" name="time" id="time">
+                                            value="{{ $times->time }}" name="time" id="time">
                                             @error('time')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
@@ -41,7 +41,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
                                         <button type="button" class="btn btn-light"><a href="{{ route('time/list') }}">Trở lại</a></button>
                                     </div>

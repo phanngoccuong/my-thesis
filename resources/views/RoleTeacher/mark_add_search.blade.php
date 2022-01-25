@@ -16,7 +16,6 @@
                                 @foreach ($semesters as $semester)
                                     <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                                 @endforeach
-
                             </select>
                             @error('semester_id')
                                 <span class="invalid-feedback" role="alert">

@@ -27,11 +27,6 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <ul class="nav nav-pills mb-3">
-
-                    </ul>
-                </div>
-                <div class="col-lg-12">
                     <div class="row tab-content">
                         <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
@@ -45,6 +40,15 @@
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                                                 <a class="dropdown-item" href="{{ route('teacher/pdf-export') }}">Xuất file PDF</a>
+                                            </div>
+                                        </div>
+                                        <div class="dropdown" style="background-color: #1A7343">
+                                            <button class="btn dropdown-toggle text-light" type="button" style="height: 38.4px"
+                                            id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <i class="la la-file-excel-o"></i> Excel
+                                            </button>
+                                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="{{ route('teacher.excel.export') }}">Xuất file Excel</a>
                                             </div>
                                         </div>
                                         <a href="{{ route('teacher/add') }}" class="btn btn-primary">+ Thêm mới</a>
@@ -90,7 +94,7 @@
                                                         <a href="{{ url('admin/teacher/edit/'.$teacher->id) }}"
                                                             class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/teacher/delete/'.$teacher->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')">
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
                                                         <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>

@@ -67,7 +67,7 @@
                                                         <span class="btn btn-sm btn-primary"><i class="la la-pencil"></i></span>
                                                     </a>
                                                     <a href="{{ url('admin/delete_user/'.$item->id) }}"
-                                                        onclick="return confirm('Are you sure to want to delete it?')">
+                                                        onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
                                                         <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
                                                 </td>
                                             </tr>

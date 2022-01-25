@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\YearRequest;
 use App\Models\YearSession;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -23,13 +24,9 @@ class YearSessionController extends Controller
             'title' => 'Quản lý năm học'
         ]);
     }
-    public function store(Request $request)
+    public function store(YearRequest $request)
     {
-        $request->validate([
-            'session_name' => 'required|string|max:255',
-        ], [
-            'session_name.required' => 'Vui lòng nhập năm học'
-        ]);
+
         $year_session = new YearSession;
         $year_session->session_name = $request->session_name;
         $year_session->save();
@@ -38,14 +35,14 @@ class YearSessionController extends Controller
     }
     public function edit($id)
     {
-        $years = YearSession::where('id', $id)->first();
+        $years = YearSession::findOrFail($id);
         return view('year_session.session_edit',  [
             'title' => 'Chỉnh sửa năm học ',
             'years' => $years
         ]);
     }
 
-    public function update(Request $request)
+    public function update(YearRequest $request)
     {
         $id = $request->id;
         $session_name = $request->session_name;

@@ -50,33 +50,9 @@ class StudentController extends Controller
             'currentYearSession_id' => $currentYearSession->id
         ]);
     }
-    public function store(Request $request)
+    public function store(StudentRequest $request)
     {
-        $request->validate([
-            'class_id'            => 'required|integer',
-            'name'                => 'required|string|max:255',
-            'email'               => 'required|string|email|unique:students',
-            'batch_id'            => 'required|integer',
-            'gender'              => 'required|integer|max:255',
-            'father_name'         => 'required|string|max:255',
-            'father_number'       => 'required|min:11|numeric',
-            'mother_name'         => 'required|string|max:255',
-            'mother_number'       => 'required|min:11|numeric',
-            'dateOfBirth'         => 'required|string|max:255',
-            'address'             => 'required|string|max:255',
-        ], [
-            'name.required' => 'Vui lòng nhập tên học sinh',
-            'email.required' => 'Vui lòng nhập email',
-            'batch_id.required' => 'Vui lòng nhập niên khóa',
-            'gender.required' => 'Vui lòng nhập giới tính',
-            'father_name.required' => 'Vui lòng nhập họ và tên bố',
-            'father_number.required' => 'Vui lòng nhập số điện thoại bố',
-            'mother_name.required' => 'Vui lòng nhập họ và tên mẹ',
-            'mother_number.required' => 'Vui lòng nhập số điện thoại mẹ',
-            'dateOfBirth.required' => 'Vui lòng nhập ngày sinh',
-            'address.required' => 'Vui lòng nhập địa chỉ',
-            'email.unique' => 'Email đã được dùng',
-        ]);
+
         DB::beginTransaction();
         $student = new Student;
         $student->name                = $request->name;
@@ -116,7 +92,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(StudentRequest $request)
     {
         $id                  = $request->id;
         $name                = $request->name;

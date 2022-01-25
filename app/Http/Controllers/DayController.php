@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\DayRequest;
 use App\Models\Day;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -27,13 +28,9 @@ class DayController extends Controller
             'title' => 'Thêm ngày học'
         ]);
     }
-    public function store(Request $request)
+    public function store(DayRequest $request)
     {
-        $request->validate([
-            'day_name' => 'required|string|max:255',
-        ], [
-            'day_name.required' => 'Vui lòng nhập ngày học'
-        ]);
+
         $days = new Day;
         $days->day_name = $request->day_name;
         $days->save();
@@ -44,7 +41,7 @@ class DayController extends Controller
 
     public function edit($id)
     {
-        $days = DB::table('days')->where('id', $id)->get();
+        $days = Day::findOrFail($id);
         // $courseStatus = DB::table('course_types')->get();
         return view('day.day_edit',  [
             'title' => 'Chỉnh sửa ngày học',
@@ -52,7 +49,7 @@ class DayController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(DayRequest $request)
     {
         $id = $request->id;
         $day_name = $request->day_name;

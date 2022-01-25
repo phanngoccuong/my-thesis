@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ClassesRequest;
 use App\Models\Classes;
 use App\Models\Day;
 use App\Models\Lesson;
@@ -49,15 +50,9 @@ class ClassesController extends Controller
             'teachers' => $teachers
         ]);
     }
-    public function store(Request $request)
+    public function store(ClassesRequest $request)
     {
-        $request->validate([
-            'class_name' => 'required|string|max:255',
-            'group_id' => 'required|integer'
-        ], [
-            'class_name.required' => 'Vui lòng nhập tên lớp',
-            'group_id.required' => 'Vui lòng chọn khối lớp'
-        ]);
+
         $classes = new Classes;
         $classes->class_name = $request->class_name;
         $classes->group_id = $request->group_id;
@@ -69,14 +64,14 @@ class ClassesController extends Controller
 
     public function edit($id)
     {
-        $classes = DB::table('classes')->where('id', $id)->first();
+        $classes = Classes::findOrFail($id);
         return view('classes.classes_edit', [
             'title' => 'Chỉnh sửa lớp',
             'classes' => $classes,
         ]);
     }
 
-    public function update(Request $request)
+    public function update(ClassesRequest $request)
     {
         $id = $request->id;
         $class_name = $request->class_name;

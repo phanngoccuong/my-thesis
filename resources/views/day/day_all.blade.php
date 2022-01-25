@@ -49,7 +49,7 @@
                                                         <a href="{{ url('admin/day/edit/'.$day->id) }}"
                                                              class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/day/delete/'.$day->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')">
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
                                                         <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>

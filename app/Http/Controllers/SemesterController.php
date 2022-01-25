@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\SemesterRequest;
 use App\Models\Semester;
 use App\Models\YearSession;
 use Illuminate\Http\Request;
@@ -29,17 +30,9 @@ class SemesterController extends Controller
             'latest_session_id' => $latest_session->id
         ]);
     }
-    public function store(Request $request)
+    public function store(SemesterRequest $request)
     {
-        $request->validate([
-            'semester_name' => 'required|string|max:255',
-            'start_date'    => 'required|date',
-            'end_date'      => 'required|date',
-        ], [
-            'semester_name.required' => 'Vui lòng nhập học kì',
-            'start_date.required' => 'Vui lòng nhập thời gian bắt đầu',
-            'end_date.required' => 'Vui lòng nhập thời gian kết thúc',
-        ]);
+
         $semesters = new Semester;
         $semesters->semester_name = $request->semester_name;
         $semesters->session_id = $request->session_id;
@@ -53,7 +46,7 @@ class SemesterController extends Controller
 
     public function edit($id)
     {
-        $semesters = DB::table('semesters')->where('id', $id)->get();
+        $semesters = Semester::findOrFail($id);
 
         return view('semester.semester_edit',  [
             'title' => 'Chỉnh sửa kì học',
@@ -61,7 +54,7 @@ class SemesterController extends Controller
         ]);
     }
 
-    public function update(Request $request)
+    public function update(SemesterRequest $request)
     {
         $id = $request->id;
         $semester_name = $request->semester_name;

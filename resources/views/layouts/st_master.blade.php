@@ -152,12 +152,12 @@
 	<script src="{{ URL::to('assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js') }}"></script>
 	<script src="{{ URL::to('assets/js/custom.min.js') }}"></script>
     <!-- Chart Morris plugin files -->
-    <script src="{{ URL::to('assets/vendor/raphael/raphael.min.js') }}"></script>
+     <script src="{{ URL::to('assets/vendor/raphael/raphael.min.js') }}"></script>
     <script src="{{ URL::to('assets/vendor/morris/morris.min.js') }}"></script>
 	<!-- Chart piety plugin files -->
     <script src="{{ URL::to('assets/vendor/peity/jquery.peity.min.js') }}"></script>
 	<!-- Demo scripts -->
-    <script src="{{ URL::to('assets/js/dashboard/dashboard-2.js') }}"></script>
+     <script src="{{ URL::to('assets/js/dashboard/dashboard-2.js') }}"></script>
     <!-- Datatable -->
     <script src="{{ URL::to('assets/vendor/datatables/js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ URL::to('assets/js/plugins-init/datatables.init.js') }}"></script>

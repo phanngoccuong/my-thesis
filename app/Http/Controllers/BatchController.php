@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\BatchRequest;
 use App\Models\Batch;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
@@ -11,7 +12,7 @@ class BatchController extends Controller
 {
     public function index()
     {
-        $batchShow = DB::table('batches')->get();
+        $batchShow = Batch::orderBy('id', 'desc')->paginate(10);
         return view('batches.batch_all', compact('batchShow'), [
             'title' => 'Quản lý niên khóa'
         ]);
@@ -23,13 +24,8 @@ class BatchController extends Controller
             'title' => 'Thêm niên khóa'
         ]);
     }
-    public function store(Request $request)
+    public function store(BatchRequest $request)
     {
-        $request->validate([
-            'batch_name' => 'required|string|max:255',
-        ], [
-            'batch_name.required' => 'Vui lòng nhập niên khóa mới'
-        ]);
         $batches = new Batch;
         $batches->batch_name = $request->batch_name;
         $batches->save();
@@ -40,13 +36,13 @@ class BatchController extends Controller
 
     public function edit($id)
     {
-        $batches = DB::table('batches')->where('id', $id)->get();
+        $batches = Batch::findOrFail($id);
         return view('batches.batch_edit', compact('batches'), [
             'title' => 'Chỉnh sửa niên khóa'
         ]);
     }
 
-    public function update(Request $request)
+    public function update(BatchRequest $request)
     {
         $id = $request->id;
         $batch_name = $request->batch_name;

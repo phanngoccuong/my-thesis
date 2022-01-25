@@ -23,6 +23,36 @@
                 </div>
             </div>
 
+            <form action="{{ route('lesson.search') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Môn học" name="course">
+                        </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="Giáo viên"  name="teacher">
+                        </div>
+                    </div>
+
+                    <div class="col-lg-2">
+                        <div class="form-group">
+                            <select name="class_id" class="form-control">
+                                <option value="">Chọn lớp</option>
+                                @foreach ($classes as $class)
+                                    <option value="{{ $class->id }}">{{ $class->class_name }}</option>
+                                @endforeach
+                            </select>
+                       </div>
+                    </div>
+                    <div class="col-lg-2">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                    </div>
+                </div>
+            </form>
+
             <div class="row">
                 <div class="col-lg-12">
                     <div class="row tab-content">
@@ -60,7 +90,7 @@
                                                     <td>
                                                         <a href="{{ url('admin/lesson/edit/'.$lesson->id) }}" class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
                                                         <a href="{{ url('admin/lesson/delete/'.$lesson->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')">
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
                                                         <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                                     </td>
                                                 </tr>

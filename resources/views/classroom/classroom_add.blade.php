@@ -21,18 +21,15 @@
             {{-- message --}}
             {!! Toastr::message() !!}
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-6">
                     <div class="card">
-                        <div class="card-header">
-
-                        </div>
                         <div class="card-body">
                             <form action="{{ route('classroom/save') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-12">
                                         <div class="form-group">
-                                            <label class="form-label">Tên phòng
+                                            <label class="form-label">Phòng học
                                             <input type="text" class="form-control @error('classroom_name') is-invalid @enderror"
                                             value="{{ old('classroom_name') }}" name="classroom_name" id="classroom_name">
                                             @error('classroom_name')

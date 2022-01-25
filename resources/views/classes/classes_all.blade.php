@@ -49,7 +49,7 @@
                                                             Sửa</a>
                                                         <a class="dropdown-item text-danger"
                                                             href="{{ url('admin/classes/delete/'.$class->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')"
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                             >Xóa</a>
                                                     </div>
                                                 </div>
@@ -92,7 +92,7 @@
                                                             Sửa</a>
                                                         <a class="dropdown-item text-danger"
                                                             href="{{ url('admin/classes/delete/'.$class->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')"
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                             >Xóa</a>
                                                     </div>
                                                 </div>
@@ -134,7 +134,7 @@
                                                             Sửa</a>
                                                         <a class="dropdown-item text-danger"
                                                             href="{{ url('admin/classes/delete/'.$class->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')"
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                             >Xóa</a>
                                                     </div>
                                                 </div>
@@ -176,7 +176,7 @@
                                                             Sửa</a>
                                                         <a class="dropdown-item text-danger"
                                                             href="{{ url('admin/classes/delete/'.$class->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')"
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                             >Xóa</a>
                                                     </div>
                                                 </div>
@@ -218,7 +218,7 @@
                                                             Sửa</a>
                                                         <a class="dropdown-item text-danger"
                                                             href="{{ url('admin/classes/delete/'.$class->id) }}"
-                                                            onclick="return confirm('Are you sure to want to delete it?')"
+                                                            onclick="return confirm('Bạn có chắc chắn muốn xóa?')"
                                                             >Xóa</a>
                                                     </div>
                                                 </div>

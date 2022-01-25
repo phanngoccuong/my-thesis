@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\StudentRole;
 
 use App\Http\Controllers\Controller;
+use App\Models\Reward;
 use App\Models\Semester;
 use App\Models\Student;
 use App\Services\PromotionService;
@@ -18,22 +19,20 @@ class StudentController extends Controller
         ]);
     }
 
-    public function showProfile(PromotionService $promotionService)
+    public function showProfile()
     {
         $currentUserEmail = Auth::user()->email;
-        $currentYear = $promotionService->getLatestSession();
-        $currentYearId = $currentYear['id'];
+        $currentUser = Student::where('email', '=', $currentUserEmail)->first();
+
         $studentInfo = Student::where('email', '=', $currentUserEmail)
-            ->join('promotions', 'promotions.student_id', '=', 'students.id')
-            ->where('promotions.session_id', $currentYearId)
             ->with('batches')
-            ->join('classes', 'classes.id', '=', 'promotions.class_id')
-            ->select('classes.class_name', 'students.*')
             ->first();
-        // dd($studentInfo);
+
+        $rewards = Reward::where('student_id', $currentUser->id)->get();
         return view('RoleStudent.student_profile', [
             'title' => 'Student Profile',
-            'studentInfo' => $studentInfo
+            'studentInfo' => $studentInfo,
+            'rewards' => $rewards
         ]);
     }
 }
