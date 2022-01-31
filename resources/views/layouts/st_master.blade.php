@@ -19,7 +19,7 @@
     <script src="http://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
     <script src="http://cdn.bootcss.com/toastr.js/latest/js/toastr.min.js"></script>
     <script src="{{ URL::to('/ckeditor/ckeditor.js') }}"></script>
-    {{-- <script src="https://js.pusher.com/4.4/pusher.min.js"></script> --}}
+    <livewire:styles />
 </head>
 <body>
     <!-- Preloader start -->
@@ -140,11 +140,9 @@
         </div>
         <!-- Header end ti-comment-alt -->
 
-		<!-- Content body start -->
+
         @yield('content')
-        <!-- Content body end -->
-
-
+        <livewire:scripts />
     </div>
 
     <!-- Required vendors -->
@@ -177,7 +175,10 @@
             });
         });
     </script>
-
-
+    <script>
+        window.livewire.on('addDetails',()=>{
+            $('#addDetailsForm').modal('hide');
+        })
+    </script>
 </body>
 </html>

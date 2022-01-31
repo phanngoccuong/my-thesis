@@ -1,7 +1,7 @@
 @extends('layouts.st_master')
 
 @section('content')
-    @include('sidebar.sidebar')
+@include('sidebar.sidebar')
     <div class="content-body">
         <!-- row -->
         <div class="container-fluid">

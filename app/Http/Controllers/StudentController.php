@@ -81,7 +81,7 @@ class StudentController extends Controller
 
     public function edit($id)
     {
-        $student = DB::table('students')->where('id', $id)->get();
+        $student = Student::findOrFail($id);
         $classes = Classes::all();
         $batches = Batch::all();
         return view('student.student_edit', [

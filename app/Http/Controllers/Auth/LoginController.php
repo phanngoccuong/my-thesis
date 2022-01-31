@@ -52,8 +52,9 @@ class LoginController extends Controller
 
     public function login()
     {
-
-        return view('auth.login');
+        return view('auth.login', [
+            'title' => 'Đăng nhập'
+        ]);
     }
 
     public function authenticate(Request $request)
@@ -128,5 +129,12 @@ class LoginController extends Controller
         Auth::logout();
         Toastr::success('Đăng xuất thành công!!', 'Success');
         return redirect('login');
+    }
+
+    public function test()
+    {
+        return view('layouts.app', [
+            'title' => 'dssd'
+        ]);
     }
 }

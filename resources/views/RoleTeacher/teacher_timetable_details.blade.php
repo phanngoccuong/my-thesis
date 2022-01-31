@@ -29,7 +29,7 @@
                                         <th scope="col">Lớp</th>
                                         <th scope="col">Ngày</th>
                                         <th scope="col">Giờ</th>
-                                        <th scope="col">Mã lớp Online</th>
+                                        <th scope="col">Chi tiết bài giảng</th>
                                         <th scope="col">Tài liệu</th>
                                     </tr>
                                 </thead>
@@ -41,12 +41,15 @@
                                         <td>{{ $data->classes->class_name }}</td>
                                         <td>{{ $data->day->day_name }}</td>
                                         <td>{{ $data->time->time }}</td>
-                                        <td>
-                                            <span> {{ $data->note['lesson_code'] }}</span>
-                                            <a href="{{ url('teacher/note/add/timetable/'.$data->id) }}"
+                                        {{-- <td>
+                                            <a href="{{ url('teacher/timetable/note/add/'.$data->id) }}"
                                                 class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
                                             <a href="{{ url('teacher/timetable/note/edit/'.$data->id) }}"
                                                 class="btn btn-sm btn-warning"><i class="la la-pencil"></i></a>
+                                        </td> --}}
+                                        <td>
+                                            <a href="{{ url('teacher/timetable-details/add/'.$data->id) }}"
+                                                class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
                                         </td>
                                         <td>
                                             <a href="{{ url('teacher/document/upload/'.$data->id) }}"

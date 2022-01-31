@@ -24,7 +24,9 @@ use PHPUnit\TextUI\XmlConfiguration\Group;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('auth.login', [
+        'title' => 'Đăng nhập'
+    ]);
 });
 
 // Route::group(['middleware' => 'auth'], function () {
@@ -67,6 +69,8 @@ Route::group(
         Route::get('view/detail/{id}', [App\Http\Controllers\UserManagementController::class, 'viewDetail']);
         Route::post('update', [App\Http\Controllers\UserManagementController::class, 'update'])->name('user.update');
         Route::get('delete_user/{id}', [App\Http\Controllers\UserManagementController::class, 'delete']);
+
+
 
 
         // ----------------------------- form change password ------------------------------//
@@ -209,14 +213,21 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::get('home', [App\Http\Controllers\TeacherRole\TeacherController::class, 'index'])->name('homeTeacher');
     Route::get('timetable', [App\Http\Controllers\TeacherRole\TimetableController::class, 'showTimetable'])->name('teacher.timetable.show');
     Route::get('timetable/search', [App\Http\Controllers\TeacherRole\TimetableController::class, 'timetableSearch'])->name('teacher.timetable.search');
+    // note
     Route::get('timetable/note/add/{id}', [App\Http\Controllers\TeacherRole\TimetableController::class, 'addNoteView']);
     Route::post('lesson_note/save', [App\Http\Controllers\TeacherRole\TimetableController::class, 'addNote'])->name('teacher.lesson.note.add');
     Route::get('timetable/note/edit/{id}', [App\Http\Controllers\TeacherRole\TimetableController::class, 'editNote'])->name('teacher.lesson.note.edit');
     Route::post('timetable/note/update', [App\Http\Controllers\TeacherRole\TimetableController::class, 'updateNote'])->name('teacher.lesson.note.update');
+    // document
     Route::get('document/upload/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'create'])->name('teacher.document.upload');
     Route::post('document/store', [App\Http\Controllers\TeacherRole\DocumentController::class, 'storeDocument'])->name('teacher.document.store');
     Route::get('document/list/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'getDocumentList'])->name('teacher.document.list.get');
-
+    // details
+    Route::get('timetable-details/add/{lesson}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'index'])->name('teacher.lesson-details.add');
+    Route::post('timetable-details/store', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'store'])->name('teacher.lesson-details.store');
+    Route::get('timetable-details/edit/{id}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'edit'])->name('teacher.lesson-details.edit');
+    Route::post('timetable-details/update', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'update'])->name('teacher.lesson-details.update');
+    Route::get('timetable-details/delete/{id}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'delete'])->name('teacher.lesson-details.delete');
     #Student Mark
     Route::prefix('mark')->group(function () {
         Route::get('search/list', [App\Http\Controllers\TeacherRole\MarkController::class, 'search'])->name('mark.search.list');

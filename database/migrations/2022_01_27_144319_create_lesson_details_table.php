@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateLessonNotesTable extends Migration
+class CreateLessonDetailsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateLessonNotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('lesson_notes', function (Blueprint $table) {
+        Schema::create('lesson_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('lesson_id');
-            $table->string('note');
+            $table->unsignedBigInteger('lesson_id');
+            $table->date('date');
+            $table->string('lesson_title');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ class CreateLessonNotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lesson_notes');
+        Schema::dropIfExists('lesson_details');
     }
 }
