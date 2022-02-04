@@ -62,6 +62,7 @@
                     <li><a href="{{ route('student.list') }}">Danh sách học sinh</a></li>
                     <li><a href="{{ route('student.add') }}">Thêm học sinh</a></li>
                     <li><a href="{{ route('reward.list') }}">Quản lý khen thưởng</a></li>
+                    <li><a href="{{ route('promotion.index') }}">Quản lý học sinh lên lớp</a></li>
                 </ul>
             </li>
 
@@ -73,7 +74,7 @@
                 <ul aria-expanded="false">
                     <li><a href="{{ route('classes/list') }}">Danh sách lớp</a></li>
                     <li><a href="{{ route('classes/add') }}">Thêm lớp</a></li>
-                     <li><a href="{{ route('promotion.index') }}">Quản lý học sinh lên lớp</a></li>
+
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">

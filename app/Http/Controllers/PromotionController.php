@@ -46,7 +46,7 @@ class PromotionController extends Controller
             'title' => 'Học sinh lên lớp',
             'datas' => $datas,
             'newClass' => $newClass,
-            'latestYearId' => $latestYear->id,
+            'latestYear' => $latestYear,
         ]);
     }
     public function store(PromotionRequest $request)
