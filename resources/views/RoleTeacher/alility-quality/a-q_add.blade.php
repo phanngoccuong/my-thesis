@@ -45,7 +45,7 @@
                             <label class="form-label">Học sinh</label>
                             <select class="form-control"
                                 name="semester_id">
-                                <option selected disabled>{{ $student->name }}</option>
+                                <option selected disabled>{{ $student->last_name }} {{ $student->first_name }}</option>
                             </select>
                         </div>
                     </div>

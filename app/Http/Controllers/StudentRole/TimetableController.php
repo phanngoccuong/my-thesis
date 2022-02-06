@@ -68,22 +68,7 @@ class TimetableController extends Controller
             ->where('semesters.id', '=', $semester_id)
             ->select('promotions.class_id')
             ->first();
-        // $data = DB::table('lessons')
-        //     ->where('semester_id', '=', $semester_id)
-        //     ->where('class_id', '=', $class->class_id)
-        //     ->join('courses', 'courses.id', '=', 'lessons.course_id')
-        //     ->join('times', 'times.id', '=', 'lessons.time_id')
-        //     ->join('days', 'days.id', '=', 'lessons.day_id')
-        //     ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
-        //     ->join('classrooms', 'classrooms.id', '=', 'lessons.classroom_id')
-        //     ->select(
-        //         'courses.course_name',
-        //         'days.day_name',
-        //         'times.time',
-        //         'classrooms.classroom_name',
-        //         'teachers.teacher_name'
-        //     )
-        //     ->orderBy('day_name', 'asc')->get();
+
         $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room', 'note')
             ->where('semester_id', '=', $semester_id)
             ->where('class_id', '=', $class->class_id)

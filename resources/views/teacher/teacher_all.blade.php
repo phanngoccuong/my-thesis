@@ -56,24 +56,23 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example2" class="display" style="min-width: 845px">
+                                        <table class="table table-hover table-responsive-sm">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th>#</th>
                                                     {{-- <th>Ảnh</th> --}}
                                                     <th>Họ và tên</th>
                                                     <th>Giới tính</th>
                                                     <th>Email</th>
                                                     <th>Số điện thoại</th>
                                                     <th>Ngày sinh</th>
-                                                    <th>Chuyên môn</th>
                                                     <th>Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 @foreach ($teachers as $key => $teacher )
                                                 <tr>
-                                                    <td><strong>{{ $teacher->id }}</strong></td>
+                                                    <td><strong>{{ ++$key }}</strong></td>
                                                     {{-- <td>
                                                         <img class="rounded-circle" width="35" src="{{ URL::to('/images/'. $teacher->upload) }}"
                                                         alt="{{ $teacher->upload }}">
@@ -89,7 +88,6 @@
                                                     <td>{{ $teacher->email }}</td>
                                                     <td><strong>{{ $teacher->mobileNumber }}</strong></td>
                                                     <td>{{ $teacher->dateOfBirth }}</td>
-                                                    <td>{{ $teacher->special }}</td>
                                                     <td>
                                                         <a href="{{ url('admin/teacher/edit/'.$teacher->id) }}"
                                                             class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>

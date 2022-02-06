@@ -97,18 +97,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Chuyên môn</label>
-                                            <input type="text" class="form-control @error('special') is-invalid @enderror"
-                                            value="{{ old('special') }}" name="special" id="special">
-                                            @error('special')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
+
 
                                     <div class="col-lg-12">
                                         <div class="form-group">

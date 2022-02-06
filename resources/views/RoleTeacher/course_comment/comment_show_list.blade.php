@@ -52,7 +52,7 @@
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>Họ và tên</th>
-                                                        <th>Ngày sinh</th>
+
                                                         <th>Email</th>
                                                         <th>Nhận xét</th>
                                                     </tr>
@@ -62,8 +62,8 @@
                                                         <tr>
                                                             <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
                                                             <td>{{ $student->student_id }}</td>
-                                                            <td>{{ $student->student->name }}</td>
-                                                            <td>{{ $student->student->dateOfBirth }}</td>
+                                                            <td>{{ $student->student->last_name }} {{ $student->student->first_name }}</td>
+
                                                             <td>{{ $student->student->email }}</td>
                                                             <td>
                                                                 <input type="text" class="form-control"

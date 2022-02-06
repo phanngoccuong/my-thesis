@@ -46,27 +46,35 @@ class AttendanceController extends Controller
             ->where('promotions.class_id', '=', $class_id)
             ->where('semesters.id', '=', $semester_id)
             ->select('students.*')
-            ->orderBy('name', 'asc')
+            ->orderBy('first_name', 'asc')
             ->get();
         return response()->json($data);
     }
 
     public function store(Request $request)
     {
-        $studentRequest = $request->student_id;
-
-        if ($studentRequest) {
+        DB::beginTransaction();
+        try {
             for ($i = 0; $i < count($request->student_id); $i++) {
-                $marks = new StudentAttendances();
-                $marks->student_id = $request->student_id[$i];
-                $marks->class_id = $request->class_id;
-                $marks->course_id = $request->course_id;
-                $marks->semester_id = $request->semester_id;
-                $marks->date = $request->date;
-                $marks->status = $request->status[$i];
-                $marks->save();
+                $insert =  [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'course_id' => $request->course_id,
+                    'semester_id' => $request->semester_id,
+                    'date' => $request->date,
+                    'status' => $request->status[$i]
+                ];
+                DB::table('student_attendances')->insert($insert);
+                DB::commit();
             }
-            Toastr::success('Điểm  danh thành công!!', 'Success');
+            Toastr::success('Điểm  danh thành công!!', 'Thành công');
+            return redirect()->back();
+        } catch (
+            \Exception
+            $err
+        ) {
+            DB::rollBack();
+            Toastr::error('Vui lòng điểm danh cho tất cả học sinh!!', 'Thất bại');
             return redirect()->back();
         }
     }

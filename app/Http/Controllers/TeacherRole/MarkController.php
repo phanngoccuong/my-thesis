@@ -95,7 +95,7 @@ class MarkController extends Controller
             ->where('promotions.class_id', '=', $class_id)
             ->where('semesters.id', '=', $semester_id)
             ->select('students.*')
-            ->orderBy('name', 'asc')
+            ->orderBy('first_name', 'asc')
             ->get();
         $semester = Semester::where('id', $semester_id)->first();
         $class = Classes::where('id', $class_id)->first();
@@ -122,30 +122,30 @@ class MarkController extends Controller
             Toastr::error('Học sinh đã được nhập điểm!!', 'Failed');
             return redirect()->back();
         }
-
+        DB::beginTransaction();
         try {
-            $studentRequest = $request->student_id;
-            if ($studentRequest) {
-                for ($i = 0; $i < count($request->student_id); $i++) {
-                    $marks = new StudentMarks();
-                    $marks->student_id = $request->student_id[$i];
-                    $marks->class_id = $request->class_id;
-                    $marks->is_point = $request->is_point;
-                    $marks->course_id = $request->course_id;
-                    $marks->semester_id = $request->semester_id;
-                    $marks->half_mark = $request->half_mark[$i];
-                    $marks->final_mark = $request->final_mark[$i];
-                    $marks->result = $request->result[$i];
-                    $marks->save();
-                }
-                Toastr::success('Nhập điểm thành công!!', 'Success');
-                return redirect()->route('mark.edit');
+            for ($i = 0; $i < count($request->student_id); $i++) {
+                $insert = [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'is_point' => $request->is_point,
+                    'course_id' => $request->course_id,
+                    'semester_id' => $request->semester_id,
+                    'half_mark' => $request->half_mark[$i],
+                    'final_mark' => $request->final_mark[$i],
+                    'result' => $request->result[$i],
+                ];
+                DB::table('student_marks')->insert($insert);
+                DB::commit();
             }
+            Toastr::success('Nhập điểm thành công!!', 'Success');
+            return redirect()->route('mark.edit');
         } catch (
             \Exception
             $err
         ) {
-            Toastr::error('Nhập điểm thất bại!!', 'Failed');
+            DB::rollBack();
+            Toastr::error('Vui lòng nhập điểm cho tất cả học sinh!!', 'Failed');
             return redirect()->back();
         }
     }
@@ -200,24 +200,30 @@ class MarkController extends Controller
             ->where('class_id', '=', $request->class_id)
             ->where('course_id', '=', $request->course_id)
             ->delete();
-
-        if ($studentRequest) {
+        DB::beginTransaction();
+        try {
             for ($i = 0; $i < count($request->student_id); $i++) {
-                $marks = new StudentMarks();
-                $marks->student_id = $request->student_id[$i];
-                $marks->class_id = $request->class_id;
-                $marks->course_id = $request->course_id;
-                $marks->semester_id = $request->semester_id;
-                $marks->is_point = $request->is_point;
-                $marks->half_mark = $request->half_mark[$i];
-                $marks->final_mark = $request->final_mark[$i];
-                $marks->result = $request->result[$i];
-                $marks->save();
+                $insert = [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'is_point' => $request->is_point,
+                    'course_id' => $request->course_id,
+                    'semester_id' => $request->semester_id,
+                    'half_mark' => $request->half_mark[$i],
+                    'final_mark' => $request->final_mark[$i],
+                    'result' => $request->result[$i],
+                ];
+                DB::table('student_marks')->insert($insert);
+                DB::commit();
             }
-            Toastr::success('Sửa điểm thành công!!', 'Success');
-            return redirect()->back();
-        } else {
-            Toastr::error('Sửa điểm thất bại!!', 'Failed');
+            Toastr::success('Nhập điểm thành công!!', 'Success');
+            return redirect()->route('mark.edit');
+        } catch (
+            \Exception
+            $err
+        ) {
+            DB::rollBack();
+            Toastr::error('Vui lòng nhập điểm cho tất cả học sinh!!', 'Failed');
             return redirect()->back();
         }
     }

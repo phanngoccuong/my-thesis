@@ -32,7 +32,7 @@ class CourseController extends Controller
 
         $courses = new Course;
         $courses->course_name = $request->course_name;
-        $courses->group_id = $request->group_id;
+
         $courses->is_point = $request->is_point;
         $courses->save();
 
@@ -54,14 +54,12 @@ class CourseController extends Controller
     {
         $id = $request->id;
         $course_name = $request->course_name;
-        $group_id = $request->group_id;
         $is_point = $request->is_point;
 
 
         $update = [
             'id' => $id,
             'course_name' => $course_name,
-            'group_id' => $group_id,
             'is_point' => $is_point
         ];
         Course::where('id', $request->id)->update($update);

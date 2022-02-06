@@ -131,7 +131,7 @@
                     html+=
                     '<tr>'+
                     '<td> '+(key+1)+'<input type="hidden" name="student_id[]" value="'+v.id+'"></td>'+
-                    '<td>'+v.name+'</td>'+
+                    '<td>'+v.last_name+ +v.first_name+ '</td>'+
                     '<td>'+v.dateOfBirth+'</td>'+
                     '<td>'+v.email+'</td>'+
                     '<td><select class="form-control" name="status[]"><option selected disabled>Điểm danh</option><option value="0">Vắng</option><option value="1">Có</option><option value="2">Nghỉ có phép</option></select></td>'+

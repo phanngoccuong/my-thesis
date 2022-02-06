@@ -27,13 +27,26 @@
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $student->id }}">
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label class="form-label">Họ và tên</label>
+                                            <label class="form-label">Họ và tên đệm</label>
                                             <input type="text" class="form-control
-                                            @error('name') is-invalid @enderror"
-                                            value="{{ $student->name }}" name="name" id="name">
-                                            @error('name')
+                                            @error('last_name') is-invalid @enderror"
+                                            value="{{ $student->last_name }}" name="last_name" id="last_name">
+                                            @error('last_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Tên</label>
+                                            <input type="text" class="form-control
+                                            @error('first_name') is-invalid @enderror"
+                                            value="{{ $student->first_name }}" name="first_name" id="first_name">
+                                            @error('first_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>

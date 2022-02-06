@@ -22,8 +22,6 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row tab-content">
-                        <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Danh sách niên khóa</h4>
@@ -31,7 +29,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example2" class="display" style="min-width: 845px">
+                                        <table class="table table-hover table-responsive-sm">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>

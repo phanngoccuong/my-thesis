@@ -46,7 +46,7 @@ class CourseCommentController extends Controller
             ->where('promotions.class_id', '=', $class_id)
             ->where('semesters.id', '=', $semester_id)
             ->select('students.*')
-            ->orderBy('name', 'asc')
+            ->orderBy('first_name', 'asc')
             ->get();
         $semester = Semester::where('id', $semester_id)->first();
         $class = Classes::where('id', $class_id)->first();
@@ -71,26 +71,27 @@ class CourseCommentController extends Controller
             Toastr::error('Học sinh đã có nhận xét!!', 'Failed');
             return redirect()->back();
         }
+        DB::beginTransaction();
         try {
-            $studentRequest = $request->student_id;
-            if ($studentRequest) {
-                for ($i = 0; $i < count($request->student_id); $i++) {
-                    $comments = new TeacherComment();
-                    $comments->student_id = $request->student_id[$i];
-                    $comments->class_id = $request->class_id;
-                    $comments->course_id = $request->course_id;
-                    $comments->semester_id = $request->semester_id;
-                    $comments->comment = $request->comment[$i];
-                    $comments->save();
-                }
-                Toastr::success('Nhập nhận xét thành công!!', 'Success');
-                return redirect()->back();
+            for ($i = 0; $i < count($request->student_id); $i++) {
+                $insert = [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'course_id' => $request->course_id,
+                    'semester_id' => $request->semester_id,
+                    'comment' => $request->comment[$i],
+                ];
+                DB::table('teacher_comments')->insert($insert);
+                DB::commit();
             }
+            Toastr::success('Nhập nhận xét thành công!!', 'Thành công');
+            return redirect()->back();
         } catch (
             \Exception
             $err
         ) {
-            Toastr::error('Nhập nhận xét thất bại!!', 'Failed');
+            DB::rollBack();
+            Toastr::error('Vui lòng nhập nhận xét cho tất cả học sinh!!', 'Thất bại');
             return redirect()->back();
         }
     }
@@ -137,26 +138,31 @@ class CourseCommentController extends Controller
     }
     public function update(Request $request)
     {
-        $studentRequest = $request->student_id;
         TeacherComment::where('semester_id', '=', $request->semester_id)
             ->where('class_id', '=', $request->class_id)
             ->where('course_id', '=', $request->course_id)
             ->delete();
-
-        if ($studentRequest) {
+        DB::beginTransaction();
+        try {
             for ($i = 0; $i < count($request->student_id); $i++) {
-                $comments = new TeacherComment();
-                $comments->student_id = $request->student_id[$i];
-                $comments->class_id = $request->class_id;
-                $comments->course_id = $request->course_id;
-                $comments->semester_id = $request->semester_id;
-                $comments->comment = $request->comment[$i];
-                $comments->save();
+                $insert = [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'course_id' => $request->course_id,
+                    'semester_id' => $request->semester_id,
+                    'comment' => $request->comment[$i],
+                ];
+                DB::table('teacher_comments')->insert($insert);
+                DB::commit();
             }
-            Toastr::success('Sửa nhận xét thành công!!', 'Success');
+            Toastr::success('Nhập nhận xét thành công!!', 'Thành công');
             return redirect()->back();
-        } else {
-            Toastr::error('Sửa nhận xét thất bại!!', 'Failed');
+        } catch (
+            \Exception
+            $err
+        ) {
+            DB::rollBack();
+            Toastr::error('Vui lòng nhập nhận xét cho tất cả học sinh!!', 'Thất bại');
             return redirect()->back();
         }
     }

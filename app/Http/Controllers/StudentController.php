@@ -24,7 +24,7 @@ class StudentController extends Controller
     public function index()
     {
         $studentShow = Student::with('batches')
-            ->orderBy('name', 'asc')->paginate(10);
+            ->orderBy('first_name', 'asc')->paginate(10);
 
         return view('student.student_all', [
             'title' => 'Danh sách học sinh',
@@ -55,7 +55,8 @@ class StudentController extends Controller
 
         DB::beginTransaction();
         $student = new Student;
-        $student->name                = $request->name;
+        $student->first_name          = $request->first_name;
+        $student->last_name           = $request->last_name;
         $student->email               = $request->email;
         $student->batch_id            = $request->batch_id;
         $student->gender              = $request->gender;
@@ -95,7 +96,8 @@ class StudentController extends Controller
     public function update(StudentRequest $request)
     {
         $id                  = $request->id;
-        $name                = $request->name;
+        $first_name          = $request->first_name;
+        $last_name           = $request->last_name;
         $email               = $request->email;
         $batch_id            = $request->batch_id;
         $gender              = $request->gender;
@@ -119,7 +121,8 @@ class StudentController extends Controller
         $update = [
 
             'id'                  => $id,
-            'name'                => $name,
+            'first_name'          => $first_name,
+            'last_name'          => $last_name,
             'email'               => $email,
             'batch_id'            => $batch_id,
             'gender'              => $gender,
@@ -146,13 +149,13 @@ class StudentController extends Controller
     }
     public function search(Request $request)
     {
-        if ($request->name) {
-            $studentShow = Student::where('name', 'LIKE', '%' . $request->name . '%')
-                ->orderBy('name', 'asc')->paginate(10);
+        if ($request->first_name) {
+            $studentShow = Student::where('first_name', 'LIKE', '%' . $request->first_name . '%')
+                ->orderBy('first_name', 'asc')->paginate(10);
         }
         if ($request->email) {
             $studentShow = Student::where('email', 'LIKE', '%' . $request->email . '%')
-                ->orderBy('name', 'asc')->paginate(10);
+                ->orderBy('first_name', 'asc')->paginate(10);
         }
         return view('student.student_search', compact('studentShow'), [
             'title' => 'Danh sách học sinh',

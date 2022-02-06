@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StudentRequest extends FormRequest
 {
@@ -23,10 +24,12 @@ class StudentRequest extends FormRequest
      */
     public function rules()
     {
+
         return [
             'class_id'            => 'required|integer',
-            'name'                => 'required|string|max:255',
-            'email'               => 'required|string|email|unique:students',
+            'first_name'          => 'required|string|max:255',
+            'last_name'           => 'required|string|max:255',
+            'email'               =>  ['required', 'email', Rule::unique('students')->ignore($this->request->get('id'))],
             'batch_id'            => 'required|integer',
             'gender'              => 'required|integer|max:255',
             'father_name'         => 'required|string|max:255',
@@ -40,7 +43,8 @@ class StudentRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Vui lòng nhập tên học sinh',
+            'last_name.required' => 'Vui lòng nhập họ học sinh',
+            'first_name.required' => 'Vui lòng nhập tên học sinh',
             'email.required' => 'Vui lòng nhập email',
             'batch_id.required' => 'Vui lòng nhập niên khóa',
             'gender.required' => 'Vui lòng nhập giới tính',
@@ -50,7 +54,8 @@ class StudentRequest extends FormRequest
             'mother_number.required' => 'Vui lòng nhập số điện thoại mẹ',
             'dateOfBirth.required' => 'Vui lòng nhập ngày sinh',
             'address.required' => 'Vui lòng nhập địa chỉ',
-            'email.unique' => 'Email đã được dùng',
+            'email.unique' => 'Email đã được sử dụng',
+            'email.email' => 'Đây không phải là email'
         ];
     }
 }

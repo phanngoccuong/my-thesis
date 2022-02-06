@@ -25,7 +25,6 @@ class CourseRequest extends FormRequest
     {
         return [
             'course_name' => 'required|string|max:255',
-            'group_id' => 'required|integer',
             'is_point' => 'required|integer'
         ];
     }
@@ -33,7 +32,6 @@ class CourseRequest extends FormRequest
     {
         return [
             'course_name.required' => 'Vui lòng nhập tên môn học',
-            'group_id.required' => 'Vui lòng nhập khối lớp',
             'is_point.required' => 'Vui lòng nhập cách tính điểm'
         ];
     }

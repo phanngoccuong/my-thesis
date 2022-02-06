@@ -2,7 +2,6 @@
 @section('content')
     @include('sidebar.sidebar')
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
@@ -20,7 +19,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('teacher/update') }}" method="post" enctype="multipart/form-data">
@@ -101,18 +100,6 @@
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6">
-                                        <div class="form-group">
-                                            <label class="form-label">Chuyên môn</label>
-                                            <input type="text" class="form-control @error('special') is-invalid @enderror"
-                                            value="{{ $teachers->special }}" name="special" id="special">
-                                            @error('special')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
 
                                     <div class="col-lg-12">
                                         <div class="form-group">

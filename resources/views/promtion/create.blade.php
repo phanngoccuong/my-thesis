@@ -2,6 +2,7 @@
 @section('content')
 @include('sidebar.sidebar')
     {!! Toastr::message() !!}
+    @if($previousYear)
     <div class="content-body">
         <div class="container-fluid">
             <div class="row page-titles mx-0">
@@ -12,8 +13,6 @@
                 </div>
             </div>
             <div class="card-body">
-                <form action="{{ route('promotion.store') }}" method="post" enctype="multipart/form-data">
-                @csrf
                 <div class="table-responsive">
                     <table class="table table-striped table-responsive-sm">
                         <thead>
@@ -66,4 +65,17 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="content-body">
+        <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Chưa tạo năm học mới</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @endif
 @endsection

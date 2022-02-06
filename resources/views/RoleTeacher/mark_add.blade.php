@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="table-responsive">
-                                            <table class="table header-border table-responsive-sm">
+                                             <table class="table table-hover table-responsive-sm">
                                                 @if ($course->is_point == 1)
                                                 <thead>
                                                     <tr>
@@ -65,7 +65,7 @@
                                                         <tr>
                                                             <input type="hidden" name="student_id[]" value="{{ $student->id }}">
                                                             <td>{{ $student->id }}</td>
-                                                            <td>{{ $student->name }}</td>
+                                                            <td>{{ $student->last_name }} {{ $student->first_name }}</td>
                                                             <td>{{ $student->dateOfBirth }}</td>
                                                             <td>{{ $student->email }}</td>
                                                             <td>

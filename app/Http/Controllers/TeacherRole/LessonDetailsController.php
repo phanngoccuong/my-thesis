@@ -43,7 +43,6 @@ class LessonDetailsController extends Controller
 
     public function update(LessonDetailsRequest $request)
     {
-
         $update = [
             'id'                => $request->id,
             'lesson_id'         => $request->lesson_id,

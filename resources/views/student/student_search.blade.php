@@ -27,7 +27,7 @@
                 <div class="row">
                     <div class="col-lg-2">
                         <div class="form-group">
-                            <input type="text" class="form-control" placeholder="Họ và tên" name="name">
+                            <input type="text" class="form-control" placeholder="Tên" name="first_name">
                         </div>
                     </div>
                     <div class="col-lg-2">
@@ -68,7 +68,7 @@
                                                 @foreach ($studentShow as $key => $student )
                                                 <tr>
                                                     <td><strong>{{ $student->id }}</strong></td>
-                                                    <td>{{ $student->name }}</td>
+                                                    <td>{{ $student->last_name }} {{$student->first_name  }}</td>
                                                     <td>{{ $student->email }}</td>
                                                     <td>{{ $student->address }}</td>
                                                     <td>{{ $student->batches->batch_name }}</td>

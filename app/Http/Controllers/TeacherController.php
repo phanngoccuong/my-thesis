@@ -44,7 +44,6 @@ class TeacherController extends Controller
         $teachers->mobileNumber = $request->mobileNumber;
         $teachers->dateOfBirth = $request->dateOfBirth;
         $teachers->address = $request->address;
-        $teachers->special = $request->special;
         // $teachers->upload  = $image;
         $teachers->save();
 
@@ -70,7 +69,6 @@ class TeacherController extends Controller
         $mobileNumber        = $request->mobileNumber;
         $dateOfBirth         = $request->dateOfBirth;
         $address             = $request->address;
-        $special             = $request->special;
 
         // $old_image = Teacher::find($id);
         // $image_name = $request->hidden_image;
@@ -89,7 +87,6 @@ class TeacherController extends Controller
             'mobileNumber'        => $mobileNumber,
             'dateOfBirth'         => $dateOfBirth,
             'address'             => $address,
-            'special'             => $special,
             // 'upload'              => $image_name,
 
         ];

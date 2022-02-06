@@ -14,7 +14,6 @@ class Teacher extends Model
         'gender',
         'mobileNumber',
         'dateOfBirth',
-        'special',
         'address',
         // 'upload',
     ];

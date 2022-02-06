@@ -21,7 +21,6 @@ class CreateTeachersTable extends Migration
             $table->string('dateOfBirth');
             $table->string('mobileNumber');
             $table->string('address');
-            $table->string('special');
             // $table->string('upload')->nullable();
             $table->timestamps();
         });

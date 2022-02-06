@@ -44,7 +44,6 @@
             <th>Email</th>
             <th>Địa chỉ</th>
             <th>Giới tính</th>
-            <th>Chuyên môn</th>
         </tr>
             @foreach($teachers as $teacher)
         <tr>
@@ -55,9 +54,6 @@
             <td>{{ $teacher->address }}</td>
             <td>
                 {{ $teacher->gender }}
-            </td>
-            <td>
-                {{ $teacher->special }}
             </td>
         </tr>
         @endforeach

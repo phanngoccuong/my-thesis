@@ -32,7 +32,6 @@ class SemesterController extends Controller
     }
     public function store(SemesterRequest $request)
     {
-
         $semesters = new Semester;
         $semesters->semester_name = $request->semester_name;
         $semesters->session_id = $request->session_id;

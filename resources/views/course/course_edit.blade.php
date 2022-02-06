@@ -20,7 +20,7 @@
             </div>
 
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('course/update') }}" method="post" enctype="multipart/form-data">
@@ -40,35 +40,7 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    <div class="col-lg-4">
-                                        <div class="form-group">
-                                            <label class="form-label">Khối</label>
-                                            <select class="form-control @error('group_id') is-invalid @enderror"
-                                             name="group_id" id="group_id">
-                                                <option selected disabled>Chọn</option>
-                                                    <option value="1"
-                                                        {{ $courses->id == 1 ? 'selected':''}}>
-                                                        Khối 1</option>
-                                                        <option value="2"
-                                                        {{ $courses->id == 2 ? 'selected':''}}>
-                                                        Khối 2</option>
-                                                        <option value="3"
-                                                        {{ $courses->id == 3 ? 'selected':''}}>
-                                                        Khối 3</option>
-                                                        <option value="4"
-                                                        {{ $courses->id == 4 ? 'selected':''}}>
-                                                        Khối 4</option>
-                                                        <option value="5"
-                                                        {{ $courses->id == 5 ? 'selected':''}}>
-                                                        Khối 5</option>
-                                            </select>
-                                            @error('group_id')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
-                                            @enderror
-                                        </div>
-                                    </div>
+
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label class="form-label">Tính điểm</label>

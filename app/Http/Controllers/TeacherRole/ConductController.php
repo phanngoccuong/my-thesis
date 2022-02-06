@@ -13,6 +13,7 @@ use App\Models\Conduct;
 use App\Models\Promotion;
 use App\Models\YearSession;
 use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\DB;
 
 class ConductController extends Controller
 {
@@ -54,25 +55,27 @@ class ConductController extends Controller
             Toastr::error('Học sinh đã được hạnh kiểm!!', 'Failed');
             return redirect()->back();
         }
+        DB::beginTransaction();
         try {
-            $studentRequest = $request->student_id;
-            if ($studentRequest) {
-                for ($i = 0; $i < count($request->student_id); $i++) {
-                    $conducts = new Conduct();
-                    $conducts->student_id = $request->student_id[$i];
-                    $conducts->class_id = $request->class_id;
-                    $conducts->semester_id = $request->semester_id;
-                    $conducts->conduct_type = $request->conduct_type[$i];
-                    $conducts->save();
-                }
-                Toastr::success('Nhập hạnh kiểm thành công!!', 'Success');
-                return redirect()->route('conduct.teacher.form.class.edit');
+
+            for ($i = 0; $i < count($request->student_id); $i++) {
+                $insert =  [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'semester_id' => $request->semester_id,
+                    'conduct_type' => $request->conduct_type[$i],
+                ];
+                DB::table('conducts')->insert($insert);
+                DB::commit();
             }
+            Toastr::success('Nhập hạnh kiểm thành công!!', 'Thành công');
+            return redirect()->route('conduct.teacher.form.class.edit');
         } catch (
             \Exception
             $err
         ) {
-            Toastr::error('Nhập hạnh kiểm thất bại!!', 'Failed');
+            DB::rollBack();
+            Toastr::error('Vui lòng nhập hạnh kiểm cho tất cả học sinh!!', 'Thất bại');
             return redirect()->back();
         }
     }
@@ -133,19 +136,26 @@ class ConductController extends Controller
             ->where('class_id', $request->class_id)
             ->delete();
 
-        if ($studentRequest) {
+        DB::beginTransaction();
+        try {
             for ($i = 0; $i < count($request->student_id); $i++) {
-                $conducts = new Conduct();
-                $conducts->student_id = $request->student_id[$i];
-                $conducts->class_id = $request->class_id;
-                $conducts->semester_id = $request->semester_id;
-                $conducts->conduct_type = $request->conduct_type[$i];
-                $conducts->save();
+                $insert =  [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'semester_id' => $request->semester_id,
+                    'conduct_type' => $request->conduct_type[$i],
+                ];
+                DB::table('conducts')->insert($insert);
+                DB::commit();
             }
-            Toastr::success('Nhập hạnh kiểm thành công!!', 'Success');
+            Toastr::success('Nhập hạnh kiểm thành công!!', 'Thành công');
             return redirect()->route('conduct.teacher.form.class.edit');
-        } else {
-            Toastr::error('Sửa điểm thất bại!!', 'Failed');
+        } catch (
+            \Exception
+            $err
+        ) {
+            DB::rollBack();
+            Toastr::error('Vui lòng nhập hạnh kiểm cho tất cả học sinh!!', 'Thất bại');
             return redirect()->back();
         }
     }

@@ -32,43 +32,39 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row tab-content">
-                        <div id="list-view" class="tab-pane fade active show col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="example2" class="display" style="min-width: 845px">
-                                            <thead>
-                                                <tr>
-                                                    <th>ID</th>
-                                                    <th>Họ và tên</th>
-                                                    <th>Địa chỉ</th>
-                                                    <th>Email</th>
-                                                    <th>Ngày sinh</th>
-                                                    <th>Nhập</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($students as $key => $student )
-                                                <tr>
-                                                    <input type="hidden" name="student_id[]" value="{{ $student->student->id }}">
-                                                    <td><strong>{{ $student->student->id }}</strong></td>
-                                                    <td>{{ $student->student->name }}</td>
-                                                    <td>{{ $student->student->address }}</td>
-                                                    <td>{{ $student->student->email }}</td>
-                                                    <td>{{ $student->student->dateOfBirth }}</td>
-                                                    <td>
-                                                        <a href="{{ url('teacher/ability-quality/add/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
-                                                            class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
-                                                        <a href="{{ url('teacher/ability-quality/show/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
-                                                            class="btn btn-sm btn-info"><i class="la la-eye"></i></a>
-                                                    </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                 <table class="table table-hover table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Họ và tên</th>
+                                            <th>Địa chỉ</th>
+                                            <th>Email</th>
+                                            <th>Ngày sinh</th>
+                                            <th>Nhập</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($students as $key => $student )
+                                        <tr>
+                                            <input type="hidden" name="student_id[]" value="{{ $student->student->id }}">
+                                            <td><strong>{{ $student->student->id }}</strong></td>
+                                            <td>{{ $student->student->last_name }} {{ $student->student->first_name }}</td>
+                                            <td>{{ $student->student->address }}</td>
+                                            <td>{{ $student->student->email }}</td>
+                                            <td>{{ $student->student->dateOfBirth }}</td>
+                                            <td>
+                                                <a href="{{ url('teacher/ability-quality/add/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
+                                                    class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
+                                                <a href="{{ url('teacher/ability-quality/show/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
+                                                    class="btn btn-sm btn-info"><i class="la la-eye"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

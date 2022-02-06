@@ -37,9 +37,9 @@ class LessonController extends Controller
                 'lessons.*',
                 'teachers.teacher_name'
             )
-            ->orderBy('class_name', 'asc')
+            ->orderBy('id', 'desc')
             ->paginate(10);
-        $classes = Classes::orderBy('id', 'asc')->get();
+        $classes = Classes::orderBy('class_name', 'asc')->get();
         return view(
             'lesson.lesson_all',
             [
@@ -70,8 +70,26 @@ class LessonController extends Controller
     }
     public function store(LessonRequest $request)
     {
-
-
+        $lesson =
+            Lesson::where('semester_id',  $request->semester_id)
+            ->where('class_id',  $request->class_id)
+            ->where('time_id',  $request->time_id)
+            ->where('day_id', $request->day_id)
+            ->first();
+        if ($lesson) {
+            Toastr::error('Trùng tiết học!!', 'Thất bại');
+            return redirect()->back();
+        }
+        $teacher =
+            Lesson::where('semester_id',  $request->semester_id)
+            ->where('teacher_id',  $request->teacher_id)
+            ->where('time_id',  $request->time_id)
+            ->where('day_id', $request->day_id)
+            ->first();
+        if ($teacher) {
+            Toastr::error('Trùng giáo viên!!', 'Thất bại');
+            return redirect()->back();
+        }
         $lessons = new Lesson;
         $lessons->course_id = $request->course_id;
         $lessons->class_id = $request->class_id;
@@ -82,7 +100,7 @@ class LessonController extends Controller
         $lessons->semester_id = $request->semester_id;
         $lessons->save();
 
-        Toastr::success('Thêm tiết học thành công!!', 'Success');
+        Toastr::success('Thêm tiết học thành công!!', 'Thành công');
         return redirect()->route('lesson/list');
     }
 

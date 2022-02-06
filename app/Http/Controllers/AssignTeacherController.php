@@ -8,6 +8,8 @@ use App\Models\Teacher;
 use App\Models\YearSession;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class AssignTeacherController extends Controller
 {
@@ -26,19 +28,34 @@ class AssignTeacherController extends Controller
 
     public function store(Request $request)
     {
-        $class_request = $request->class_id;
-        if ($class_request) {
+        $data = $request->validate([
+            'session_id' => 'required',
+            'teacher_id' => 'required|array',
+            'teacher_id.*' => 'required|string'
+        ]);
+
+        // $class_request = $request->class_id;
+        DB::beginTransaction();
+        try {
             for ($i = 0; $i < count($request->class_id); $i++) {
-                $assign = new AssignTeacher();
-                $assign->class_id = $request->class_id[$i];
-                $assign->session_id = $request->session_id;
-                $assign->teacher_id = $request->teacher_id[$i];
-                $assign->save();
+                $insert = [
+                    'class_id' => $request->class_id[$i],
+                    'session_id' => $request->session_id,
+                    'teacher_id' => $request->teacher_id[$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+                DB::table('assign_teachers')->insert($insert);
+                DB::commit();
             }
             Toastr::success('Thêm giáo viên chủ nhiệm thành công!!', 'Success');
             return redirect()->back();
-        } else {
-            Toastr::error('Thêm giáo viên chủ nhiệm thất bại!!', 'Failed');
+        } catch (
+            \Exception
+            $err
+        ) {
+            DB::rollBack();
+            Toastr::error('Vui lòng nhập đầy đủ tất cả các giáo viên chủ nhiệm!!', 'Failed');
             return redirect()->back();
         }
     }

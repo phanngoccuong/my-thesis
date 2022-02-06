@@ -171,7 +171,6 @@ Route::group(
         //---------Promotion-------//
         Route::get('promotion/index', [App\Http\Controllers\PromotionController::class, 'index'])->name('promotion.index');
         Route::get('promotion/create', [App\Http\Controllers\PromotionController::class, 'create'])->name('promotion.create');
-        Route::post('promotion/save', [App\Http\Controllers\PromotionController::class, 'store'])->name('promotion.store');
         //---------Notice-------//
 
         Route::get('notice/create', [App\Http\Controllers\BoardingNoticeController::class, 'create'])->name('boarding.create');

@@ -19,12 +19,12 @@ class PromotionController extends Controller
     {
         $classes = Classes::where('group_id', '!=', 5)->get();
         $previousYear = $promotionService->getPreviousSession();
-        $previousSessionClasses = $promotionService->getClasses($previousYear['id']);
+        // $previousSessionClasses = $promotionService->getClasses($previousYear['id']);
         // dd($previousSessionClasses);
         return view('promtion.index', [
             'title' => 'Học sinh lên lớp',
             'classes' => $classes,
-            'previousSessionClasses' => $previousSessionClasses
+            // 'previousSessionClasses' => $previousSessionClasses
         ]);
     }
 
@@ -33,11 +33,14 @@ class PromotionController extends Controller
         $class_id = $request->class_id;
         $previousYear = $promotionService->getPreviousSession();
         $latestYear = $promotionService->getLatestSession();
+        if ($previousYear) {
+            $datas = Promotion::with('student', 'classes')
+                ->where('session_id', '=', $previousYear['id'])
+                ->where('class_id', $class_id)
+                ->get();
+        } else
+            $datas = '';
 
-        $datas = Promotion::with('student', 'classes')
-            ->where('session_id', '=', $previousYear['id'])
-            ->where('class_id', $class_id)
-            ->get();
 
         $currentGroup = Classes::where('id', $class_id)->select('group_id')->first();
         $newClass = Classes::where('group_id', '=', $currentGroup->group_id + 1)->get();
@@ -47,43 +50,7 @@ class PromotionController extends Controller
             'datas' => $datas,
             'newClass' => $newClass,
             'latestYear' => $latestYear,
+            'previousYear' => $previousYear
         ]);
-    }
-    public function store(PromotionRequest $request)
-    {
-        $studentPromo =
-            Promotion::where('session_id',  $request->session_id)
-            ->where('student_id', $request->student_id)
-            ->first();
-        if ($studentPromo) {
-            Toastr::error('Học sinh đã được lên lớp!!', 'Thất bại');
-            return redirect()->back();
-        }
-
-
-        // $latestYear = $promotionService->getLatestSession();
-
-        // $classRequest = $request->class_id;
-        // $students = Student::all();
-
-        // foreach ($request->datas as $student_id => $class_id) {
-        //     $student = $students->find($student_id);
-        //     $session_id = $latestYear->id;
-        //     $student->classes()->attach($class_id, ['session_id' => $session_id]);
-        // }
-
-        $studentRequest = $request->student_id;
-
-        if ($studentRequest) {
-            for ($i = 0; $i < count($request->student_id); $i++) {
-                $promo = new Promotion;
-                $promo->student_id = $request->student_id[$i];
-                $promo->class_id = $request->class_id[$i];
-                $promo->session_id = $request->session_id;
-                $promo->save();
-            }
-            Toastr::success('Lên lớp thành công!!', 'Success');
-            return redirect()->route('promotion.index');
-        }
     }
 }

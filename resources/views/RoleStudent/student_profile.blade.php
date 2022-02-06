@@ -28,7 +28,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label><strong>Họ và tên</strong></label>
-                                            <input type="email" value="{{ $studentInfo->name }}"
+                                            <input type="email" value="{{ $studentInfo->last_name }} {{ $studentInfo->first_name }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">

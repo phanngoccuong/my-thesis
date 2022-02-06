@@ -64,7 +64,7 @@
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example2" class="display" style="min-width: 845px">
+                                        <table class="table table-hover table-responsive-sm">
                                             <thead>
                                                 <tr>
                                                     <th>Kì học</th>

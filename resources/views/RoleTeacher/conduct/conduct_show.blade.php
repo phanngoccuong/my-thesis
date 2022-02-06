@@ -33,12 +33,10 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row tab-content">
-                        <div id="list-view" class="tab-pane fade active show col-lg-12">
                             <div class="card">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table id="example2" class="display" style="min-width: 845px">
+                                        <table class="table table-hover table-responsive-sm">
                                             <thead>
                                                 <tr>
                                                     <th>ID</th>
@@ -54,7 +52,7 @@
                                                 <tr>
                                                     <input type="hidden" name="student_id[]" value="{{ $student->student_id }}">
                                                     <td><strong>{{ $student->student_id }}</strong></td>
-                                                    <td>{{ $student->student->name }}</td>
+                                                    <td>{{ $student->student->last_name }} {{ $student->student->first_name }}</td>
                                                     <td>{{ $student->student->address }}</td>
                                                     <td>{{ $student->student->email }}</td>
                                                     <td>{{ $student->student->dateOfBirth }}</td>

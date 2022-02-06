@@ -22,18 +22,30 @@
             {{-- message --}}
             {!! Toastr::message() !!}
             <div class="row">
-                <div class="col-xl-12 col-xxl-12 col-sm-12">
+                <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
                             <form action="{{ route('student.save') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
-                                    <div class="col-lg-6">
+                                    <div class="col-lg-3">
                                         <div class="form-group">
-                                            <label class="form-label">Họ và tên</label>
-                                            <input type="text" class="form-control @error('name') is-invalid @enderror"
-                                            value="{{ old('name') }}" name="name" id="name">
-                                            @error('name')
+                                            <label class="form-label">Họ và tên đệm</label>
+                                            <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                            value="{{ old('last_name') }}" name="last_name" id="last_name">
+                                            @error('last_name')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="form-group">
+                                            <label class="form-label">Tên</label>
+                                            <input type="text" class="form-control @error('first_name') is-invalid @enderror"
+                                            value="{{ old('first_name') }}" name="first_name" id="first_name">
+                                            @error('first_name')
                                                 <span class="invalid-feedback" role="alert">
                                                     <strong>{{ $message }}</strong>
                                                 </span>
