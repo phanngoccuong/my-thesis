@@ -23,7 +23,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('semester/save') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('semester.save') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="session_id" value="{{$latest_session_id}}">
                                 <div class="row">

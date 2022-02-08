@@ -26,7 +26,7 @@
                             <div class="card">
                                 <div class="card-header">
                                     <h4 class="card-title">Danh sách kì học</h4>
-                                    <a href="{{ route('semester/add') }}" class="btn btn-primary">+ Thêm mới</a>
+                                    <a href="{{ route('semester.add') }}" class="btn btn-primary">+ Thêm mới</a>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">

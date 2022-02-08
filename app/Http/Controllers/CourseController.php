@@ -37,7 +37,7 @@ class CourseController extends Controller
         $courses->save();
 
         Toastr::success('Thêm môn học thành công!!', 'Success');
-        return redirect()->route('course/list');
+        return redirect()->route('course.list');
     }
 
     public function edit($id)
@@ -64,7 +64,7 @@ class CourseController extends Controller
         ];
         Course::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật môn học thành công!!', 'Success');
-        return redirect()->route('course/list');
+        return redirect()->route('course.list');
     }
 
     public function delete($id)
@@ -72,6 +72,6 @@ class CourseController extends Controller
         $delete = Course::find($id);
         $delete->delete();
         Toastr::success('Xóa môn học thành công!!', 'Success');
-        return redirect()->route('course/list');
+        return redirect()->route('course.list');
     }
 }

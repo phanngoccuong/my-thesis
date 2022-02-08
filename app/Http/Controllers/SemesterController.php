@@ -40,7 +40,7 @@ class SemesterController extends Controller
         $semesters->save();
 
         Toastr::success('Thêm học kì thành công!!', 'Success');
-        return redirect()->route('semester/list');
+        return redirect()->route('semester.list');
     }
 
     public function edit($id)
@@ -67,7 +67,7 @@ class SemesterController extends Controller
         ];
         Semester::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật học kì thành công!!', 'Success');
-        return redirect()->route('semester/list');
+        return redirect()->route('semester.list');
     }
 
     public function delete($id)
@@ -75,6 +75,6 @@ class SemesterController extends Controller
         $delete = Semester::find($id);
         $delete->delete();
         Toastr::success('Xóa học kì thành công!!', 'Success');
-        return redirect()->route('semester/list');
+        return redirect()->route('semester.list');
     }
 }

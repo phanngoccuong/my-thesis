@@ -24,7 +24,7 @@
                 <div class="col-xl-12 col-xxl-12 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('time/save') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('time.save') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -42,7 +42,7 @@
                                     <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Thêm</button>
                                             <button type="submit" class="btn btn-light" >Hủy
-                                                 <a href="{{ route('time/list') }}"></a></button>
+                                                 <a href="{{ route('time.list') }}"></a></button>
                                     </div>
                                 </div>
                             </form>

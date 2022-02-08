@@ -13,16 +13,21 @@ class Note extends Component
     public $note_opened = FALSE;
     public $note;
     public $currentNote;
-    public function mount($schoolLesson)
+    public function mount($semester, $class, $course)
     {
-        $this->lesson = $schoolLesson;
+        $this->semester = $semester;
+        $this->class = $class;
+        $this->course = $course;
     }
     protected $rules = [
         'note' => 'required',
     ];
     public function render()
     {
-        $this->currentNote = LessonNote::where('lesson_id', $this->lesson->id)->first();
+        $this->currentNote = LessonNote::where('semester_id', $this->semester->id)
+            ->where('class_id', $this->class->id)
+            ->where('course_id', $this->course->id)
+            ->first();
         return view('livewire.note');
     }
     public function toggle_note()
@@ -44,7 +49,9 @@ class Note extends Component
     public function add_note()
     {
         DB::table('lesson_notes')->insert([
-            'lesson_id' => $this->lesson->id,
+            'semester_id' => $this->semester->id,
+            'class_id' => $this->class->id,
+            'course_id' => $this->course->id,
             'note' => $this->note,
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now()

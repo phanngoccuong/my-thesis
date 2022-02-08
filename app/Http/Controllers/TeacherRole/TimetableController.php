@@ -4,13 +4,13 @@ namespace App\Http\Controllers\TeacherRole;
 
 use App\Http\Controllers\Controller;
 use App\Models\Lesson;
-use App\Models\LessonNote;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Teacher;
 use App\Models\Semester;
-use Brian2694\Toastr\Facades\Toastr;
+
 
 
 class TimetableController extends Controller
@@ -30,7 +30,7 @@ class TimetableController extends Controller
             ->distinct()
             ->get();
 
-        return view('RoleTeacher.teacher_timetable_search', [
+        return view('RoleTeacher.timetable.teacher_timetable_search', [
             'title' => 'Thời khóa biểu',
             'semesters' => $semesters,
         ]);
@@ -51,7 +51,7 @@ class TimetableController extends Controller
             ->get();
 
 
-        return view('RoleTeacher.teacher_timetable_details', [
+        return view('RoleTeacher.timetable.teacher_timetable_details', [
             'title' => 'Thời khóa biểu',
             'datas' => $datas,
             'semester' => $semester

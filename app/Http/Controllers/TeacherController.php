@@ -48,7 +48,7 @@ class TeacherController extends Controller
         $teachers->save();
 
         Toastr::success('Thêm giáo viên thành công!!', 'Success');
-        return redirect()->route('teacher/list');
+        return redirect()->route('teacher.list');
     }
 
     public function edit($id)
@@ -92,7 +92,7 @@ class TeacherController extends Controller
         ];
         Teacher::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật thông tin giáo viên thành công!!', 'Success');
-        return redirect()->route('teacher/list');
+        return redirect()->route('teacher.list');
     }
 
     public function delete($id)
@@ -100,7 +100,7 @@ class TeacherController extends Controller
         $delete = Teacher::find($id);
         $delete->delete();
         Toastr::success('Xóa giáo viên thành công!!', 'Success');
-        return redirect()->route('teacher/list');
+        return redirect()->route('teacher.list');
     }
 
     public function PDFGenerate(Request $request)

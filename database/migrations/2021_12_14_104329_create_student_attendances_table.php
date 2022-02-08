@@ -16,11 +16,11 @@ class CreateStudentAttendancesTable extends Migration
         Schema::create('student_attendances', function (Blueprint $table) {
             $table->id();
             $table->integer('student_id');
-            $table->integer('class_id')->nullable();
-            $table->integer('course_id')->nullable();
-            $table->integer('semester_id')->nullable();
-            $table->date('date')->nullable();
-            $table->integer('status')->nullable()->comment('0-vắng,1-có,2-nghỉ có phép');
+            $table->integer('class_id');
+            $table->integer('course_id');
+            $table->integer('semester_id');
+            $table->date('date');
+            $table->integer('status')->comment('0-vắng,1-có,2-nghỉ có phép');
             $table->timestamps();
         });
     }

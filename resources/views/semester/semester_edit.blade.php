@@ -23,7 +23,7 @@
                 <div class="col-xl-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('semester/update') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('semester.update') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $semesters->id }}">
                                 <div class="row">
@@ -67,7 +67,7 @@
                                     </div>
                                     <div class="col-lg-12">
                                         <button type="submit" class="btn btn-primary">Cập nhật</button>
-                                        <button type="button" class="btn btn-light"><a href="{{ route('semester/list') }}">Trở lại</a></button>
+                                        <button type="button" class="btn btn-light"><a href="{{ route('semester.list') }}">Trở lại</a></button>
                                     </div>
                                 </div>
                             </form>

@@ -24,7 +24,7 @@
                 <div class="col-xl-12 col-xxl-12 col-sm-12">
                     <div class="card">
                         <div class="card-body">
-                            <form action="{{ route('day/save') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('day.save') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-lg-6">

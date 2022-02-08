@@ -16,8 +16,8 @@
                     <span class="nav-text">Quản lý kì học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('semester/list') }}">Danh sách kì học</a></li>
-                    <li><a href="{{ route('semester/add') }}">Thêm kì học</a></li>
+                    <li><a href="{{ route('semester.list') }}">Danh sách kì học</a></li>
+                    <li><a href="{{ route('semester.add') }}">Thêm kì học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -39,8 +39,8 @@
                     <span class="nav-text">Quản lý giáo viên</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('teacher/list') }}">Danh sách giáo viên</a></li>
-                    <li><a href="{{ route('teacher/add') }}">Thêm giáo viên</a></li>
+                    <li><a href="{{ route('teacher.list') }}">Danh sách giáo viên</a></li>
+                    <li><a href="{{ route('teacher.add') }}">Thêm giáo viên</a></li>
                     <li><a href="{{ route('teacher.assign') }}">Bổ nhiệm giáo viên chủ nhiệm</a></li>
                    <li><a href="{{ route('teacher.assign.list') }}">Danh sách giáo viên chủ nhiệm</a></li>
                 </ul>
@@ -50,8 +50,8 @@
                     <span class="nav-text">Thời khóa biểu</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('lesson/list') }}">Quản lý thời khóa biểu</a></li>
-                    <li><a href="{{ route('lesson/add') }}">Thêm tiết học</a></li>
+                    <li><a href="{{ route('lesson.list') }}">Quản lý thời khóa biểu</a></li>
+                    <li><a href="{{ route('lesson.add') }}">Thêm tiết học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -72,8 +72,8 @@
                     <span class="nav-text">Quản lý Lớp</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('classes/list') }}">Danh sách lớp</a></li>
-                    <li><a href="{{ route('classes/add') }}">Thêm lớp</a></li>
+                    <li><a href="{{ route('classes.list') }}">Danh sách lớp</a></li>
+                    <li><a href="{{ route('classes.add') }}">Thêm lớp</a></li>
 
                 </ul>
             </li>
@@ -82,8 +82,8 @@
                     <span class="nav-text">Phòng học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('classroom/list') }}">Quản lý phòng học</a></li>
-                    <li><a href="{{ route('classroom/add') }}">Thêm phòng học</a></li>
+                    <li><a href="{{ route('classroom.list') }}">Quản lý phòng học</a></li>
+                    <li><a href="{{ route('classroom.add') }}">Thêm phòng học</a></li>
                 </ul>
             </li>
 
@@ -92,8 +92,8 @@
                     <span class="nav-text">Môn học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('course/list') }}">Quản lý môn học</a></li>
-                    <li><a href="{{ route('course/add') }}">Thêm môn học</a></li>
+                    <li><a href="{{ route('course.list') }}">Quản lý môn học</a></li>
+                    <li><a href="{{ route('course.add') }}">Thêm môn học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -101,8 +101,8 @@
                     <span class="nav-text">Niên khóa</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('batch/list') }}">Quản lý niên khóa</a></li>
-                    <li><a href="{{ route('batch/add') }}">Thêm niên khóa</a></li>
+                    <li><a href="{{ route('batch.list') }}">Quản lý niên khóa</a></li>
+                    <li><a href="{{ route('batch.add') }}">Thêm niên khóa</a></li>
                 </ul>
             </li>
 
@@ -111,8 +111,8 @@
                     <span class="nav-text">Ngày học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('day/list') }}">Quản lý ngày học</a></li>
-                    <li><a href="{{ route('day/add') }}">Thêm ngày học</a></li>
+                    <li><a href="{{ route('day.list') }}">Quản lý ngày học</a></li>
+                    <li><a href="{{ route('day.add') }}">Thêm ngày học</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -120,8 +120,8 @@
                     <span class="nav-text">Giờ học</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="{{ route('time/list') }}">Quản lý giờ học</a></li>
-                    <li><a href="{{ route('time/add') }}">Thêm giờ học</a></li>
+                    <li><a href="{{ route('time.list') }}">Quản lý giờ học</a></li>
+                    <li><a href="{{ route('time.add') }}">Thêm giờ học</a></li>
                 </ul>
             </li>
         </ul>
@@ -175,6 +175,11 @@
             <li><a class="has-arrow" href="{{ route('teacher.timetable.search') }}" aria-expanded="false">
                     <i class="la la-calendar-o"></i>
                     <span class="nav-text">Thời khóa biểu</span>
+                </a>
+            </li>
+            <li><a class="has-arrow" href="{{ route('teacher.lesson-details.search') }}" aria-expanded="false">
+                    <i class="la la-calendar-o"></i>
+                    <span class="nav-text">Chi tiết bài giảng</span>
                 </a>
             </li>
 

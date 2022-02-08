@@ -30,7 +30,7 @@
                                     <div class="col-xl-12">
                                         <div class="auth-form">
                                             <h4 class="text-center mb-4">Thêm người dùng mới</h4>
-                                            <form method="POST" action="{{ route('user/add/save') }}" enctype="multipart/form-data">
+                                            <form method="POST" action="{{ route('user.save') }}" enctype="multipart/form-data">
                                                 @csrf
                                                 <div class="form-group">
                                                     <label><strong>Họ và tên</strong></label>

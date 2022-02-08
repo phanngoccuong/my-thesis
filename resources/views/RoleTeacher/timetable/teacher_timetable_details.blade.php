@@ -29,8 +29,6 @@
                                         <th scope="col">Lớp</th>
                                         <th scope="col">Ngày</th>
                                         <th scope="col">Giờ</th>
-                                        <th scope="col">Chi tiết bài giảng</th>
-                                        <th scope="col">Tài liệu</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -42,22 +40,15 @@
                                         <td>{{ $data->day->day_name }}</td>
                                         <td>{{ $data->time->time }}</td>
                                         {{-- <td>
-                                            <a href="{{ url('teacher/timetable/note/add/'.$data->id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
-                                            <a href="{{ url('teacher/timetable/note/edit/'.$data->id) }}"
-                                                class="btn btn-sm btn-warning"><i class="la la-pencil"></i></a>
-                                        </td> --}}
-                                        <td>
                                             <a href="{{ url('teacher/timetable-details/add/'.$data->id) }}"
                                                 class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
-                                        </td>
-                                        <td>
+                                        </td> --}}
+                                        {{-- <td>
                                             <a href="{{ url('teacher/document/upload/'.$data->id) }}"
                                                 class="btn btn-sm btn-success"><i class="la la-cloud-upload"></i></a>
                                             <a href="{{ url('teacher/document/list/'.$data->id) }}"
                                                 class="btn btn-sm btn-info"><i class="la la-bullhorn"></i></a>
-                                        </td>
-
+                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </tbody>

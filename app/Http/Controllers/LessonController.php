@@ -101,7 +101,7 @@ class LessonController extends Controller
         $lessons->save();
 
         Toastr::success('Thêm tiết học thành công!!', 'Thành công');
-        return redirect()->route('lesson/list');
+        return redirect()->route('lesson.list');
     }
 
     public function edit($id)
@@ -150,7 +150,7 @@ class LessonController extends Controller
 
         Lesson::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật tiết học thành công!!', 'Success');
-        return redirect()->route('lesson/list');
+        return redirect()->route('lesson.list');
     }
 
     public function delete($id)
@@ -158,7 +158,7 @@ class LessonController extends Controller
         $delete = Lesson::find($id);
         $delete->delete();
         Toastr::success('Xóa tiết học thành công!!', 'Success');
-        return redirect()->route('lesson/list');
+        return redirect()->route('lesson.list');
     }
 
     public function search(Request $request)

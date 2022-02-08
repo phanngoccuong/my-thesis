@@ -31,7 +31,7 @@ class ClassroomController extends Controller
         $classrooms->classroom_name = $request->classroom_name;
         $classrooms->save();
         Toastr::success('Thêm phòng học thành công!!', 'Success');
-        return redirect()->route('classroom/list');
+        return redirect()->route('classroom.list');
     }
 
     public function edit($id)
@@ -54,7 +54,7 @@ class ClassroomController extends Controller
         ];
         Classroom::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật phòng học thành công!!', 'Success');
-        return redirect()->route('classroom/list');
+        return redirect()->route('classroom.list');
     }
 
     public function delete($id)
@@ -62,6 +62,6 @@ class ClassroomController extends Controller
         $delete = Classroom::find($id);
         $delete->delete();
         Toastr::success('Xóa phòng học thành công!!', 'Success');
-        return redirect()->route('classroom/list');
+        return redirect()->route('classroom.list');
     }
 }

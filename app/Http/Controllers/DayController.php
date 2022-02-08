@@ -36,7 +36,7 @@ class DayController extends Controller
         $days->save();
 
         Toastr::success('Thêm ngày học thành công!!', 'Success');
-        return redirect()->route('day/list');
+        return redirect()->route('day.list');
     }
 
     public function edit($id)
@@ -60,7 +60,7 @@ class DayController extends Controller
         ];
         Day::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật ngày học thành công!!', 'Success');
-        return redirect()->route('day/list');
+        return redirect()->route('day.list');
     }
 
     public function delete($id)
@@ -68,6 +68,6 @@ class DayController extends Controller
         $delete = Day::find($id);
         $delete->delete();
         Toastr::success('Xóa ngày học thành công!!', 'Success');
-        return redirect()->route('day/list');
+        return redirect()->route('day.list');
     }
 }

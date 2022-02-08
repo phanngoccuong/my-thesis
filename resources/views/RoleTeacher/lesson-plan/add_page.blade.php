@@ -1,4 +1,4 @@
-@extends('layouts.st_master')
+ @extends('layouts.st_master')
 @section('content')
 @include('sidebar.sidebar')
     {!! Toastr::message() !!}
@@ -7,14 +7,14 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>Danh sách bài học</h4>
+                        <h4>Kế hoạch học tập</h4>
                     </div>
                 </div>
                 <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="">Home</a></li>
-                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Thời khóa biểu</a></li>
-                        <li class="breadcrumb-item active"><a href="">Danh sách bài học</a></li>
+                        <li class="breadcrumb-item"><a href="">Học kì {{ $semesterPlan->semester_name }}</a></li>
+                        <li class="breadcrumb-item active"><a href="javascript:void(0);">Lớp {{ $classPlan->class_name }}</a></li>
+                        <li class="breadcrumb-item active"><a href="">Môn {{ $coursePlan->course_name }}</a></li>
                     </ol>
                 </div>
             </div>
@@ -42,11 +42,11 @@
                                         <tr>
                                             <td><strong>{{ ++$key }}</strong></td>
                                             <td>{{ $detail->date }}</td>
-                                            <td>{{ $detail->lesson_title }}</td>
+                                            <td>{{ $detail->title }}</td>
                                             <td>
-                                                <a href="{{ url('teacher/timetable-details/edit/'.$detail->id) }}"
+                                                <a href="{{ url('teacher/timetable-plan/edit/'.$detail->id) }}"
                                                     class="btn btn-sm btn-primary"><i class="la la-pencil"></i>Sửa</a>
-                                                <a href="{{ url('teacher/timetable-details/delete/'.$detail->id) }}"
+                                                <a href="{{ url('teacher/timetable-plan/delete/'.$detail->id) }}"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
                                                 <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
                                             </td>
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <livewire:note :schoolLesson="$schoolLesson"/>
+                 <livewire:note :semester="$semesterPlan" :class="$classPlan" :course="$coursePlan"/>
             </div>
         </div>
     </div>
@@ -73,13 +73,15 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-       <form action="{{ route('teacher.lesson-details.store') }}" method="POST" enctype="multipart/form-data">
+       <form action="{{ route('teacher.lesson-plan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="modal-body">
-                <input type="hidden" name="lesson_id" value="{{ $schoolLesson->id }}">
+                <input type="hidden" name="semester_id" value="{{ $semesterPlan->id }}">
+                <input type="hidden" name="class_id" value="{{ $classPlan->id }}">
+                <input type="hidden" name="course_id" value="{{ $coursePlan->id }}">
                 <div class="form-group">
                     <label for="">Ngày</label>
-                    <input type="text" class="datepicker form-control"
+                    <input type="text" class="datepicker form-control  @error('date') is-invalid @enderror"
                         name="date">
                         @error('date')
                             <span class="invalid-feedback" role="alert">
@@ -89,9 +91,9 @@
                 </div>
                 <div class="form-group">
                     <label for="">Chi tiết</label>
-                    <input type="text" class="form-control"
-                        name="lesson_title">
-                        @error('lesson_title')
+                    <input type="text" class="form-control  @error('title') is-invalid @enderror"
+                        name="title">
+                        @error('title')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -107,46 +109,5 @@
   </div>
 </div>
 {{-- End modal --}}
-{{-- edit modal --}}
-<div class="modal fade" id="editDetailsForm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Chi tiết bài giảng</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-        <form action="" method="POST" enctype="multipart/form-data" id="editForm">
-            @csrf
-            <div class="modal-body">
-                <input type="hidden" name="lesson_id" value="{{ $schoolLesson->id }}">
-                <div class="form-group">
-                    <label for="">Ngày</label>
-                    <input type="text" class="datepicker form-control"
-                        name="date" id="date">
-                        @error('date')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                </div>
-                <div class="form-group">
-                    <label for="">Chi tiết</label>
-                    <input type="text" class="form-control"
-                        name="lesson_title" id="lesson_title">
-                        @error('lesson_title')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="submit" class="btn btn-primary">Lưu</button>
-            </div>
-        </form>
-    </div>
-  </div>
-</div>
+
 @endsection

@@ -31,7 +31,7 @@ class BatchController extends Controller
         $batches->save();
 
         Toastr::success('Thêm thành công!!', 'Success');
-        return redirect()->route('batch/list');
+        return redirect()->route('batch.list');
     }
 
     public function edit($id)
@@ -53,7 +53,7 @@ class BatchController extends Controller
         ];
         Batch::where('id', $request->id)->update($update);
         Toastr::success('Cập nhật thành công!!', 'Success');
-        return redirect()->route('batch/list');
+        return redirect()->route('batch.list');
     }
 
     public function delete($id)
@@ -61,6 +61,6 @@ class BatchController extends Controller
         $delete = Batch::find($id);
         $delete->delete();
         Toastr::success('Xóa thành công!!', 'Success');
-        return redirect()->route('batch/list');
+        return redirect()->route('batch.list');
     }
 }

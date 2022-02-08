@@ -60,7 +60,7 @@
                                                 <td class="role_name"><span  class=" badge bg-warning">{{ $item->role_name }}</span></td>
                                                 @endif
                                                 <td class="text-center">
-                                                    {{-- <a href="{{ route('user/add/new') }}">
+                                                    {{-- <a href="{{ route('user.add') }}">
                                                         <span class="btn btn-sm btn-info"><i class="la la-plus"></i></span>
                                                     </a> --}}
                                                     <a href="{{ url('admin/view/detail/'.$item->id) }}">

@@ -39,7 +39,7 @@
                                                 <i class="la la-file-pdf-o"></i> PDF
                                             </button>
                                             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="{{ route('teacher/pdf-export') }}">Xuất file PDF</a>
+                                                <a class="dropdown-item" href="{{ route('teacher.pdf-export') }}">Xuất file PDF</a>
                                             </div>
                                         </div>
                                         <div class="dropdown" style="background-color: #1A7343">
@@ -51,7 +51,7 @@
                                                 <a class="dropdown-item" href="{{ route('teacher.excel.export') }}">Xuất file Excel</a>
                                             </div>
                                         </div>
-                                        <a href="{{ route('teacher/add') }}" class="btn btn-primary">+ Thêm mới</a>
+                                        <a href="{{ route('teacher.add') }}" class="btn btn-primary">+ Thêm mới</a>
                                     </div>
                                 </div>
                                 <div class="card-body">

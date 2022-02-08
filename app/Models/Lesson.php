@@ -43,8 +43,8 @@ class Lesson extends Model
     {
         return $this->belongsTo(Time::class, 'time_id');
     }
-    public function note()
+    public function semester()
     {
-        return $this->hasOne(LessonNote::class);
+        return $this->belongsTo(Semester::class, 'semester_id');
     }
 }

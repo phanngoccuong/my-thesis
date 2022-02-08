@@ -64,8 +64,8 @@ Route::group(
         Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
         // ----------------------------- user userManagement -----------------------//
         Route::get('userManagement', [App\Http\Controllers\UserManagementController::class, 'index'])->name('userManagement');
-        Route::get('user/add/new', [App\Http\Controllers\UserManagementController::class, 'addNewUser'])->name('user/add/new');
-        Route::post('user/add/save', [App\Http\Controllers\UserManagementController::class, 'addNewUserSave'])->name('user/add/save');
+        Route::get('user.add', [App\Http\Controllers\UserManagementController::class, 'addNewUser'])->name('user.add');
+        Route::post('user.save', [App\Http\Controllers\UserManagementController::class, 'addNewUserSave'])->name('user.save');
         Route::get('view/detail/{id}', [App\Http\Controllers\UserManagementController::class, 'viewDetail']);
         Route::post('update', [App\Http\Controllers\UserManagementController::class, 'update'])->name('user.update');
         Route::get('delete_user/{id}', [App\Http\Controllers\UserManagementController::class, 'delete']);
@@ -92,81 +92,78 @@ Route::group(
         Route::get('student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit'])->name('student.edit');
         Route::post('student/update', [App\Http\Controllers\StudentController::class, 'update'])->name('student.update');
         Route::get('student/delete/{id}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student.delete');
-        #PDF
-        Route::get('student/pdf-export', [App\Http\Controllers\StudentController::class, 'PDFGenerate'])->name('student/pdf-export');
+
         //----------Classes--------------------//
-        Route::get('classes/list', [App\Http\Controllers\ClassesController::class, 'index'])->name('classes/list');
-        Route::get('classes/add', [App\Http\Controllers\ClassesController::class, 'create'])->name('classes/add');
-        Route::post('classes/save', [App\Http\Controllers\ClassesController::class, 'store'])->name('classes/save');
-        Route::get('classes/show/{id}', [App\Http\Controllers\ClassesController::class, 'show'])->name('classes/show');
-        Route::get('classes/edit/{id}', [App\Http\Controllers\ClassesController::class, 'edit'])->name('classes/edit');
-        Route::post('classes/update', [App\Http\Controllers\ClassesController::class, 'update'])->name('classes/update');
-        Route::get('classes/delete/{id}', [App\Http\Controllers\ClassesController::class, 'delete'])->name('classes/delete');
+        Route::get('classes/list', [App\Http\Controllers\ClassesController::class, 'index'])->name('classes.list');
+        Route::get('classes/add', [App\Http\Controllers\ClassesController::class, 'create'])->name('classes.add');
+        Route::post('classes/save', [App\Http\Controllers\ClassesController::class, 'store'])->name('classes.save');
+        Route::get('classes/edit/{id}', [App\Http\Controllers\ClassesController::class, 'edit'])->name('classes.edit');
+        Route::post('classes/update', [App\Http\Controllers\ClassesController::class, 'update'])->name('classes.update');
+        Route::get('classes/delete/{id}', [App\Http\Controllers\ClassesController::class, 'delete'])->name('classes.delete');
 
 
         //----------Classroom--------------//
-        Route::get('classroom/list', [App\Http\Controllers\ClassroomController::class, 'index'])->name('classroom/list');
-        Route::get('classroom/add', [App\Http\Controllers\ClassroomController::class, 'create'])->name('classroom/add');
-        Route::post('classroom/save', [App\Http\Controllers\ClassroomController::class, 'store'])->name('classroom/save');
-        Route::get('classroom/edit/{id}', [App\Http\Controllers\ClassroomController::class, 'edit'])->name('classroom/edit');
-        Route::post('classroom/update', [App\Http\Controllers\ClassroomController::class, 'update'])->name('classroom/update');
-        Route::get('classroom/delete/{id}', [App\Http\Controllers\ClassroomController::class, 'delete'])->name('classroom/delete');
+        Route::get('classroom/list', [App\Http\Controllers\ClassroomController::class, 'index'])->name('classroom.list');
+        Route::get('classroom/add', [App\Http\Controllers\ClassroomController::class, 'create'])->name('classroom.add');
+        Route::post('classroom/save', [App\Http\Controllers\ClassroomController::class, 'store'])->name('classroom.save');
+        Route::get('classroom/edit/{id}', [App\Http\Controllers\ClassroomController::class, 'edit'])->name('classroom.edit');
+        Route::post('classroom/update', [App\Http\Controllers\ClassroomController::class, 'update'])->name('classroom.update');
+        Route::get('classroom/delete/{id}', [App\Http\Controllers\ClassroomController::class, 'delete'])->name('classroom.delete');
         ///--------------Batches----------//
-        Route::get('batch/list', [App\Http\Controllers\BatchController::class, 'index'])->name('batch/list');
-        Route::get('batch/add', [App\Http\Controllers\BatchController::class, 'create'])->name('batch/add');
-        Route::post('batch/save', [App\Http\Controllers\BatchController::class, 'store'])->name('batch/save');
-        Route::get('batch/edit/{id}', [App\Http\Controllers\BatchController::class, 'edit'])->name('batch/edit');
-        Route::post('batch/update', [App\Http\Controllers\BatchController::class, 'update'])->name('batch/update');
-        Route::get('batch/delete/{id}', [App\Http\Controllers\BatchController::class, 'delete'])->name('batch/delete');
+        Route::get('batch/list', [App\Http\Controllers\BatchController::class, 'index'])->name('batch.list');
+        Route::get('batch/add', [App\Http\Controllers\BatchController::class, 'create'])->name('batch.add');
+        Route::post('batch/save', [App\Http\Controllers\BatchController::class, 'store'])->name('batch.save');
+        Route::get('batch/edit/{id}', [App\Http\Controllers\BatchController::class, 'edit'])->name('batch.edit');
+        Route::post('batch/update', [App\Http\Controllers\BatchController::class, 'update'])->name('batch.update');
+        Route::get('batch/delete/{id}', [App\Http\Controllers\BatchController::class, 'delete'])->name('batch.delete');
         //-------Course----------//
-        Route::get('course/list', [App\Http\Controllers\CourseController::class, 'index'])->name('course/list');
-        Route::get('course/add', [App\Http\Controllers\CourseController::class, 'create'])->name('course/add');
-        Route::post('course/save', [App\Http\Controllers\CourseController::class, 'store'])->name('course/save');
-        Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course/edit');
-        Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course/update');
-        Route::get('course/delete/{id}', [App\Http\Controllers\CourseController::class, 'delete'])->name('course/delete');
+        Route::get('course/list', [App\Http\Controllers\CourseController::class, 'index'])->name('course.list');
+        Route::get('course/add', [App\Http\Controllers\CourseController::class, 'create'])->name('course.add');
+        Route::post('course/save', [App\Http\Controllers\CourseController::class, 'store'])->name('course.save');
+        Route::get('course/edit/{id}', [App\Http\Controllers\CourseController::class, 'edit'])->name('course.edit');
+        Route::post('course/update', [App\Http\Controllers\CourseController::class, 'update'])->name('course.update');
+        Route::get('course/delete/{id}', [App\Http\Controllers\CourseController::class, 'delete'])->name('course.delete');
         //--------Semester--------//
-        Route::get('semester/list', [App\Http\Controllers\SemesterController::class, 'index'])->name('semester/list');
-        Route::get('semester/add', [App\Http\Controllers\SemesterController::class, 'create'])->name('semester/add');
-        Route::post('semester/save', [App\Http\Controllers\SemesterController::class, 'store'])->name('semester/save');
-        Route::get('semester/edit/{id}', [App\Http\Controllers\SemesterController::class, 'edit'])->name('semester/edit');
-        Route::post('semester/update', [App\Http\Controllers\SemesterController::class, 'update'])->name('semester/update');
-        Route::get('semester/delete/{id}', [App\Http\Controllers\SemesterController::class, 'delete'])->name('semester/delete');
+        Route::get('semester/list', [App\Http\Controllers\SemesterController::class, 'index'])->name('semester.list');
+        Route::get('semester/add', [App\Http\Controllers\SemesterController::class, 'create'])->name('semester.add');
+        Route::post('semester/save', [App\Http\Controllers\SemesterController::class, 'store'])->name('semester.save');
+        Route::get('semester/edit/{id}', [App\Http\Controllers\SemesterController::class, 'edit'])->name('semester.edit');
+        Route::post('semester/update', [App\Http\Controllers\SemesterController::class, 'update'])->name('semester.update');
+        Route::get('semester/delete/{id}', [App\Http\Controllers\SemesterController::class, 'delete'])->name('semester.delete');
         //-------Day------------//
-        Route::get('day/list', [App\Http\Controllers\DayController::class, 'index'])->name('day/list');
-        Route::get('day/add', [App\Http\Controllers\DayController::class, 'create'])->name('day/add');
-        Route::post('day/save', [App\Http\Controllers\DayController::class, 'store'])->name('day/save');
-        Route::get('day/edit/{id}', [App\Http\Controllers\DayController::class, 'edit'])->name('day/edit');
-        Route::post('day/update', [App\Http\Controllers\DayController::class, 'update'])->name('day/update');
-        Route::get('day/delete/{id}', [App\Http\Controllers\DayController::class, 'delete'])->name('day/delete');
+        Route::get('day/list', [App\Http\Controllers\DayController::class, 'index'])->name('day.list');
+        Route::get('day/add', [App\Http\Controllers\DayController::class, 'create'])->name('day.add');
+        Route::post('day/save', [App\Http\Controllers\DayController::class, 'store'])->name('day.save');
+        Route::get('day/edit/{id}', [App\Http\Controllers\DayController::class, 'edit'])->name('day.edit');
+        Route::post('day/update', [App\Http\Controllers\DayController::class, 'update'])->name('day.update');
+        Route::get('day/delete/{id}', [App\Http\Controllers\DayController::class, 'delete'])->name('day.delete');
         //-----------Time-----------//
-        Route::get('time/list', [App\Http\Controllers\TimeController::class, 'index'])->name('time/list');
-        Route::get('time/add', [App\Http\Controllers\TimeController::class, 'create'])->name('time/add');
-        Route::post('time/save', [App\Http\Controllers\TimeController::class, 'store'])->name('time/save');
-        Route::get('time/edit/{id}', [App\Http\Controllers\TimeController::class, 'edit'])->name('time/edit');
-        Route::post('time/update', [App\Http\Controllers\TimeController::class, 'update'])->name('time/update');
-        Route::get('time/delete/{id}', [App\Http\Controllers\TimeController::class, 'delete'])->name('time/delete');
+        Route::get('time/list', [App\Http\Controllers\TimeController::class, 'index'])->name('time.list');
+        Route::get('time/add', [App\Http\Controllers\TimeController::class, 'create'])->name('time.add');
+        Route::post('time/save', [App\Http\Controllers\TimeController::class, 'store'])->name('time.save');
+        Route::get('time/edit/{id}', [App\Http\Controllers\TimeController::class, 'edit'])->name('time.edit');
+        Route::post('time/update', [App\Http\Controllers\TimeController::class, 'update'])->name('time.update');
+        Route::get('time/delete/{id}', [App\Http\Controllers\TimeController::class, 'delete'])->name('time.delete');
         //--------------Teacher------------//
-        Route::get('teacher/list', [App\Http\Controllers\TeacherController::class, 'index'])->name('teacher/list');
-        Route::get('teacher/add', [App\Http\Controllers\TeacherController::class, 'create'])->name('teacher/add');
-        Route::post('teacher/save', [App\Http\Controllers\TeacherController::class, 'store'])->name('teacher/save');
-        // Route::get('teacher/show', [App\Http\Controllers\TeacherController::class, 'show'])->name('teacher/show');
-        Route::get('teacher/edit/{id}', [App\Http\Controllers\TeacherController::class, 'edit'])->name('teacher/edit');
-        Route::post('teacher/update', [App\Http\Controllers\TeacherController::class, 'update'])->name('teacher/update');
-        Route::get('teacher/delete/{id}', [App\Http\Controllers\TeacherController::class, 'delete'])->name('teacher/delete');
+        Route::get('teacher/list', [App\Http\Controllers\TeacherController::class, 'index'])->name('teacher.list');
+        Route::get('teacher/add', [App\Http\Controllers\TeacherController::class, 'create'])->name('teacher.add');
+        Route::post('teacher/save', [App\Http\Controllers\TeacherController::class, 'store'])->name('teacher.save');
+        Route::get('teacher/edit/{id}', [App\Http\Controllers\TeacherController::class, 'edit'])->name('teacher.edit');
+        Route::post('teacher/update', [App\Http\Controllers\TeacherController::class, 'update'])->name('teacher.update');
+        Route::get('teacher/delete/{id}', [App\Http\Controllers\TeacherController::class, 'delete'])->name('teacher.delete');
         Route::get('teacher/assign', [App\Http\Controllers\AssignTeacherController::class, 'create'])->name('teacher.assign');
         Route::post('teacher/assign/add', [App\Http\Controllers\AssignTeacherController::class, 'store'])->name('teacher.assign.store');
         Route::get('teacher/assign/list', [App\Http\Controllers\AssignTeacherController::class, 'index'])->name('teacher.assign.list');
         Route::get('teacher/assign/list/get', [App\Http\Controllers\AssignTeacherController::class, 'getFormTeacher'])->name('teacher.assign.list.get');
         #PDF
-        Route::get('teacher/pdf-export', [App\Http\Controllers\TeacherController::class, 'PDFGenerate'])->name('teacher/pdf-export');
+        Route::get('teacher/pdf-export', [App\Http\Controllers\TeacherController::class, 'PDFGenerate'])->name('teacher.pdf-export');
         //---------Timetable-------//
-        Route::get('lesson/list', [App\Http\Controllers\LessonController::class, 'index'])->name('lesson/list');
-        Route::get('lesson/add', [App\Http\Controllers\LessonController::class, 'create'])->name('lesson/add');
-        Route::post('lesson/save', [App\Http\Controllers\LessonController::class, 'store'])->name('lesson/save');
-        Route::get('lesson/edit/{id}', [App\Http\Controllers\LessonController::class, 'edit'])->name('lesson/edit');
-        Route::post('lesson/update', [App\Http\Controllers\LessonController::class, 'update'])->name('lesson/update');
-        Route::get('lesson/delete/{id}', [App\Http\Controllers\LessonController::class, 'delete'])->name('lesson/delete');
+        Route::get('lesson/list', [App\Http\Controllers\LessonController::class, 'index'])->name('lesson.list');
+        Route::get('lesson/add', [App\Http\Controllers\LessonController::class, 'create'])->name('lesson.add');
+        Route::post('lesson/save', [App\Http\Controllers\LessonController::class, 'store'])->name('lesson.save');
+        Route::get('lesson/edit/{id}', [App\Http\Controllers\LessonController::class, 'edit'])->name('lesson.edit');
+        Route::post('lesson/update', [App\Http\Controllers\LessonController::class, 'update'])->name('lesson.update');
+        Route::get('lesson/delete/{id}', [App\Http\Controllers\LessonController::class, 'delete'])->name('lesson.delete');
         Route::post('lesson/search', [App\Http\Controllers\LessonController::class, 'search'])->name('lesson.search');
         //---------Promotion-------//
         Route::get('promotion/index', [App\Http\Controllers\PromotionController::class, 'index'])->name('promotion.index');
@@ -222,11 +219,15 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::post('document/store', [App\Http\Controllers\TeacherRole\DocumentController::class, 'storeDocument'])->name('teacher.document.store');
     Route::get('document/list/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'getDocumentList'])->name('teacher.document.list.get');
     // details
-    Route::get('timetable-details/add/{lesson}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'index'])->name('teacher.lesson-details.add');
-    Route::post('timetable-details/store', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'store'])->name('teacher.lesson-details.store');
-    Route::get('timetable-details/edit/{id}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'edit'])->name('teacher.lesson-details.edit');
-    Route::post('timetable-details/update', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'update'])->name('teacher.lesson-details.update');
-    Route::get('timetable-details/delete/{id}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'delete'])->name('teacher.lesson-details.delete');
+    Route::get('timetable-plan/index/{semester}/{class}/{course}', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'index'])->name('teacher.lesson-plan.index');
+    // Route::get('timetable-plan/add/{lesson}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'index'])->name('teacher.lesson-plan.add');
+    Route::post('timetable-plan/store', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'store'])->name('teacher.lesson-plan.store');
+    Route::get('timetable-plan/edit/{id}', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'edit'])->name('teacher.lesson-plan.edit');
+    Route::post('timetable-plan/update', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'update'])->name('teacher.lesson-plan.update');
+    Route::get('timetable-plan/delete/{id}', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'delete'])->name('teacher.lesson-plan.delete');
+    //
+    Route::get('timetable-details/search', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'search'])->name('teacher.lesson-details.search');
+    Route::get('timetable-details/show', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'show'])->name('teacher.lesson-details.show');
     #Student Mark
     Route::prefix('mark')->group(function () {
         Route::get('search/list', [App\Http\Controllers\TeacherRole\MarkController::class, 'search'])->name('mark.search.list');
