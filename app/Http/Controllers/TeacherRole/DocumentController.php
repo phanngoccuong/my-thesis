@@ -8,19 +8,12 @@ use App\Models\Lesson;
 use App\Models\LessonDocument;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Semester;
+use App\Models\Classes;
+use App\Models\Course;
 
 class DocumentController extends Controller
 {
-    public function create($id)
-    {
-        $lesson = Lesson::with('course', 'classes')->findOrFail($id);
-
-        return view('RoleTeacher.document_upload', [
-            'title' => 'Gửi tài liệu',
-            'lesson' => $lesson
-        ]);
-    }
-
     public function storeDocument(Request $request)
     {
         $path = Storage::disk('public')->put('syllabi', $request['file']);
@@ -28,7 +21,9 @@ class DocumentController extends Controller
             $upload = new LessonDocument;
             $upload->document_name = $request->document_name;
             $upload->document_file_path = $path;
-            $upload->lesson_id = $request->lesson_id;
+            $upload->semester_id = $request->semester_id;
+            $upload->class_id = $request->class_id;
+            $upload->course_id = $request->course_id;
             $upload->save();
             Toastr::success('Gửi thành công', 'Success');
             return redirect()->back();
@@ -37,12 +32,28 @@ class DocumentController extends Controller
             return redirect()->back();
         }
     }
-    public function getDocumentList($id)
+    public function getDocumentList($semester, $class, $course)
     {
-        $documents = LessonDocument::with('lesson')->where('lesson_id', $id)->get();
-        return view('RoleTeacher.document_list', [
+        $semesterLess = Semester::findOrFail($semester);
+        $classLess = Classes::findOrFail($class);
+        $courseLess = Course::findOrFail($course);
+        $documents = LessonDocument::where('semester_id', $semesterLess->id)
+            ->where('class_id', $classLess->id)
+            ->where('course_id', $courseLess->id)
+            ->get();
+        return view('RoleTeacher.lesson-document.document_list', [
             'title' => 'Danh sách tài liệu',
-            'documents' => $documents
+            'documents' => $documents,
+            'semesterLess' => $semesterLess,
+            'classLess' => $classLess,
+            'courseLess' => $courseLess,
         ]);
+    }
+    public function delete($id)
+    {
+        $delete = LessonDocument::find($id);
+        $delete->delete();
+        Toastr::success('Xóa tài liệu thành công!!', 'Success');
+        return redirect()->back();
     }
 }

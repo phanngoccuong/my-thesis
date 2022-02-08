@@ -209,18 +209,14 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::get('home', [App\Http\Controllers\TeacherRole\TeacherController::class, 'index'])->name('homeTeacher');
     Route::get('timetable', [App\Http\Controllers\TeacherRole\TimetableController::class, 'showTimetable'])->name('teacher.timetable.show');
     Route::get('timetable/search', [App\Http\Controllers\TeacherRole\TimetableController::class, 'timetableSearch'])->name('teacher.timetable.search');
-    // note
-    Route::get('timetable/note/add/{id}', [App\Http\Controllers\TeacherRole\TimetableController::class, 'addNoteView']);
-    Route::post('lesson_note/save', [App\Http\Controllers\TeacherRole\TimetableController::class, 'addNote'])->name('teacher.lesson.note.add');
-    Route::get('timetable/note/edit/{id}', [App\Http\Controllers\TeacherRole\TimetableController::class, 'editNote'])->name('teacher.lesson.note.edit');
-    Route::post('timetable/note/update', [App\Http\Controllers\TeacherRole\TimetableController::class, 'updateNote'])->name('teacher.lesson.note.update');
+
     // document
-    Route::get('document/upload/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'create'])->name('teacher.document.upload');
+    Route::get('document/upload/{semester}/{class}/{course}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'create'])->name('teacher.document.upload');
     Route::post('document/store', [App\Http\Controllers\TeacherRole\DocumentController::class, 'storeDocument'])->name('teacher.document.store');
-    Route::get('document/list/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'getDocumentList'])->name('teacher.document.list.get');
+    Route::get('document/list/{semester}/{class}/{course}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'getDocumentList'])->name('teacher.document.list.get');
+    Route::get('document/delete/{id}', [App\Http\Controllers\TeacherRole\DocumentController::class, 'delete'])->name('teacher.document.delete');
     // details
     Route::get('timetable-plan/index/{semester}/{class}/{course}', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'index'])->name('teacher.lesson-plan.index');
-    // Route::get('timetable-plan/add/{lesson}', [App\Http\Controllers\TeacherRole\LessonDetailsController::class, 'index'])->name('teacher.lesson-plan.add');
     Route::post('timetable-plan/store', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'store'])->name('teacher.lesson-plan.store');
     Route::get('timetable-plan/edit/{id}', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'edit'])->name('teacher.lesson-plan.edit');
     Route::post('timetable-plan/update', [App\Http\Controllers\TeacherRole\LessonPlanController::class, 'update'])->name('teacher.lesson-plan.update');
@@ -241,18 +237,19 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     });
     Route::prefix('attendance')->group(function () {
         Route::get('/add', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'create'])->name('attendance.add');
-        Route::get('/getList', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getAttendanceStudent'])->name('attendance.list.get');
-        Route::post('/save', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'store'])->name('attendance.store');
-        Route::get('/details', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'show'])->name('attendance.details');
-        Route::get('/get/date', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getDate'])->name('date.get');
-        Route::get('/show', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getAtten'])->name('attendance.get');
+        Route::get('/student/list', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getStudent'])->name('attendance.student.list');
+        Route::post('/store', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'store'])->name('attendance.store');
+        Route::get('/get', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'searchByDate'])->name('attendance.details');
+        Route::get('/date/get', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'getDate'])->name('date.get');
+        Route::get('/show', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'show'])->name('attendance.get');
+        Route::post('/update', [App\Http\Controllers\TeacherRole\AttendanceController::class, 'update'])->name('attendance.update');
     });
 
     Route::prefix('conduct')->group(function () {
-        Route::get('/class', [App\Http\Controllers\TeacherRole\ConductController::class, 'allClass'])->name('conduct.teacher.form.class');
-        Route::get('/add/{class}/{year}', [App\Http\Controllers\TeacherRole\ConductController::class, 'getStudentByClass'])->name('conduct.teacher.form.class.student');
+        Route::get('/class', [App\Http\Controllers\TeacherRole\ConductController::class, 'getClass'])->name('conduct.teacher.form.class');
+        Route::get('/add/{class}/{year}', [App\Http\Controllers\TeacherRole\ConductController::class, 'getStudent'])->name('conduct.teacher.form.class.student');
         Route::post('/save', [App\Http\Controllers\TeacherRole\ConductController::class, 'store'])->name('conduct.store');
-        Route::get('/edit/class', [App\Http\Controllers\TeacherRole\ConductController::class, 'allClassEdit'])->name('conduct.teacher.form.class.edit');
+        Route::get('/edit/class', [App\Http\Controllers\TeacherRole\ConductController::class, 'getClassToEdit'])->name('conduct.teacher.form.class.edit');
         Route::get('/edit/{class}/{year}', [App\Http\Controllers\TeacherRole\ConductController::class, 'edit'])->name('conduct.edit');
         Route::get('/show', [App\Http\Controllers\TeacherRole\ConductController::class, 'show'])->name('conduct.edit.show');
         Route::post('/update', [App\Http\Controllers\TeacherRole\ConductController::class, 'update'])->name('conduct.update');

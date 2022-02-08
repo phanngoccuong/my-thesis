@@ -61,6 +61,11 @@ class CourseCommentController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'comment' => 'required',
+        ], [
+            'comment.required' => 'Giáo viên vui lòng nhập nhận xét',
+        ]);
         $student =
             TeacherComment::where('semester_id',  $request->semester_id)
             ->where('class_id',  $request->class_id)
@@ -82,8 +87,8 @@ class CourseCommentController extends Controller
                     'comment' => $request->comment[$i],
                 ];
                 DB::table('teacher_comments')->insert($insert);
-                DB::commit();
             }
+            DB::commit();
             Toastr::success('Nhập nhận xét thành công!!', 'Thành công');
             return redirect()->back();
         } catch (
@@ -153,8 +158,8 @@ class CourseCommentController extends Controller
                     'comment' => $request->comment[$i],
                 ];
                 DB::table('teacher_comments')->insert($insert);
-                DB::commit();
             }
+            DB::commit();
             Toastr::success('Nhập nhận xét thành công!!', 'Thành công');
             return redirect()->back();
         } catch (

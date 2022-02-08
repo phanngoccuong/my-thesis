@@ -28,15 +28,16 @@ class AssignTeacherController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->validate([
+        $request->validate([
             'session_id' => 'required',
             'teacher_id' => 'required|array',
             'teacher_id.*' => 'required|string'
         ]);
 
         // $class_request = $request->class_id;
-        DB::beginTransaction();
+
         try {
+            DB::beginTransaction();
             for ($i = 0; $i < count($request->class_id); $i++) {
                 $insert = [
                     'class_id' => $request->class_id[$i],
@@ -48,14 +49,11 @@ class AssignTeacherController extends Controller
                 DB::table('assign_teachers')->insert($insert);
                 DB::commit();
             }
-            Toastr::success('Thêm giáo viên chủ nhiệm thành công!!', 'Success');
+            Toastr::success('Thêm giáo viên chủ nhiệm thành công!!', 'Thành công');
             return redirect()->back();
-        } catch (
-            \Exception
-            $err
-        ) {
+        } catch (\Exception $err) {
             DB::rollBack();
-            Toastr::error('Vui lòng nhập đầy đủ tất cả các giáo viên chủ nhiệm!!', 'Failed');
+            Toastr::error('Vui lòng nhập đầy đủ tất cả các giáo viên chủ nhiệm!!', 'Thất bại');
             return redirect()->back();
         }
     }

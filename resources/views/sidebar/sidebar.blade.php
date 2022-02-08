@@ -152,6 +152,11 @@
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <i class="la la-calendar-o"></i>
+                    <span class="nav-text">Hỗ trợ học tập</span>
+                </a>
+            </li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-certificate"></i>
                     <span class="nav-text">Kết quả học tập</span>
                 </a>

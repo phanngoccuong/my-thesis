@@ -80,6 +80,15 @@ class AbilityQualityController extends Controller
             'self_confident'         => 'required',
             'honesty'                => 'required',
             'united'                 => 'required',
+        ], [
+            'semester_id.required' => 'Giáo viên vui lòng nhập học kì',
+            'self_management.required' => 'Giáo viên vui lòng nhập đầy đủ',
+            'cooperate.required' => 'Giáo viên vui lòng nhập đầy đủ',
+            'problem_solving.required' => 'Giáo viên vui lòng nhập đầy đủ',
+            'hard_work.required' => 'Giáo viên vui lòng nhập đầy đủ',
+            'self_confident.required' => 'Giáo viên vui lòng nhập đầy đủ',
+            'honesty.required' => 'Giáo viên vui lòng nhập đầy đủ',
+            'united.required' => 'Giáo viên vui lòng nhập đầy đủ',
         ]);
         $student =
             AbilityQuality::where('semester_id',  $request->semester_id)

@@ -39,16 +39,6 @@
                                         <td>{{ $data->classes->class_name }}</td>
                                         <td>{{ $data->day->day_name }}</td>
                                         <td>{{ $data->time->time }}</td>
-                                        {{-- <td>
-                                            <a href="{{ url('teacher/timetable-details/add/'.$data->id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
-                                        </td> --}}
-                                        {{-- <td>
-                                            <a href="{{ url('teacher/document/upload/'.$data->id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-cloud-upload"></i></a>
-                                            <a href="{{ url('teacher/document/list/'.$data->id) }}"
-                                                class="btn btn-sm btn-info"><i class="la la-bullhorn"></i></a>
-                                        </td> --}}
                                     </tr>
                                     @endforeach
                                 </tbody>

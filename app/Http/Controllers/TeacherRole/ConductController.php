@@ -14,10 +14,11 @@ use App\Models\Promotion;
 use App\Models\YearSession;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class ConductController extends Controller
 {
-    public function allClass()
+    public function getClass()
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
@@ -29,7 +30,7 @@ class ConductController extends Controller
             'datas' => $datas
         ]);
     }
-    public function getStudentByClass($class, $year)
+    public function getStudent($class, $year)
     {
         $class = Classes::findOrFail($class);
         $year = YearSession::findOrFail($year);
@@ -47,6 +48,13 @@ class ConductController extends Controller
     }
     public function store(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required',
+            'conduct_type' => 'required|array',
+        ], [
+            'semester_id.required' => 'Giáo viên vui lòng chọn học kì',
+            'conduct_type.required' => 'Giáo viên vui lòng nhập hạnh kiểm'
+        ]);
         $conducts =
             Conduct::where('semester_id',  $request->semester_id)
             ->where('student_id', $request->student_id)
@@ -57,17 +65,18 @@ class ConductController extends Controller
         }
         DB::beginTransaction();
         try {
-
             for ($i = 0; $i < count($request->student_id); $i++) {
                 $insert =  [
                     'student_id' => $request->student_id[$i],
                     'class_id' => $request->class_id,
                     'semester_id' => $request->semester_id,
                     'conduct_type' => $request->conduct_type[$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 DB::table('conducts')->insert($insert);
-                DB::commit();
             }
+            DB::commit();
             Toastr::success('Nhập hạnh kiểm thành công!!', 'Thành công');
             return redirect()->route('conduct.teacher.form.class.edit');
         } catch (
@@ -79,7 +88,7 @@ class ConductController extends Controller
             return redirect()->back();
         }
     }
-    public function allClassEdit()
+    public function getClassToEdit()
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
@@ -116,11 +125,12 @@ class ConductController extends Controller
         $semester_id = $request->semester_id;
         $semester = Semester::where('id', $semester_id)->first();
         $class = Classes::where('id', $class_id)->first();
-        $students = Conduct::with('student')
-            ->where('class_id', '=', $class_id)
-            ->where('semester_id', '=', $semester_id)
-            ->get();
 
+
+        $students = Conduct::with('student')
+            ->where('semester_id',  $request->semester_id)
+            ->where('class_id', $request->class_id)
+            ->get();
         return view('RoleTeacher.conduct.conduct_show', [
             'title' => 'Sổ hạnh kiểm',
             'students' => $students,
@@ -130,7 +140,6 @@ class ConductController extends Controller
     }
     public function update(Request $request)
     {
-        $studentRequest = $request->student_id;
 
         Conduct::where('semester_id',  $request->semester_id)
             ->where('class_id', $request->class_id)
@@ -144,10 +153,12 @@ class ConductController extends Controller
                     'class_id' => $request->class_id,
                     'semester_id' => $request->semester_id,
                     'conduct_type' => $request->conduct_type[$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 DB::table('conducts')->insert($insert);
-                DB::commit();
             }
+            DB::commit();
             Toastr::success('Nhập hạnh kiểm thành công!!', 'Thành công');
             return redirect()->route('conduct.teacher.form.class.edit');
         } catch (

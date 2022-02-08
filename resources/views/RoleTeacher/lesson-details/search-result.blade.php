@@ -25,9 +25,10 @@
                                 <thead>
                                     <tr class="text-center">
                                         <th>#</th>
-                                        <th scope="col">Môn học</th>
-                                        <th scope="col">Lớp</th>
-                                        <th scope="col">Kế hoạch học tập</th>
+                                        <th>Môn học</th>
+                                        <th>Lớp</th>
+                                        <th>Kế hoạch học tập</th>
+                                        <th>Tài liệu môn học</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -39,6 +40,12 @@
                                         <td>
                                             <a href="{{ url('teacher/timetable-plan/index/'.$semester->id.'/'.$data->class_id.'/'.$data->course_id) }}"
                                                 class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('teacher/document/upload/'.$data->id) }}"
+                                                class="btn btn-sm btn-success"><i class="la la-cloud-upload"></i></a>
+                                            <a href="{{ url('teacher/document/list/'.$semester->id.'/'.$data->class_id.'/'.$data->course_id) }}"
+                                                class="btn btn-sm btn-info"><i class="la la-bullhorn"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

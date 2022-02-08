@@ -69,7 +69,7 @@ class TimetableController extends Controller
             ->select('promotions.class_id')
             ->first();
 
-        $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room', 'note')
+        $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room')
             ->where('semester_id', '=', $semester_id)
             ->where('class_id', '=', $class->class_id)
             ->orderBy('day_id', 'asc')

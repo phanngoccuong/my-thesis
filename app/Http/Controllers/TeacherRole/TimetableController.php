@@ -45,7 +45,7 @@ class TimetableController extends Controller
 
         $semesterRequest = $request->semester_id;
         $semester = Semester::where('id', $semesterRequest)->first();
-        $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room', 'note')
+        $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room')
             ->where('teacher_id', $teacher_id)
             ->orderBy('day_id', 'asc')
             ->get();

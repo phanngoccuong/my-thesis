@@ -12,6 +12,7 @@ use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Course;
 use App\Models\Classes;
 use App\Models\Semester;
+use Illuminate\Support\Carbon;
 
 class AttendanceController extends Controller
 {
@@ -30,17 +31,21 @@ class AttendanceController extends Controller
             ->distinct()
             ->get();
 
-        return view('RoleTeacher.attendance_view', [
+        return view('RoleTeacher.attendance.search', [
             'title' => 'Điểm danh',
             'semesters' => $semesters,
         ]);
     }
 
-    public function getAttendanceStudent(Request $request)
+    public function getStudent(Request $request)
     {
         $class_id = $request->class_id;
         $semester_id = $request->semester_id;
-        $data = DB::table('students')
+        $course_id = $request->course_id;
+        $semester = Semester::where('id', $semester_id)->first();
+        $class = Classes::where('id', $class_id)->first();
+        $course = Course::where('id', $course_id)->first();
+        $datas = DB::table('students')
             ->join('promotions', 'promotions.student_id', '=', 'students.id')
             ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
             ->where('promotions.class_id', '=', $class_id)
@@ -48,11 +53,24 @@ class AttendanceController extends Controller
             ->select('students.*')
             ->orderBy('first_name', 'asc')
             ->get();
-        return response()->json($data);
+        return view('RoleTeacher.attendance.create', [
+            'title' => 'Điểm danh',
+            'datas' => $datas,
+            'semester' => $semester,
+            'class' => $class,
+            'course' => $course,
+        ]);
     }
 
     public function store(Request $request)
     {
+        $request->validate([
+            'date' => 'required',
+            'student_id' => 'required',
+            'status' => 'required|array'
+        ], [
+            'date.required' => 'Giáo viên vui lòng nhập ngày',
+        ]);
         DB::beginTransaction();
         try {
             for ($i = 0; $i < count($request->student_id); $i++) {
@@ -62,11 +80,13 @@ class AttendanceController extends Controller
                     'course_id' => $request->course_id,
                     'semester_id' => $request->semester_id,
                     'date' => $request->date,
-                    'status' => $request->status[$i]
+                    'status' => $request->status[$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
                 ];
                 DB::table('student_attendances')->insert($insert);
-                DB::commit();
             }
+            DB::commit();
             Toastr::success('Điểm  danh thành công!!', 'Thành công');
             return redirect()->back();
         } catch (
@@ -79,7 +99,7 @@ class AttendanceController extends Controller
         }
     }
 
-    public function show()
+    public function searchByDate()
     {
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
@@ -94,7 +114,7 @@ class AttendanceController extends Controller
             ->distinct()
             ->get();
 
-        return view('RoleTeacher.attendance_edit', [
+        return view('RoleTeacher.attendance.attendance_edit', [
             'title' => 'Điểm danh',
             'semesters' => $semesters,
         ]);
@@ -110,11 +130,12 @@ class AttendanceController extends Controller
             ->where('course_id', '=', $course_id)
             ->select('date')
             ->distinct()
+            ->orderBy('date', 'desc')
             ->get();
         return response()->json($data);
     }
 
-    public function getAtten(Request $request)
+    public function show(Request $request)
     {
         $class_id = $request->class_id;
         $course_id = $request->course_id;
@@ -132,7 +153,7 @@ class AttendanceController extends Controller
             ->orderBy('id', 'asc')
             ->get();
 
-        return view('RoleTeacher.attendance_details', [
+        return view('RoleTeacher.attendance.attendance_update', [
             'title' => 'Điểm danh',
             'datas' => $datas,
             'semester' => $semester,
@@ -140,5 +161,39 @@ class AttendanceController extends Controller
             'class' => $class,
             'date' => $date
         ]);
+    }
+    public function update(Request $request)
+    {
+        StudentAttendances::where('class_id', '=', $request->class_id)
+            ->where('semester_id', '=', $request->semester_id)
+            ->where('course_id', '=', $request->course_id)
+            ->where('date', '=', $request->date)
+            ->delete();
+        DB::beginTransaction();
+        try {
+            for ($i = 0; $i < count($request->student_id); $i++) {
+                $insert =  [
+                    'student_id' => $request->student_id[$i],
+                    'class_id' => $request->class_id,
+                    'course_id' => $request->course_id,
+                    'semester_id' => $request->semester_id,
+                    'date' => $request->date,
+                    'status' => $request->status[$i],
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+                DB::table('student_attendances')->insert($insert);
+            }
+            DB::commit();
+            Toastr::success('Điểm  danh thành công!!', 'Thành công');
+            return redirect()->back();
+        } catch (
+            \Exception
+            $err
+        ) {
+            DB::rollBack();
+            Toastr::error('Vui lòng điểm danh cho tất cả học sinh!!', 'Thất bại');
+            return redirect()->back();
+        }
     }
 }

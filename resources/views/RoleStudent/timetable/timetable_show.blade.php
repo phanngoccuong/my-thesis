@@ -29,8 +29,6 @@
                                         <th scope="col">Giáo viên</th>
                                         <th scope="col">Ngày</th>
                                         <th scope="col">Giờ</th>
-                                        <th scope="col">Mã lớp Online</th>
-                                        <th scope="col">Tài liệu</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -41,13 +39,10 @@
                                         <td>{{ $data->teachers->teacher_name }}</td>
                                         <td>{{ $data->day->day_name }}</td>
                                         <td>{{ $data->time->time }}</td>
-                                        <td>
-                                            <span> {{ $data->note['lesson_code'] }}</span>
-                                        </td>
-                                        <td>
+                                        {{-- <td>
                                             <a href="{{ url('student/document/list/'.$data->id) }}"
                                                 class="btn btn-sm btn-info"><i class="la la-bullhorn"></i></a>
-                                        </td>
+                                        </td> --}}
 
                                     </tr>
                                     @endforeach

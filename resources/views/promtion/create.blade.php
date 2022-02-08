@@ -71,7 +71,7 @@
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">
                     <div class="welcome-text">
-                        <h4>Chưa tạo năm học mới</h4>
+                        <h3 class="text-danger">Chưa tạo năm học mới</h3>
                     </div>
                 </div>
             </div>

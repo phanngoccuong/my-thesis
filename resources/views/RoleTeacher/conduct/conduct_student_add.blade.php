@@ -32,12 +32,18 @@
                 <div class="col-lg-2">
                     <div class="form-group">
                         <label class="form-label">Chọn học kì<span class="text-danger">*</span></label>
-                        <select class="form-control"
+                        <select class="form-control @error('semester_id') is-invalid @enderror"
                             name="semester_id">
                             @foreach ($semesters as $semester)
+                                <option value="">Chọn</option>
                                 <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                             @endforeach
                         </select>
+                         @error('semester_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
 
@@ -69,12 +75,17 @@
                                                     <td>{{ $student->student->email }}</td>
                                                     <td>{{ $student->student->dateOfBirth }}</td>
                                                     <td>
-                                                        <select class="form-control" name="conduct_type[]">
+                                                        <select class="form-control @error('conduct_type') is-invalid @enderror" name="conduct_type[]">
                                                             <option selected disabled>Chọn</option>
                                                             <option value="A">Tốt</option>
                                                             <option value="B">Khá</option>
                                                             <option value="C">Trung bình</option>
                                                         </select>
+                                                        @error('conduct_type')
+                                                            <span class="invalid-feedback" role="alert">
+                                                                <strong>{{ $message }}</strong>
+                                                            </span>
+                                                        @enderror
                                                     </td>
                                                 </tr>
                                                 @endforeach

@@ -64,7 +64,12 @@
                                                             <td>{{ $student->last_name }} {{  $student->first_name  }}</td>
                                                             <td>{{ $student->email }}</td>
                                                             <td>
-                                                                <input type="text" class="form-control" name="comment[]">
+                                                                <input type="text" class="form-control @error('comment') is-invalid @enderror" name="comment[]">
+                                                                 @error('comment')
+                                                                    <span class="invalid-feedback" role="alert">
+                                                                        <strong>{{ $message }}</strong>
+                                                                    </span>
+                                                        @enderror
                                                             </td>
                                                         </tr>
                                                     @endforeach

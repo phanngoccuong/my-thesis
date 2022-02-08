@@ -35,6 +35,7 @@
                             <select class="form-control"
                                 name="semester_id">
                                 @foreach ($semesters as $semester)
+                                    <option value="">Chọn</option>
                                     <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                                 @endforeach
                             </select>

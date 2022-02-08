@@ -43,7 +43,8 @@
                                             <th>Địa chỉ</th>
                                             <th>Email</th>
                                             <th>Ngày sinh</th>
-                                            <th>Nhập</th>
+                                            <th>Đánh giá</th>
+                                            <th>Thông tin</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -58,6 +59,9 @@
                                             <td>
                                                 <a href="{{ url('teacher/ability-quality/add/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
                                                     class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
+
+                                            </td>
+                                            <td>
                                                 <a href="{{ url('teacher/ability-quality/show/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
                                                     class="btn btn-sm btn-info"><i class="la la-eye"></i></a>
                                             </td>
