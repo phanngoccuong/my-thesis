@@ -50,7 +50,6 @@ class TimetableController extends Controller
             ->orderBy('day_id', 'asc')
             ->get();
 
-
         return view('RoleTeacher.timetable.teacher_timetable_details', [
             'title' => 'Thời khóa biểu',
             'datas' => $datas,

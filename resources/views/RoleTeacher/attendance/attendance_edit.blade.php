@@ -138,10 +138,11 @@
      $(function(){
         $(document).on('change','#class_id',function(){
             var class_id = $('#class_id').val();
+            var semester_id = $('#semester_id').val();
             $.ajax({
                 url:"{{ route('mark.get.course') }}",
                 type:"GET",
-                data:{'class_id':class_id},
+                data:{'class_id':class_id,'semester_id':semester_id},
                 success: function(data){
                     var html = '<option value="">Chọn môn</option>';
                     $.each(data,function(key,v){

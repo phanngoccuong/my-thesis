@@ -56,6 +56,21 @@ class TimetableController extends Controller
     }
 
     // thoi khoa bieu chi tiet
+
+    public function timetableDetailsIndex()
+    {
+        $currentUserEmail = Auth::user()->email;
+        $semesters = Student::where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->select('semesters.*')
+            ->distinct()
+            ->get();
+        return view('RoleStudent.timetable.timetable-details_search', [
+            'title' => 'Thời khóa biểu chi tiết',
+            'semesters' => $semesters
+        ]);
+    }
     public function timetableDetails(Request $request)
     {
         $currentUserEmail = Auth::user()->email;
@@ -78,31 +93,6 @@ class TimetableController extends Controller
             'title' => 'Thời khóa biểu chi tiết',
             'datas' => $datas,
             'semester' => $semester
-        ]);
-    }
-
-    public function timetableDetailsIndex()
-    {
-
-        $currentUserEmail = Auth::user()->email;
-        $semesters = Student::where('email', '=', $currentUserEmail)
-            ->join('promotions', 'promotions.student_id', '=', 'students.id')
-            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
-            ->select('semesters.*')
-            ->distinct()
-            ->get();
-        return view('RoleStudent.timetable.timetable-details_search', [
-            'title' => 'Thời khóa biểu chi tiết',
-            'semesters' => $semesters
-        ]);
-    }
-    // tai lieu bai hoc
-    public function getDocumentList($id)
-    {
-        $documents = LessonDocument::with('lesson')->where('lesson_id', $id)->get();
-        return view('RoleTeacher.document_list', [
-            'title' => 'Danh sách tài liệu',
-            'documents' => $documents
         ]);
     }
 }

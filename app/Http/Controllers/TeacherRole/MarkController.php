@@ -69,10 +69,13 @@ class MarkController extends Controller
             ->first();
         $teacher_id = $info->id;
         $class_id = $request->class_id;
+        $semester_id = $request->semester_id;
         $data =
             DB::table('lessons')
             ->join('teachers', 'teachers.id', '=', 'lessons.teacher_id')
             ->where('teachers.id', '=', $teacher_id)
+            ->join('semesters', 'semesters.id', '=', 'lessons.semester_id')
+            ->where('semesters.id', '=', $semester_id)
             ->join('classes', 'classes.id', '=', 'lessons.class_id')
             ->where('classes.id', '=', $class_id)
             ->join('courses', 'courses.id', '=', 'lessons.course_id')

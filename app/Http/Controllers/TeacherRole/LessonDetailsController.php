@@ -12,8 +12,6 @@ use App\Models\Semester;
 
 class LessonDetailsController extends Controller
 {
-
-
     public function search()
     {
         $currentUserEmail = Auth::user()->email;

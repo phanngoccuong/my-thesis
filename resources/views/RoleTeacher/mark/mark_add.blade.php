@@ -69,10 +69,10 @@
                                                             <td>{{ $student->dateOfBirth }}</td>
                                                             <td>{{ $student->email }}</td>
                                                             <td>
-                                                                <input type="number" class="form-control" name="half_mark[]">
+                                                                <input type="text" class="form-control" name="half_mark[]">
                                                             </td>
                                                             <td>
-                                                                <input type="number" class="form-control" name="final_mark[]">
+                                                                <input type="text" class="form-control" name="final_mark[]">
                                                             </td>
                                                         </tr>
                                                     @endforeach
@@ -92,7 +92,7 @@
                                                         <tr>
                                                              <input type="hidden" name="student_id[]" value="{{ $student->id }}">
                                                             <td>{{ $student->id }}</td>
-                                                            <td>{{ $student->name }}</td>
+                                                            <td>{{ $student->last_name }} {{ $student->first_name }}</td>
                                                             <td>{{ $student->dateOfBirth }}</td>
                                                             <td>{{ $student->email }}</td>
                                                             <td>

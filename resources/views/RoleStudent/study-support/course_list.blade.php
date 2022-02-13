@@ -8,8 +8,8 @@
             <div class="col-lg-2">
                     <div class="form-group">
                         <label class="form-label">Kì học</label>
-                        <select class="form-control"
-                            name="semester_id">
+                        <select class="form-control @error('semester_id') is-invalid @enderror"
+                            name="semester_id" id="semester_id">
                             <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                         </select>
                     </div>
@@ -26,9 +26,9 @@
                                     <tr class="text-center">
                                         <th>#</th>
                                         <th>Môn học</th>
-                                        <th>Lớp</th>
+                                        <th>Giáo viên</th>
                                         <th>Kế hoạch học tập</th>
-                                        <th>Tài liệu môn học</th>
+                                        <th>Tài liệu học tập</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -36,16 +36,14 @@
                                     <tr class="text-center">
                                         <td>{{ ++$key }}</td>
                                         <td>{{ $data->course->course_name }}</td>
-                                        <td>{{ $data->classes->class_name }}</td>
+                                        <td>{{ $data->teachers->teacher_name }}</td>
                                         <td>
-                                            <a href="{{ url('teacher/timetable-plan/index/'.$semester->id.'/'.$data->class_id.'/'.$data->course_id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-plus"></i></a>
+                                            <a href="{{ url('student/studySupport/plan/'.$semester->id.'/'.$class->class_id.'/'.$data->course_id) }}"
+                                                class="btn btn-sm btn-success"><i class="la la-eye"></i></a>
                                         </td>
                                         <td>
-                                            {{-- <a href="{{ url('teacher/document/upload/'.$data->id) }}"
-                                                class="btn btn-sm btn-success"><i class="la la-cloud-upload"></i></a> --}}
-                                            <a href="{{ url('teacher/document/list/'.$semester->id.'/'.$data->class_id.'/'.$data->course_id) }}"
-                                                class="btn btn-sm btn-info"><i class="la la-bullhorn"></i></a>
+                                             <a href="{{ url('student/studySupport/document/'.$semester->id.'/'.$class->class_id.'/'.$data->course_id) }}"
+                                                class="btn btn-sm btn-primary"><i class="la la-arrow-circle-o-down"></i></a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -3,7 +3,6 @@
 @include('sidebar.sidebar')
     {!! Toastr::message() !!}
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-sm-6 p-md-0">

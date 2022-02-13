@@ -186,8 +186,8 @@ Route::get('notice/list', [App\Http\Controllers\BoardingNoticeController::class,
 Route::get('notice/markAsRead', [App\Http\Controllers\BoardingNoticeController::class, 'readNotice'])->name('boarding.readNotice');
 #Student
 Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
-    Route::get('/home', [App\Http\Controllers\StudentRole\StudentController::class, 'index'])->name('homeStudent');
-    Route::get('/profile', [App\Http\Controllers\StudentRole\StudentController::class, 'showProfile'])->name('studentProfile');
+    Route::get('home', [App\Http\Controllers\StudentRole\StudentController::class, 'index'])->name('homeStudent');
+    Route::get('profile', [App\Http\Controllers\StudentRole\StudentController::class, 'showProfile'])->name('studentProfile');
     Route::get('timetable', [App\Http\Controllers\StudentRole\TimetableController::class, 'searchTimetable'])->name('student.timetable.search');
     Route::get('timetable/get', [App\Http\Controllers\StudentRole\TimetableController::class, 'showTimetable'])->name('student.timetable.get');
     Route::get('timetable/details', [App\Http\Controllers\StudentRole\TimetableController::class, 'timetableDetailsIndex'])->name('timetableDetails');
@@ -200,9 +200,12 @@ Route::group(['prefix' => 'student', 'middleware' => 'isStudent'], function () {
     Route::get('ability-quality', [App\Http\Controllers\StudentRole\AbilityQualityController::class, 'index'])->name('student.a-q.search');
     Route::get('ability-quality/get', [App\Http\Controllers\StudentRole\AbilityQualityController::class, 'getAQ'])->name('student.a-q.get');
     Route::get('conduct/get', [App\Http\Controllers\StudentRole\ConductController::class, 'index'])->name('student.conduct.get');
-    Route::get('document/list/{id}', [App\Http\Controllers\StudentRole\TimetableController::class, 'getDocumentList']);
     Route::get('comment/view', [App\Http\Controllers\StudentRole\CourseCommentController::class, 'searchComment'])->name('student.comment.show');
     Route::get('comment/get', [App\Http\Controllers\StudentRole\CourseCommentController::class, 'getTeacherComment'])->name('student.comment.get');
+    Route::get('studySupport', [App\Http\Controllers\StudentRole\StudySupportController::class, 'searchSemester'])->name('student.study.support');
+    Route::get('studySupport/course/list', [App\Http\Controllers\StudentRole\StudySupportController::class, 'getCourse'])->name('student.study-support.course.get');
+    Route::get('studySupport/plan/{semester}/{class}/{course}', [App\Http\Controllers\StudentRole\StudySupportController::class, 'getCoursePlan'])->name('student.getCoursePlan');
+    Route::get('studySupport/document/{semester}/{class}/{course}', [App\Http\Controllers\StudentRole\StudySupportController::class, 'getDocument'])->name('student.getDocument');
 });
 #Teacher
 Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {

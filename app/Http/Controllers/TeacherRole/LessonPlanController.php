@@ -19,7 +19,9 @@ class LessonPlanController extends Controller
         $semesterPlan = Semester::findOrFail($semester);
         $classPlan = Classes::findOrFail($class);
         $coursePlan = Course::findOrFail($course);
-        $details = LessonPlan::orderBy('date', 'asc')->get();
+        $details = LessonPlan::where('semester_id', $semesterPlan->id)
+            ->where('class_id', $classPlan->id)
+            ->where('course_id', $coursePlan->id)->orderBy('date', 'asc')->get();
         return view('RoleTeacher.lesson-plan.add_page', [
             'title' => 'Chi tiết môn học',
             'semesterPlan' => $semesterPlan,

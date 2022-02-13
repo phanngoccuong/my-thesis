@@ -5,7 +5,6 @@
     {{-- message --}}
     {!! Toastr::message() !!}
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
             <div class="row page-titles mx-0">
                 <div class="col-lg-3">
@@ -32,42 +31,38 @@
 
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="row tab-content">
-                        <div id="list-view" class="tab-pane fade active show col-lg-12">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table id="example2" class="display" style="min-width: 845px">
-                                            <thead>
-                                                <tr>
-                                                    <th>#</th>
-                                                    <th>Ngày</th>
-                                                    <th>Trạng thái</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($datas as $key => $data )
-                                                <tr>
-                                                    <td><strong>{{ ++$key }}</strong></td>
-                                                    <td>{{ $data->date }}</td>
-                                                    @if ($data->status == 0)
-                                                           <td><span class="badge bg-danger">
-                                                               Vắng</span></td>
-                                                    @endif
-                                                    @if ($data->status == 1)
-                                                           <td><span class="badge bg-success">
-                                                                Có</span></td>
-                                                    @endif
-                                                    @if ($data->status == 2)
-                                                           <td><span class="badge bg-warning">
-                                                               Nghỉ có phép</span></td>
-                                                    @endif
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                 <table class="table table-striped table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Ngày</th>
+                                            <th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($datas as $key => $data )
+                                        <tr>
+                                            <td><strong>{{ ++$key }}</strong></td>
+                                            <td>{{ $data->date }}</td>
+                                            @if ($data->status == 0)
+                                                    <td><span class="badge bg-danger">
+                                                        Vắng</span></td>
+                                            @endif
+                                            @if ($data->status == 1)
+                                                    <td><span class="badge bg-success">
+                                                        Có mặt</span></td>
+                                            @endif
+                                            @if ($data->status == 2)
+                                                    <td><span class="badge bg-warning">
+                                                        Nghỉ có phép</span></td>
+                                            @endif
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>

@@ -67,6 +67,8 @@ class AttendanceController extends Controller
             ->where('semester_id', '=', $semester_id)
             ->where('class_id', '=', $class->class_id)
             ->join('courses', 'courses.id', '=', 'lessons.course_id')
+            ->select('courses.*')
+            ->distinct()
             ->get();
         return response()->json($data);
     }
