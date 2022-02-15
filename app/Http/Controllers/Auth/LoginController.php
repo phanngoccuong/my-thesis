@@ -102,7 +102,7 @@ class LoginController extends Controller
 
 
         } else {
-            Toastr::error('Sai email hoặc mật khẩu!!', 'Error');
+            Toastr::error('Sai email hoặc mật khẩu!!', 'Thất bại');
             return redirect('login');
         }
     }
@@ -129,12 +129,5 @@ class LoginController extends Controller
         Auth::logout();
         Toastr::success('Đăng xuất thành công!!', 'Success');
         return redirect('login');
-    }
-
-    public function test()
-    {
-        return view('layouts.app', [
-            'title' => 'dssd'
-        ]);
     }
 }

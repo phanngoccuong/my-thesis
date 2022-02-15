@@ -35,7 +35,7 @@
                                             <div class="form-group">
                                             <div class="custom-control custom-checkbox ml-1">
                                                     <input type="checkbox" class="custom-control-input" id="basic_checkbox_1">
-                                                    <label class="custom-control-label" for="basic_checkbox_1">Remember my preference</label>
+                                                    <label class="custom-control-label" for="basic_checkbox_1">Nhớ mật khẩu</label>
                                                 </div>
                                             </div>
                                             <div class="form-group">
