@@ -32,7 +32,6 @@
                             <select class="form-control @error('class_id') is-invalid @enderror"
                                 name="class_id" id="class_id">
                                 <option>Chọn lớp</option>
-
                             </select>
                             @error('class_id')
                                 <span class="invalid-feedback" role="alert">
@@ -56,8 +55,6 @@
                             @enderror
                         </div>
                     </div>
-
-
                     <div class="col-lg" style="padding-top: 30px;">
                         <button class="btn btn-primary"  type="submit">Tìm kiếm</button>
                     </div>
@@ -93,7 +90,7 @@
      $(function(){
         $(document).on('change','#class_id',function(){
             var class_id = $('#class_id').val();
-             var semester_id = $('#semester_id').val();
+            var semester_id = $('#semester_id').val();
             $.ajax({
                 url:"{{ route('mark.get.course') }}",
                 type:"GET",

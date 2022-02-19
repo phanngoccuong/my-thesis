@@ -22,6 +22,9 @@ class Note extends Component
     protected $rules = [
         'note' => 'required',
     ];
+    protected $messages = [
+        'note.required' => 'Giáo viên vui lòng điền thông tin',
+    ];
     public function render()
     {
         $this->currentNote = LessonNote::where('semester_id', $this->semester->id)
@@ -36,11 +39,6 @@ class Note extends Component
         $this->note = $this->currentNote->note;
     }
 
-    public function update_note()
-    {
-        LessonNote::where('id', $this->currentNote->id)->update(['note' => $this->note]);
-        $this->note_opened = FALSE;
-    }
     public function open()
     {
         $this->note_opened = !$this->note_opened;
@@ -48,6 +46,7 @@ class Note extends Component
     }
     public function add_note()
     {
+        $this->validate();
         DB::table('lesson_notes')->insert([
             'semester_id' => $this->semester->id,
             'class_id' => $this->class->id,
@@ -57,5 +56,13 @@ class Note extends Component
             'updated_at' => Carbon::now()
         ]);
         $this->note_opened = FALSE;
+        $this->emit('alert', ['type' => 'success', 'message' => 'Thêm thành công']);
+    }
+    public function update_note()
+    {
+        $this->validate();
+        LessonNote::where('id', $this->currentNote->id)->update(['note' => $this->note]);
+        $this->note_opened = FALSE;
+        $this->emit('alert', ['type' => 'success', 'message' => 'Cập nhật thành công']);
     }
 }

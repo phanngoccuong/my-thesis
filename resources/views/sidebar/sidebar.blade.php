@@ -1,5 +1,4 @@
 @if (Auth::user()->role_name == 'Admin')
-
 <div class="dlabnav">
     <div class="dlabnav-scroll">
         <ul class="metismenu" id="menu">
@@ -216,23 +215,15 @@
                     <li><a href="{{ route('conduct.teacher.form.class.edit') }}">Xem thông tin hạnh kiểm</a></li>
                 </ul>
             </li>
-            <li><a class="has-arrow"  aria-expanded="false">
+            <li><a class="has-arrow" <a href="{{ route('comment.search') }}"  aria-expanded="false">
                     <i class="la la-commenting-o"></i>
                     <span class="nav-text">Sổ nhận xét</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ route('comment.search') }}">Nhập nhận xét</a></li>
-                    <li><a href="{{ route('comment.show') }}">Xem nhận xét</a></li>
-                </ul>
             </li>
-            <li><a class="has-arrow"  aria-expanded="false">
+            <li><a class="has-arrow" href="{{ route('a-q.class.search') }}" aria-expanded="false">
                     <i class="la la-commenting-o"></i>
                     <span class="nav-text">Sổ năng lực-phẩm chất</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ route('a-q.class.search') }}">Ghi sổ</a></li>
-                    <li><a href="{{ route('comment.show') }}">Xem nhận xét</a></li>
-                </ul>
             </li>
         </ul>
     </div>

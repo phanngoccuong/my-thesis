@@ -1,16 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PhotosController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\ResetPasswordController;
-use App\Http\Controllers\FormController;
-use App\Http\Controllers\StudentController;
-use App\Http\Controllers\UserManagementController;
-use App\Http\Controllers\LockScreen;
+
 use Illuminate\Support\Facades\Auth;
-use PHPUnit\TextUI\XmlConfiguration\Group;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -55,9 +48,6 @@ Route::post('forget-password', [App\Http\Controllers\Auth\ForgotPasswordControll
 Route::get('reset-password/{token}', [App\Http\Controllers\Auth\ResetPasswordController::class, 'getPassword']);
 Route::post('reset-password', [App\Http\Controllers\Auth\ResetPasswordController::class, 'updatePassword']);
 
-// // ----------------------------- user profile ------------------------------//
-// Route::get('profile_user', [App\Http\Controllers\UserManagementController::class, 'profile'])->name('profile_user');
-// Route::post('profile_user/store', [App\Http\Controllers\UserManagementController::class, 'profileStore'])->name('profile_user/store');
 Route::group(
     ['prefix' => 'admin', 'middleware' => 'isAdmin'],
     function () {
@@ -69,8 +59,6 @@ Route::group(
         Route::get('view/detail/{id}', [App\Http\Controllers\UserManagementController::class, 'viewDetail']);
         Route::post('update', [App\Http\Controllers\UserManagementController::class, 'update'])->name('user.update');
         Route::get('delete_user/{id}', [App\Http\Controllers\UserManagementController::class, 'delete']);
-
-
 
 
         // ----------------------------- form change password ------------------------------//
@@ -260,18 +248,10 @@ Route::group(['prefix' => 'teacher', 'middleware' => 'isTeacher'], function () {
     Route::prefix('course-comment')->group(function () {
         Route::get('/search', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'search'])->name('comment.search');
         Route::get('/add', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'create'])->name('comment.add');
-        Route::post('/save', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'store'])->name('comment.store');
-        Route::get('/show', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'show'])->name('comment.show');
-        Route::get('/edit/list', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'edit'])->name('comment.edit');
-        Route::post('/update', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'update'])->name('comment.update');
     });
     Route::prefix('ability-quality')->group(function () {
         Route::get('/search', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'allClass'])->name('a-q.class.search');
         Route::get('/list/{class}/{year}', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'classList'])->name('a-q.list');
         Route::get('/add/{student}/{class}/{year}', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'add'])->name('a-q.add');
-        Route::post('/save', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'store'])->name('a-q.store');
-        Route::get('/show/{student}/{class}/{year}', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'show'])->name('a-q.show');
-        Route::get('/get', [App\Http\Controllers\TeacherRole\AbilityQualityController::class, 'showDetails'])->name('a-q.get');
-        Route::post('/update', [App\Http\Controllers\TeacherRole\CourseCommentController::class, 'update'])->name('comment.update');
     });
 });

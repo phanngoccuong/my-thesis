@@ -17,14 +17,14 @@
         @if ($option_opened)
             <td>
                 <select class="form-control" wire:model="student_promoClass">
-                    <option value="0">Chọn lớp</option>
+                    <option value="">Chọn lớp</option>
                     @foreach ($newClass as $key=>$value)
                         <option value="{{ $value->id }}">{{ $value->class_name }}</option>
                     @endforeach
                 </select>
             </td>
             <td>
-                <a wire:click.prevent="update" href="#" class="btn btn-primary">Lưu</a>
+                <a wire:click.prevent="update" href="#" class="btn btn-primary">Cập nhật</a>
             </td>
         @endif
     @else

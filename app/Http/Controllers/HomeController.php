@@ -32,10 +32,10 @@ class HomeController extends Controller
         $year_session = YearSession::latest()->first();
         return view('dashboard.main_dashboard', [
             'title' => 'Admin Dashboard',
-            'users' => $users,
-            'students' => $students,
-            'teachers' => $teachers,
-            'year_session' => $year_session
+            // 'users' => $users,
+            // 'students' => $students,
+            // 'teachers' => $teachers,
+            // 'year_session' => $year_session
         ]);
     }
 }

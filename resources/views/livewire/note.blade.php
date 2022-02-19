@@ -12,6 +12,11 @@
                 @if ($note_opened)
                 <div class="mt-4">
                     <textarea wire:model="note" class="form-control" rows="4"></textarea>
+                    @error('note')
+                        <span class="error text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <button wire:click="update_note"
                             class="btn btn-sm btn-primary mt-2">Lưu</button>
                 </div>
@@ -20,6 +25,11 @@
                 <a wire:click.prevent="open" href="#" class="btn btn-primary">Thêm ghi chú</a>
                 @if ($note_opened)
                     <textarea wire:model="note" class="form-control" rows="4"></textarea>
+                    @error('note')
+                        <span class="error text-danger">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
                     <button wire:click="add_note"
                         class="btn btn-sm btn-primary mt-2">Thêm</button>
                 @endif

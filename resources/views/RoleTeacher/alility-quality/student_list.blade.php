@@ -44,7 +44,6 @@
                                             <th>Email</th>
                                             <th>Ngày sinh</th>
                                             <th>Đánh giá</th>
-                                            <th>Thông tin</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -61,10 +60,6 @@
                                                     class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
 
                                             </td>
-                                            <td>
-                                                <a href="{{ url('teacher/ability-quality/show/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
-                                                    class="btn btn-sm btn-info"><i class="la la-eye"></i></a>
-                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
@@ -74,7 +69,6 @@
                     </div>
                 </div>
             </div>
-            {{-- </form> --}}
         </div>
     </div>
 @endsection

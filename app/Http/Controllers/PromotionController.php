@@ -15,16 +15,13 @@ use Illuminate\Support\Facades\Validator;
 
 class PromotionController extends Controller
 {
-    public function index(PromotionService $promotionService)
+    public function index()
     {
         $classes = Classes::where('group_id', '!=', 5)->get();
-        $previousYear = $promotionService->getPreviousSession();
-        // $previousSessionClasses = $promotionService->getClasses($previousYear['id']);
-        // dd($previousSessionClasses);
+
         return view('promtion.index', [
             'title' => 'Học sinh lên lớp',
             'classes' => $classes,
-            // 'previousSessionClasses' => $previousSessionClasses
         ]);
     }
 

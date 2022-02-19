@@ -37,8 +37,6 @@
         <div class="nav-header">
             <a href="{{ route('home') }}" class="brand-logo">
                 <img class="logo-abbr" src="{{ URL::to('assets/images/logo-white-2.png') }}" alt="">
-                {{-- <img class="logo-compact" src="{{ URL::to('assets/images/logo-text-white.png') }}" alt=""> --}}
-                {{-- <img class="brand-title" src="{{ URL::to('assets/images/logo-text-white.png') }}" alt=""> --}}
             </a>
             <div class="nav-control">
                 <div class="hamburger">
@@ -177,9 +175,9 @@
         });
     </script>
     <script>
-        window.livewire.on('addDetails',()=>{
-            $('#addDetailsForm').modal('hide');
-        })
+        window.livewire.on('alert',param => {
+           toastr[param['type']](param['message'],param['type']);
+        });
     </script>
 </body>
 </html>

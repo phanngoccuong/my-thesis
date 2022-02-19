@@ -18,6 +18,12 @@ class Promo extends Component
         $this->latestYear = $latestYear;
         $this->newClass = $newClass;
     }
+    protected $rules = [
+        'student_promoClass' => 'required',
+    ];
+    protected $messages = [
+        'student_promoClass.required' => 'Giáo viên vui lòng chọn lớp',
+    ];
     public function render()
     {
         $this->promotedStudent = Promotion::where('student_id', $this->data->student_id)
@@ -29,18 +35,11 @@ class Promo extends Component
         $this->option_opened = !$this->option_opened;
         $this->student_promoClass = $this->promotedStudent->classes->class_name;
     }
-    public function update()
-    {
-        Promotion::where('id', $this->promotedStudent->id)->update(['class_id' => $this->student_promoClass]);
-        $this->option_opened = FALSE;
-    }
-    public function open()
-    {
-        $this->option_opened = !$this->option_opened;
-        $this->student_promoClass = '';
-    }
+
+
     public function add()
     {
+        $this->validate();
         DB::table('promotions')->insert([
             'student_id' => $this->data->student_id,
             'session_id' => $this->latestYear->id,
@@ -49,5 +48,13 @@ class Promo extends Component
             'updated_at' => Carbon::now()
         ]);
         $this->option_opened = FALSE;
+        $this->emit('alert', ['type' => 'success', 'message' => 'Lên lớp thành công']);
+    }
+    public function update()
+    {
+        $this->validate();
+        Promotion::where('id', $this->promotedStudent->id)->update(['class_id' => $this->student_promoClass]);
+        $this->option_opened = FALSE;
+        $this->emit('alert', ['type' => 'success', 'message' => 'Cập nhật lớp thành công']);
     }
 }
