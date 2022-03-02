@@ -16,7 +16,6 @@
                                 @foreach ($years as $year)
                                     <option value="{{ $year->id }}">{{ $year->session_name }}</option>
                                 @endforeach
-
                             </select>
                             @error('session_id')
                                 <span class="invalid-feedback" role="alert">

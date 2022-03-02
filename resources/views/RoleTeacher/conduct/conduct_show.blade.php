@@ -5,7 +5,6 @@
     {{-- message --}}
     {!! Toastr::message() !!}
     <div class="content-body">
-        <!-- row -->
         <div class="container-fluid">
             <form action="{{ route('conduct.update') }}" method="POST" enctype="multipart/form-data">
                 @csrf
@@ -73,7 +72,6 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
             </form>

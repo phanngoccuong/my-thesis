@@ -4,35 +4,45 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
+            <div class="row page-titles mx-0">
+                <div class="col-sm-6 p-md-0">
+                    <div class="welcome-text">
+                        <h4>Danh sách lớp chủ nhiệm</h4>
+                    </div>
+                </div>
+                <div class="col-sm-6 p-md-0 justify-content-sm-end mt-2 mt-sm-0 d-flex">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item active"><a href="">Danh sách lớp chủ nhiệm</a></li>
+                    </ol>
+                </div>
+            </div>
              <div class="row">
                 <div class="col-lg-12">
-
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="table-responsive">
-                                          <table class="table table-hover table-responsive-sm">
-                                            <thead>
-                                                <tr>
-                                                    <th>Năm học</th>
-                                                    <th>Chủ nhiệm lớp</th>
-                                                    <th>Nhập hạnh kiểm</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach ($datas as $key => $data )
-                                                <tr>
-                                                   <td>{{ $data->year->session_name }}</td>
-                                                   <td>{{ $data->class->class_name }}</td>
-                                                   <td>
-                                                        <a href="{{ url('teacher/conduct/add/'.$data->class_id.'/'.$data->session_id) }}"
-                                                            class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
-                                                   </td>
-                                                </tr>
-                                                @endforeach
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                    <table class="table table-hover table-responsive-sm">
+                                    <thead>
+                                        <tr>
+                                            <th>Năm học</th>
+                                            <th>Chủ nhiệm lớp</th>
+                                            <th>Nhập hạnh kiểm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($datas as $key => $data )
+                                        <tr>
+                                            <td>{{ $data->year->session_name }}</td>
+                                            <td>{{ $data->class->class_name }}</td>
+                                            <td>
+                                                <a href="{{ url('teacher/conduct/add/'.$data->class_id.'/'.$data->session_id) }}"
+                                                    class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -40,45 +50,4 @@
             </div>
         </div>
     </div>
-
-
-{{-- <script type="text/javascript">
-     $(function(){
-        $(document).on('change','#session_id',function(){
-            var session_id = $('#session_id').val();
-            $.ajax({
-                url:"{{ route('note.semester.get') }}",
-                type:"GET",
-                data:{'session_id':session_id},
-                success: function(data){
-                    var html = '<option value="">Chọn kì</option>';
-                    $.each(data,function(key,v){
-                        html += '<option value="'+v.id+'">'+v.semester_name+'</option>';
-                    });
-                    $('#semester_id').html(html);
-                }
-            });
-        });
-    });
-</script>
-
-<script type="text/javascript">
-     $(function(){
-        $(document).on('change','#session_id',function(){
-            var session_id = $('#session_id').val();
-            $.ajax({
-                url:"{{ route('note.class.get') }}",
-                type:"GET",
-                data:{'session_id':session_id},
-                success: function(data){
-                    var html = '<option value="">Chọn lớp</option>';
-                    $.each(data,function(key,v){
-                        html += '<option value="'+v.class_id+'">'+v.class.class_name+'</option>';
-                    });
-                    $('#class_id').html(html);
-                }
-            });
-        });
-    });
-</script> --}}
 @endsection

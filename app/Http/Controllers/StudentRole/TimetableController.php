@@ -34,6 +34,11 @@ class TimetableController extends Controller
 
     public function showTimetable(Request $request, TimetableService $timetableService)
     {
+        $request->validate([
+            'semester_id' => 'required',
+        ], [
+            'semester_id.required' => 'Học sinh chưa chọn học kì',
+        ]);
         $days = Day::all();
         $currentUserEmail = Auth::user()->email;
 
@@ -73,6 +78,11 @@ class TimetableController extends Controller
     }
     public function timetableDetails(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required',
+        ], [
+            'semester_id.required' => 'Học sinh chưa chọn học kì',
+        ]);
         $currentUserEmail = Auth::user()->email;
 
         $semester_id = $request->semester_id;

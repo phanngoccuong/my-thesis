@@ -58,7 +58,6 @@
                                                         <th>Email</th>
                                                         <th>Điểm giữa kì</th>
                                                         <th>Điểm cuối kì</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>

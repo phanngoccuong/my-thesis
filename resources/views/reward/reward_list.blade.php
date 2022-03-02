@@ -90,7 +90,7 @@
                                                 @foreach ($rewards as $key=>$reward )
                                                 <tr>
                                                     <td><strong>{{ ++$key }}</strong></td>
-                                                    <td>{{ $reward->student->name }}</td>
+                                                    <td>{{ $reward->student->last_name }} {{ $reward->student->first_name }}</td>
                                                     <td>{{ $reward->classes->class_name }}</td>
                                                     <td>{{ $reward->semester->semester_name }}</td>
                                                     <td>{{ $reward->student_reward }}</td>

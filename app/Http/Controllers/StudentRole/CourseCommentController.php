@@ -28,6 +28,11 @@ class CourseCommentController extends Controller
     }
     public function getTeacherComment(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required',
+        ], [
+            'semester_id.required' => 'Học sinh chưa chọn học kì',
+        ]);
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
             ->first();

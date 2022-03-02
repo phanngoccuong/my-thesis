@@ -27,24 +27,24 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label><strong>Họ và tên</strong></label>
-                                            <input type="email" value="{{ $studentInfo->last_name }} {{ $studentInfo->first_name }}"
+                                            <input type="email" value="{{ $student->last_name }} {{ $student->first_name }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label><strong>Niên khóa</strong></label>
-                                                <input type="text" value="{{ $studentInfo->batches->batch_name  }}"
+                                                <input type="text" value="{{ $student->batches->batch_name  }}"
                                                 class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label><strong>Email</strong></label>
-                                            <input type="email" value="{{ $studentInfo->email }}"
+                                            <input type="email" value="{{ $student->email }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label><strong>Ngày sinh</strong></label>
-                                                <input type="text" value="{{ $studentInfo->dateOfBirth }}"
+                                                <input type="text" value="{{ $student->dateOfBirth }}"
                                                 class="form-control" readonly>
                                         </div>
                                     </div>
@@ -52,15 +52,15 @@
                                         <div class="form-group col-md-6">
                                             <label><strong>Địa chỉ</strong></label>
                                             <input type="text" class="form-control"
-                                            value="{{ $studentInfo->address }}">
+                                            value="{{ $student->address }}">
                                         </div>
 
                                         <div class="form-group col-md-6">
                                             <label><strong>Giới tính</strong></label>
                                             <input type="text" class="form-control"
-                                            @if ($studentInfo->gender == 1)
+                                            @if ($student->gender == 1)
                                                 value="Nam"
-                                            @elseif ($studentInfo->gender == 2)
+                                            @elseif ($student->gender == 2)
                                                  value="Nữ"
                                             @endif
                                             >
@@ -69,12 +69,12 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label><strong>Họ và tên bố</strong></label>
-                                            <input type="text" value="{{ $studentInfo->father_name }}"
+                                            <input type="text" value="{{ $student->father_name }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label><strong>Số điện thoại bố</strong></label>
-                                            <input type="text" value="{{ $studentInfo->father_number }}"
+                                            <input type="text" value="{{ $student->father_number }}"
                                                 class="form-control" readonly>
                                         </div>
                                     </div>
@@ -82,12 +82,12 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label><strong>Họ và tên mẹ</strong></label>
-                                            <input type="text" value="{{ $studentInfo->mother_name }}"
+                                            <input type="text" value="{{ $student->mother_name }}"
                                                 class="form-control" readonly>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label><strong>Số điện thoại mẹ</strong></label>
-                                            <input type="text" value="{{ $studentInfo->mother_number }}"
+                                            <input type="text" value="{{ $student->mother_number }}"
                                                 class="form-control" readonly>
                                         </div>
                                     </div>
@@ -98,7 +98,7 @@
                 </div>
             </div>
 
-             <div class="col-lg-12">
+             {{-- <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header">
                         <h4 class="card-title"><strong>Thành tích<span class="text-danger">*</span></strong></h4>
@@ -130,7 +130,8 @@
                         </div>
                     </div>
                 </div>
-             </div>
+             </div> --}}
+
         </div>
     </div>
 </div>

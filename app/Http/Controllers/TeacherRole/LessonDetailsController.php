@@ -34,6 +34,11 @@ class LessonDetailsController extends Controller
     }
     public function show(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required',
+        ], [
+            'semester_id.required' => 'Giáo viên vui lòng chọn học kì',
+        ]);
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
             ->first();
@@ -42,6 +47,7 @@ class LessonDetailsController extends Controller
         $semester = Semester::where('id', $semesterRequest)->first();
         $datas = Lesson::with('classes', 'course')
             ->where('teacher_id', $teacher_id)
+            ->where('semester_id', $semesterRequest)
             ->select('course_id', 'class_id')
             ->distinct()
             ->get();

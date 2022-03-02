@@ -23,13 +23,18 @@ class MarkController extends Controller
             ->get();
 
         return view('RoleStudent.mark.student_mark_view', [
-            'title' => 'Điểm học sinh',
+            'title' => 'Bảng điểm cá nhân',
             'semesters' => $semesters,
         ]);
     }
 
     public function getMark(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required',
+        ], [
+            'semester_id.required' => 'Học sinh chưa chọn học kì',
+        ]);
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
             ->first();
@@ -42,7 +47,7 @@ class MarkController extends Controller
             ->get();
 
         return view('RoleStudent.mark.student_mark_details', [
-            'title' => 'Kết quả học tập',
+            'title' => 'Bảng điểm cá nhân',
             'data' => $data,
             'semester' => $semester
         ]);

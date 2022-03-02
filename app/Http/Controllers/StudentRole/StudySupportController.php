@@ -17,6 +17,52 @@ use App\Models\Student;
 
 class StudySupportController extends Controller
 {
+    public function searchSemester()
+    {
+        $currentUserEmail = Auth::user()->email;
+        $semesters = Student::where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->select('semesters.*')
+            ->distinct()
+            ->get();
+
+        return view('RoleStudent.study-support.semester_search', [
+            'title' => 'Hỗ trợ học tập',
+            'semesters' => $semesters
+        ]);
+    }
+    public function getCourse(Request $request)
+    {
+        $request->validate([
+            'semester_id' => 'required',
+        ], [
+            'semester_id.required' => 'Học sinh chưa chọn học kì',
+        ]);
+        $currentUserEmail = Auth::user()->email;
+        $semester_id = $request->semester_id;
+        $semester = Semester::where('id', $semester_id)->first();
+        $class = DB::table('students')->where('email', '=', $currentUserEmail)
+            ->join('promotions', 'promotions.student_id', '=', 'students.id')
+            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
+            ->where('semesters.id', '=', $semester_id)
+            ->select('promotions.class_id')
+            ->first();
+
+        $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room')
+            ->where('semester_id', '=', $semester_id)
+            ->where('class_id', '=', $class->class_id)
+            ->select('course_id', 'teacher_id')
+            ->distinct()
+            ->orderBy('day_id', 'asc')
+            ->get();
+        return view('RoleStudent.study-support.course_list', [
+            'title' => 'Thời khóa biểu chi tiết',
+            'datas' => $datas,
+            'semester' => $semester,
+            'class' => $class
+        ]);
+    }
     public function getCoursePlan($semester, $class, $course)
     {
         $semesterPlan = Semester::findOrFail($semester);
@@ -51,47 +97,6 @@ class StudySupportController extends Controller
             'classDoc' => $classDoc,
             'courseDoc' => $courseDoc,
             'documents' => $documents,
-        ]);
-    }
-    public function searchSemester()
-    {
-        $currentUserEmail = Auth::user()->email;
-        $semesters = Student::where('email', '=', $currentUserEmail)
-            ->join('promotions', 'promotions.student_id', '=', 'students.id')
-            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
-            ->select('semesters.*')
-            ->distinct()
-            ->get();
-
-        return view('RoleStudent.study-support.semester_search', [
-            'title' => 'Hỗ trợ học tập',
-            'semesters' => $semesters
-        ]);
-    }
-    public function getCourse(Request $request)
-    {
-        $currentUserEmail = Auth::user()->email;
-        $semester_id = $request->semester_id;
-        $semester = Semester::where('id', $semester_id)->first();
-        $class = DB::table('students')->where('email', '=', $currentUserEmail)
-            ->join('promotions', 'promotions.student_id', '=', 'students.id')
-            ->join('semesters', 'semesters.session_id', '=', 'promotions.session_id')
-            ->where('semesters.id', '=', $semester_id)
-            ->select('promotions.class_id')
-            ->first();
-
-        $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room')
-            ->where('semester_id', '=', $semester_id)
-            ->where('class_id', '=', $class->class_id)
-            ->select('course_id', 'teacher_id')
-            ->distinct()
-            ->orderBy('day_id', 'asc')
-            ->get();
-        return view('RoleStudent.study-support.course_list', [
-            'title' => 'Thời khóa biểu chi tiết',
-            'datas' => $datas,
-            'semester' => $semester,
-            'class' => $class
         ]);
     }
 }

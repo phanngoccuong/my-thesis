@@ -59,9 +59,6 @@
                                         @endforeach
                                     </tbody>
                                 </table>
-                                <div class="col-lg-7">
-                                    <button type="submit" class="btn btn-primary">Nhập</button>
-                                </div>
                             </div>
                         </div>
                     </div>

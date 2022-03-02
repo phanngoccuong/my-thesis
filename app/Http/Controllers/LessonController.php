@@ -53,12 +53,12 @@ class LessonController extends Controller
     public function create()
     {
         $courses = Course::all();
-        $classes = Classes::all();
+        $classes = Classes::orderBy('class_name', 'asc')->get();
         $teachers = Teacher::all();
         $classrooms = Classroom::all();
         $days = Day::all();
         $times = Time::all();
-        $semesters = Semester::all();
+        $semesters = Semester::orderBy('id', 'desc')->get();
 
         return view(
             'lesson.lesson_add',
@@ -109,12 +109,12 @@ class LessonController extends Controller
         $lesson = Lesson::findOrFail($id);
 
         $courses = Course::all();
-        $classes = Classes::all();
+        $classes = Classes::orderBy('class_name', 'asc')->get();
         $teachers = Teacher::all();
         $classrooms = Classroom::all();
         $days = Day::all();
         $times = Time::all();
-        $semesters = Semester::all();
+        $semesters = Semester::orderBy('id', 'desc')->get();
 
 
         return view(

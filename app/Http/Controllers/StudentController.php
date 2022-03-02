@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\StudentExport;
 use App\Http\Requests\StudentRequest;
 use App\Models\Batch;
 use App\Models\Classes;
-use App\Models\Semester;
+
 use Illuminate\Http\Request;
 use App\Models\Student;
-use App\Models\User;
+
 use App\Models\YearSession;
-use App\Services\PromotionService;
+
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Support\Facades\Auth;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 
 
@@ -31,12 +33,14 @@ class StudentController extends Controller
             'studentShow' => $studentShow
         ]);
     }
-    // public function about()
-    // {
-    //     return view('student.student_about', [
-    //         'title' => 'Student About'
-    //     ]);
-    // }
+    public function show($id)
+    {
+        $student = Student::findOrFail($id);
+        return view('student.student_show', [
+            'title' => 'Profile Học sinh',
+            'student' => $student
+        ]);
+    }
     public function create()
     {
         $currentYearSession = YearSession::latest()->first();
@@ -164,7 +168,8 @@ class StudentController extends Controller
 
     public function PDFGenerate()
     {
-        $students = Student::all();
+        $students = Student::with('batches')
+            ->orderBy('first_name', 'asc')->get();
         $exportPDF = PDF::loadView('student.pdf_view', ['students' => $students]);
         $exportPDF->setPaper(
             'A4',
@@ -172,5 +177,9 @@ class StudentController extends Controller
         );
         $exportPDF->stream();
         return $exportPDF->download('danh_sach_hoc_sinh.pdf');
+    }
+    public function ExcelExport()
+    {
+        return Excel::download(new StudentExport, 'hocsinh.xlsx');
     }
 }

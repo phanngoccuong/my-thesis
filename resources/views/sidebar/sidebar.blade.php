@@ -8,6 +8,7 @@
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('session.list') }}">Danh sách năm học</a></li>
+                    <li><a href="{{ route('session.add') }}">Thêm năm học mới</a></li>
                 </ul>
             </li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
@@ -199,7 +200,7 @@
 
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <i class="la la-flag"></i>
-                    <span class="nav-text">Quản lý điểm</span>
+                    <span class="nav-text">Sổ điểm</span>
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="{{ route('mark.add') }}">Nhập điểm</a></li>

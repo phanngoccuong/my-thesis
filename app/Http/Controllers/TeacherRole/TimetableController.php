@@ -38,6 +38,11 @@ class TimetableController extends Controller
 
     public function showTimetable(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required',
+        ], [
+            'semester_id.required' => 'Giáo viên vui lòng chọn học kì',
+        ]);
         $currentUserEmail = Auth::user()->email;
         $info = Teacher::where('email', '=', $currentUserEmail)
             ->first();
@@ -47,6 +52,7 @@ class TimetableController extends Controller
         $semester = Semester::where('id', $semesterRequest)->first();
         $datas = Lesson::with('classes', 'teachers', 'day', 'time', 'course', 'room')
             ->where('teacher_id', $teacher_id)
+            ->where('semester_id', $semesterRequest)
             ->orderBy('day_id', 'asc')
             ->get();
 

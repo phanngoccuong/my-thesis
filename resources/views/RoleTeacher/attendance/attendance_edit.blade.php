@@ -73,9 +73,6 @@
                     </div>
 
 
-                    {{-- <div class="col-lg" style="padding-top: 30px;">
-                        <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a>
-                    </div> --}}
                     <div class="col-lg" style="padding-top: 30px;">
                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                     </div>
@@ -84,35 +81,7 @@
         </form>
     </div>
 
-    {{-- AJAX --}}
-{{-- <script type="text/javascript">
-    $(document).on('click','#search',function(){
-        var class_id = $('#class_id').val();
-        var course_id = $('#course_id').val();
-        var semester_id = $('#semester_id').val();
-        $.ajax({
-            url:"{{ route('attendance.edit.list') }}",
-            type: "GET",
-            data:{'class_id':class_id,'course_id':course_id},
-            success: function(data){
-                $('#search-result').removeClass('d-none');
-                var html = '';
-                $.each(data,function(key,v){
-                    html+=
-                    '<tr>'+
-                    '<td> '+(key+1)+'<input type="hidden" name="student_id[]" value="'+v.student_id+'"></td>'+
-                    '<td>'+v.student.name+'</td>'+
-                    '<td>'+v.student.dateOfBirth+'</td>'+
-                    '<td>'+v.student.email+'</td>'+
-                    '<td>'+v.student.address+'</td>'+
 
-                    '</tr>';
-                });
-                html = $('#search-tr').html(html);
-            }
-        });
-    });
-</script> --}}
 
 <script type="text/javascript">
      $(function(){
@@ -176,6 +145,4 @@
         });
     });
 </script>
-
-
 @endsection

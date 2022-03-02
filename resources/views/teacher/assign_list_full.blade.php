@@ -4,8 +4,8 @@
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
-            {{-- <form action="{{ route('teacher.assign.store') }}" method="POST" enctype="multipart/form-data">
-            @csrf --}}
+            <form action="{{ route('teacher.assign.update') }}" method="POST" enctype="multipart/form-data">
+            @csrf
                 <div class="row page-titles mx-0">
                     <div class="col-lg-2">
                         <div class="form-group">
@@ -40,9 +40,10 @@
                                                         <select class="form-control" name="teacher_id[]">
                                                             <option selected disabled>Chọn giáo viên</option>
                                                             @foreach ($teachers as $teacher)
-                                                            <option value="{{ $value->teacher_id }}"
+                                                            <option value="{{ $teacher->id }}"
                                                                 {{ $value->teacher_id == $teacher->id ?'selected':''}}
-                                                                >{{ $value->teacher->teacher_name }}</option>
+                                                                >{{ $teacher->teacher_name }}
+                                                            </option>
                                                             @endforeach
                                                         </select>
                                                     </td>

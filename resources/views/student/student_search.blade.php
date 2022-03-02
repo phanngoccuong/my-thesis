@@ -55,11 +55,13 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Họ và tên</th>
+                                            <th>Họ và tên bố</th>
+                                            <th>Họ và tên mẹ</th>
                                             <th>Email</th>
-                                            <th>Địa chỉ</th>
-                                            <th>Khóa</th>
                                             <th>Ngày sinh</th>
-                                            <th>Action</th>
+                                            <th>Hồ sơ</th>
+                                            <th>Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -67,16 +69,23 @@
                                         <tr>
                                             <td><strong>{{ $student->id }}</strong></td>
                                             <td>{{ $student->last_name }} {{$student->first_name  }}</td>
+                                            <td>{{ $student->father_name }}</td>
+                                            <td>{{ $student->mother_name }}</td>
                                             <td>{{ $student->email }}</td>
-                                            <td>{{ $student->address }}</td>
-                                            <td>{{ $student->batches->batch_name }}</td>
                                             <td>{{ $student->dateOfBirth }}</td>
                                             <td>
+                                                <a href="{{ url('admin/student/show/'.$student->id) }}"
+                                                    class="btn btn-sm btn-primary"><i class="la la-eye"></i></a>
+                                            </td>
+                                            <td>
                                                 <a href="{{ url('admin/student/edit/'.$student->id) }}"
-                                                    class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
+                                                    class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
+                                            </td>
+
+                                            <td>
                                                 <a href="{{ url('admin/student/delete/'.$student->id) }}"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
-                                                <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
+                                                <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
                                             </td>
                                         </tr>
                                         @endforeach

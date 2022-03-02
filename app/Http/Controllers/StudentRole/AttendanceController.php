@@ -30,6 +30,13 @@ class AttendanceController extends Controller
 
     public function getAttendance(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required',
+            'course_id' => 'required'
+        ], [
+            'semester_id.required' => 'Học sinh chưa chọn học kì',
+            'course_id.required' => 'Học sinh chưa chọn môn học'
+        ]);
         $currentUserEmail = Auth::user()->email;
         $studentInfo = Student::where('email', '=', $currentUserEmail)
             ->first();

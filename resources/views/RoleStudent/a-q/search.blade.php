@@ -9,14 +9,19 @@
             <div class="row page-titles mx-0">
                 <div class="col-lg-2">
                     <div class="form-group">
-                        <label class="form-label">Kì học</label>
-                        <select class="form-control"
-                            name="semester_id" id="semester_id">
-                            <option selected disabled>Chọn kì</option>
-                            @foreach ($semesters as $semester)
-                                <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
+                        <label class="form-label">Năm học</label>
+                        <select class="form-control @error('session_id') is-invalid @enderror"
+                            name="session_id">
+                            <option selected disabled>Chọn năm</option>
+                            @foreach ($years as $year)
+                                <option value="{{ $year->id }}">{{ $year->session_name }}</option>
                             @endforeach
                         </select>
+                        @error('session_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                     </div>
                 </div>
                 <div class="col-lg" style="padding-top: 30px;">

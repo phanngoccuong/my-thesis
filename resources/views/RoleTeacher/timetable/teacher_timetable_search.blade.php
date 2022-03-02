@@ -25,7 +25,6 @@
                 </div>
 
                 <div class="col-lg" style="padding-top: 30px;">
-                    {{-- <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a> --}}
                     <button type="submit" class="btn btn-primary">Tìm kiếm</button>
                 </div>
             </div>

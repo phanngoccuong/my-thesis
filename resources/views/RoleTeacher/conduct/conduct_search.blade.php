@@ -32,13 +32,18 @@
                     <div class="col-lg-2">
                         <div class="form-group">
                             <label class="form-label">Chọn học kì<span class="text-danger">*</span></label>
-                            <select class="form-control"
+                            <select class="form-control @error('semester_id') is-invalid @enderror"
                                 name="semester_id">
                                 @foreach ($semesters as $semester)
                                     <option value="">Chọn</option>
                                     <option value="{{ $semester->id }}">{{ $semester->semester_name }}</option>
                                 @endforeach
                             </select>
+                            @error('semester_id')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <div class="col-lg" style="padding-top: 30px;">

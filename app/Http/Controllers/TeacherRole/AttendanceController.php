@@ -39,6 +39,15 @@ class AttendanceController extends Controller
 
     public function getStudent(Request $request)
     {
+        $request->validate([
+            'course_id' => 'required',
+            'class_id' => 'required',
+            'semester_id' => 'required',
+        ], [
+            'class_id.required' => 'Giáo viên vui lòng chọn lớp',
+            'semester_id.required' => 'Giáo viên vui lòng chọn học kì',
+            'course_id.required' => 'Giáo viên vui lòng chọn môn học',
+        ]);
         $class_id = $request->class_id;
         $semester_id = $request->semester_id;
         $course_id = $request->course_id;
@@ -137,6 +146,17 @@ class AttendanceController extends Controller
 
     public function show(Request $request)
     {
+        $request->validate([
+            'course_id' => 'required',
+            'class_id' => 'required',
+            'semester_id' => 'required',
+            'date' => 'required'
+        ], [
+            'class_id.required' => 'Giáo viên vui lòng chọn lớp',
+            'semester_id.required' => 'Giáo viên vui lòng chọn học kì',
+            'course_id.required' => 'Giáo viên vui lòng chọn môn học',
+            'date.required' => 'Giáo viên vui lòng chọn ngày'
+        ]);
         $class_id = $request->class_id;
         $course_id = $request->course_id;
         $semester_id = $request->semester_id;

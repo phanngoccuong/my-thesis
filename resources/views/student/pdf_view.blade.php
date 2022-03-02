@@ -35,34 +35,40 @@
         <h6>Email : tieuhocxuanphuong@gmail.com</h6>
         <h6>Phone : 012345679</h6>
     </div>
-    <h2>Danh Sách Giáo Viên</h2>
+    <h2>Danh Sách Học Sinh</h2>
     <table class="table">
         <tr>
             <th>Họ và tên </th>
             <th>Ngày sinh</th>
-            <th>Số điện thoại</th>
             <th>Email</th>
             <th>Địa chỉ</th>
             <th>Giới tính</th>
-            <th>Chuyên môn</th>
+            <th>Niên khóa</th>
+            <th>Tên bố</th>
+            <th>Tên mẹ</th>
+            <th>SĐT Bố</th>
+            <th>SĐT Mẹ</th>
         </tr>
-            @foreach($teachers as $teacher)
+            @foreach($students as $student)
         <tr>
-            <td>{{ $teacher->name }}</td>
-            <td>{{ $teacher->dob }}</td>
-            <td>{{ $teacher->phone }}</td>
-            <td>{{ $teacher->email }}</td>
-            <td>{{ $teacher->address }}</td>
+            <td>{{ $student->last_name }} {{ $student->first_name }}</td>
+            <td>{{ $student->dateOfBirth }}</td>
+            <td>{{ $student->email }}</td>
+            <td>{{ $student->address }}</td>
             <td>
-                @if ($teacher->gender == 0)
+                @if ($student->gender == 1)
                         Nam
                         @else
                         Nữ
                     @endif
             </td>
+            <td>{{  $student->batches->batch_name }}</td>
             <td>
-                {{ $teacher->special }}
+                {{ $student->father_name }}
             </td>
+            <td>{{ $student->mother_name }}</td>
+            <td>{{ $student->father_number }}</td>
+            <td>{{ $student->mother_number }}</td>
         </tr>
         @endforeach
     </table>

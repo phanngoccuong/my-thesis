@@ -18,4 +18,8 @@ class AbilityQuality extends Model
         'united',
         'student_id', 'class_id', 'session_id'
     ];
+    public function year()
+    {
+        return $this->belongsTo(YearSession::class, 'session_id');
+    }
 }

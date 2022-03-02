@@ -44,7 +44,27 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="card-title">Danh sách học sinh</h4>
-                            <a href="{{ route('student.add') }}" class="btn btn-primary">+ Thêm mới</a>
+                            <div class="d-flex">
+                                <div class="dropdown">
+                                    <button class="btn btn-danger dropdown-toggle" type="button" style="height: 38.4px"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="la la-file-pdf-o"></i> PDF
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="{{ route('student.pdf-export') }}">Xuất file PDF</a>
+                                    </div>
+                                </div>
+                                <div class="dropdown" style="background-color: #1A7343">
+                                    <button class="btn dropdown-toggle text-light" type="button" style="height: 38.4px"
+                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="la la-file-excel-o"></i> Excel
+                                    </button>
+                                    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" href="{{ route('student.excel.export') }}">Xuất file Excel</a>
+                                    </div>
+                                </div>
+                                <a href="{{ route('student.add') }}" class="btn btn-primary">+ Thêm mới</a>
+                            </div>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -57,7 +77,9 @@
                                             <th>Họ và tên mẹ</th>
                                             <th>Email</th>
                                             <th>Ngày sinh</th>
-
+                                            <th>Hồ sơ</th>
+                                            <th>Sửa</th>
+                                            <th>Xóa</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -71,11 +93,18 @@
                                             {{-- <td>{{ $student->address }}</td> --}}
                                             <td>{{ $student->dateOfBirth }}</td>
                                             <td>
+                                                <a href="{{ url('admin/student/show/'.$student->id) }}"
+                                                    class="btn btn-sm btn-primary"><i class="la la-eye"></i></a>
+                                            </td>
+                                            <td>
                                                 <a href="{{ url('admin/student/edit/'.$student->id) }}"
-                                                    class="btn btn-sm btn-success"><i class="la la-pencil"></i>Sửa</a>
+                                                    class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
+                                            </td>
+
+                                            <td>
                                                 <a href="{{ url('admin/student/delete/'.$student->id) }}"
                                                     onclick="return confirm('Bạn có chắc chắn muốn xóa?')">
-                                                <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i>Xóa</span></a>
+                                                <span class="btn btn-sm btn-danger"><i class="la la-trash-o"></i></span></a>
                                             </td>
                                         </tr>
                                         @endforeach

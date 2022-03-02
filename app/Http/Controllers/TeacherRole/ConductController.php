@@ -18,6 +18,7 @@ use Illuminate\Support\Carbon;
 
 class ConductController extends Controller
 {
+    // lấy lớp chủ nhiệm
     public function getClass()
     {
         $currentUserEmail = Auth::user()->email;
@@ -30,6 +31,7 @@ class ConductController extends Controller
             'datas' => $datas
         ]);
     }
+    // Lấy danh sách học sinh
     public function getStudent($class, $year)
     {
         $class = Classes::findOrFail($class);
@@ -121,11 +123,15 @@ class ConductController extends Controller
 
     public function show(Request $request)
     {
+        $request->validate([
+            'semester_id' => 'required'
+        ], [
+            'semester_id.required' => 'Vui lòng chọn học kì'
+        ]);
         $class_id = $request->class_id;
         $semester_id = $request->semester_id;
         $semester = Semester::where('id', $semester_id)->first();
         $class = Classes::where('id', $class_id)->first();
-
 
         $students = Conduct::with('student')
             ->where('semester_id',  $request->semester_id)

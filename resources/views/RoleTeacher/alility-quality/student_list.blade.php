@@ -58,7 +58,6 @@
                                             <td>
                                                 <a href="{{ url('teacher/ability-quality/add/'.$student->student->id.'/'.$class->id.'/'.$year->id) }}"
                                                     class="btn btn-sm btn-success"><i class="la la-pencil"></i></a>
-
                                             </td>
                                         </tr>
                                         @endforeach

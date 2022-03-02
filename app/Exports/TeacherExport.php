@@ -14,8 +14,8 @@ class TeacherExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $teachers =  $teachers = DB::table('teachers')
-            ->select('teacher_name', 'gender', 'email', 'dateOfBirth', 'mobileNumber', 'address', 'special')->get();
+        $teachers = DB::table('teachers')
+            ->select('teacher_name', 'gender', 'email', 'dateOfBirth', 'mobileNumber', 'address')->get();
         return $teachers;
     }
     public function headings(): array
@@ -27,7 +27,6 @@ class TeacherExport implements FromCollection, WithHeadings
             'Ngày sinh',
             'Số điện thoại',
             'Địa chỉ',
-            'Chuyên môn',
         ];
     }
 }

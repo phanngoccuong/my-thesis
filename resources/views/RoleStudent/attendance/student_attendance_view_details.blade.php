@@ -1,8 +1,6 @@
 @extends('layouts.st_master')
 @section('content')
   @include('sidebar.sidebar')
-
-    {{-- message --}}
     {!! Toastr::message() !!}
     <div class="content-body">
         <div class="container-fluid">
@@ -23,7 +21,7 @@
                         <label class="form-label">Môn học</label>
                         <select class="form-control"
                             name="course_id" id="course_id">
-                            <option  selected disabled>{{ $course->course_name }}</option>
+                            <option selected disabled>{{ $course->course_name }}</option>
                         </select>
                     </div>
                 </div>

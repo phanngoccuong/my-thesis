@@ -76,10 +76,11 @@ Route::group(
         Route::get('student/list', [App\Http\Controllers\StudentController::class, 'index'])->name('student.list');
         Route::get('student/add', [App\Http\Controllers\StudentController::class, 'create'])->name('student.add');
         Route::post('student/save', [App\Http\Controllers\StudentController::class, 'store'])->name('student.save');
-        Route::get('student/show', [App\Http\Controllers\StudentController::class, 'show'])->name('student.show');
+        Route::get('student/show/{id}', [App\Http\Controllers\StudentController::class, 'show'])->name('student.show');
         Route::get('student/edit/{id}', [App\Http\Controllers\StudentController::class, 'edit'])->name('student.edit');
         Route::post('student/update', [App\Http\Controllers\StudentController::class, 'update'])->name('student.update');
         Route::get('student/delete/{id}', [App\Http\Controllers\StudentController::class, 'delete'])->name('student.delete');
+        Route::get('student/pdf-export', [App\Http\Controllers\StudentController::class, 'PDFGenerate'])->name('student.pdf-export');
 
         //----------Classes--------------------//
         Route::get('classes/list', [App\Http\Controllers\ClassesController::class, 'index'])->name('classes.list');
@@ -139,10 +140,12 @@ Route::group(
         Route::get('teacher/edit/{id}', [App\Http\Controllers\TeacherController::class, 'edit'])->name('teacher.edit');
         Route::post('teacher/update', [App\Http\Controllers\TeacherController::class, 'update'])->name('teacher.update');
         Route::get('teacher/delete/{id}', [App\Http\Controllers\TeacherController::class, 'delete'])->name('teacher.delete');
+        // giao vien chu nhiem
         Route::get('teacher/assign', [App\Http\Controllers\AssignTeacherController::class, 'create'])->name('teacher.assign');
         Route::post('teacher/assign/add', [App\Http\Controllers\AssignTeacherController::class, 'store'])->name('teacher.assign.store');
         Route::get('teacher/assign/list', [App\Http\Controllers\AssignTeacherController::class, 'index'])->name('teacher.assign.list');
         Route::get('teacher/assign/list/get', [App\Http\Controllers\AssignTeacherController::class, 'getFormTeacher'])->name('teacher.assign.list.get');
+        Route::post('teacher/assign/update', [App\Http\Controllers\AssignTeacherController::class, 'update'])->name('teacher.assign.update');
         #PDF
         Route::get('teacher/pdf-export', [App\Http\Controllers\TeacherController::class, 'PDFGenerate'])->name('teacher.pdf-export');
         //---------Timetable-------//
@@ -168,6 +171,7 @@ Route::group(
         Route::post('reward/search', [App\Http\Controllers\RewardController::class, 'search'])->name('reward.search');
         //---------Excel-------//
         Route::get('excel-export-teacher', [App\Http\Controllers\TeacherController::class, 'ExcelExport'])->name('teacher.excel.export');
+        Route::get('excel-export-student', [App\Http\Controllers\StudentController::class, 'ExcelExport'])->name('student.excel.export');
     }
 );
 Route::get('notice/list', [App\Http\Controllers\BoardingNoticeController::class, 'index'])->name('boarding.list');

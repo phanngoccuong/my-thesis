@@ -58,47 +58,9 @@
 
 
                     <div class="col-lg" style="padding-top: 30px;">
-                        {{-- <a id="search" class="btn btn-primary" name="search">Tìm kiếm</a> --}}
                         <button class="btn btn-primary"  type="submit">Tìm kiếm</button>
                     </div>
                 </div>
-{{--
-                <div class="row d-none" id="search-result">
-                    <div class="col-lg-12">
-                        <div class="row tab-content">
-                            <div id="list-view" class="tab-pane fade active show col-lg-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Danh sách học sinh</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-striped table-responsive-sm">
-                                                <thead>
-                                                    <tr>
-                                                        <th>#</th>
-                                                        <th>Họ và tên</th>
-                                                        <th>Ngày sinh</th>
-                                                        <th>Email</th>
-                                                        <th>Địa chỉ</th>
-                                                        <th>Điểm giữa kì</th>
-                                                        <th>Điểm cuối kì</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody id="search-tr">
-
-                                                </tbody>
-                                            </table>
-                                            <div class="col-lg-7">
-                                                <button type="submit" class="btn btn-primary">Nhập</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
             </div>
         </form>
     </div>

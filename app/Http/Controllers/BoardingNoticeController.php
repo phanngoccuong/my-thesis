@@ -37,7 +37,6 @@ class BoardingNoticeController extends Controller
         foreach ($users as $user) {
             $user->notify(new SchoolBoarding($data));
         }
-
         return redirect()->route('boarding.list');
     }
     public function readNotice()
